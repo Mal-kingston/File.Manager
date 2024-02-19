@@ -6,6 +6,8 @@
 # Dev-specific files
 *.db
 *.txt
+*.ico
+*.otf
 
 # User-specific files
 *.rsuser
