@@ -9,6 +9,15 @@ namespace File.Manager
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var mainAppWindow = new MainWindow { DataContext = new MainWindowViewModel() };
+            Current.MainWindow = mainAppWindow;
+            Current.MainWindow.Show();
+
+        }
     }
 
 }
