@@ -40,7 +40,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <!--side menu--><!-- make side menu collapseable and resizeable-->
+                                <!--side menu-->
                                 <Border Grid.Column="0"  Background="{DynamicResource BlueColorBrush}" Width="300" Panel.ZIndex="2">
                                     <!--drop-shadow effect-->
                                     <Border.Effect>
@@ -91,6 +91,7 @@
                                     <Border Grid.Row="0" x:Name="PART_CaptionArea" Background="Transparent" 
                                             BorderBrush="{DynamicResource BlueColorBrush}" BorderThickness="0 0 0 1"
                                             Height="{Binding CaptionHeight}" >
+                                        <!--window control buttons-->
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Button Style="{StaticResource WindowControlButtonStyle}" Content="{StaticResource WindowMinimizeButtonIcon}" Command="{Binding WindowMinimizeCommand}"/>
                                             <Button Style="{StaticResource WindowControlButtonStyle}" Content="{StaticResource WindowMaximizeButtonIcon}" Command="{Binding WindowMaximizeCommand}" />

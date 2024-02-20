@@ -16,10 +16,22 @@
     <FontFamily x:Key="FontAwesomeSolid">Pack://Application:,,,/.resources/icons/#Font Awesome 6 Free Solid</FontFamily>
     <FontFamily x:Key="FontAwesomeBrands">Pack://Application:,,,/.resources/icons/#Font Awesome 6 Brands Regular</FontFamily>
 
-
+    <!--icons-->
     <system:String x:Key="WindowMinimizeButtonIcon">&#xf2d1;</system:String>
     <system:String x:Key="WindowMaximizeButtonIcon">&#xf2d0;</system:String>
     <system:String x:Key="WindowCloseButtonIcon">&#xf00d;</system:String>
     <system:String x:Key="AppIcon">&#xf0c9;</system:String>
+    <system:String x:Key="ThisPCIcon">&#xe4e5;</system:String>
+    <system:String x:Key="FolderIcon">&#xf07b;</system:String>
+    <system:String x:Key="DownloadsIcon">&#xf019;</system:String>
+    <system:String x:Key="VideosIcon">&#xf03d;</system:String>
+    <system:String x:Key="MusicIcon">&#xf001;</system:String>
+    <system:String x:Key="DriveIcon">&#xf0a0;</system:String>
+    <system:String x:Key="SearchIcon">&#xf002;</system:String>
+    <system:String x:Key="ArrowLeftIcon">&#xf060;</system:String>
+    <system:String x:Key="ArrowRightIcon">&#xf061;</system:String>
+    <system:String x:Key="ArrowUpIcon">&#xf062;</system:String>
+    <system:String x:Key="ListIcon">&#xf03a;</system:String>
+    <system:String x:Key="GridIcon">&#xf009;</system:String>
     
 </ResourceDictionary>
