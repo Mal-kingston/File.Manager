@@ -12,6 +12,8 @@
   <ItemGroup>
     <Compile Include="AttachedProperties\.Base\AttachedPropertyBase.cs" />
     <Compile Include="ViewModels\.Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\.Design\DirectoryCollectionControlDesignModel.cs" />
+    <Compile Include="ViewModels\.Design\DirectoryControlDesignModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

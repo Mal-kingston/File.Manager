@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="File.Manager.DirectoryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             x:Name="Directory"
+             d:Background="{StaticResource BlueColorBrush}" d:Width="300"
+             d:DataContext="{x:Static local:DirectoryControlDesignModel.Instance}">
+
+    <UserControl.Resources>
+        <Style x:Key="DirectoryControlStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Background" Value="{DynamicResource BlueColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource WhiteColorBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        <Border Padding="30 0 10 0" Height="40" Background="{TemplateBinding Background}">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <!--directory icon-->
+                                    <ColumnDefinition Width="Auto" />
+                                    <!--title-->
+                                    <ColumnDefinition Width="*" />
+                                    <!--tag-->
+                                    <ColumnDefinition Width="Auto" />
+                                    <!--directory modifier-->
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--directory icon-->
+                                <TextBlock Grid.Column="0" Text="{Binding IconType, Converter={x:Static local:IconTypeConverter.Instance}}"
+                                           FontFamily="{StaticResource FontAwesomeSolid}" 
+                                           Foreground="{TemplateBinding Foreground}" Margin="8" VerticalAlignment="Center"/>
+                                <!--title-->
+                                <TextBlock Grid.Column="1" Text="{Binding DirectoryName}" Foreground="{TemplateBinding Foreground}" Margin="8"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" />
+                                <!--tag-->
+                                <TextBlock Grid.Column="2" Text="{StaticResource PinIcon}" FontFamily="{StaticResource FontAwesomeSolid}"
+                                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}" RenderTransformOrigin="0.5, 0.5"
+                                           Visibility="{Binding ShowTag, ElementName=Directory, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                                    <TextBlock.RenderTransform>
+                                        <RotateTransform Angle="45"/>
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                                <!--directory modifier-->
+                                <Button Grid.Column="3" Content="{StaticResource VerticalDotsIcon}" 
+                                        FontFamily="{StaticResource FontAwesomeSolid}" 
+                                        Foreground="{TemplateBinding Foreground}" Margin="8 0 -4 0" VerticalAlignment="Center"
+                                        Style="{StaticResource DirectoryControlModifyButtonStyle}" d:Opacity="1" />
+
+                            </Grid>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!--mouse hover event action--> 
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Border>
+        <!--actual control-->
+        <ContentControl Style="{StaticResource DirectoryControlStyle}" />
+    </Border>
+
+</UserControl>

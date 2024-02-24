@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace File.Manager
 {
@@ -59,7 +54,7 @@ namespace File.Manager
             // Set fields values
             _executeCommandWithParameter = executeCommandWithParameter;
             _canExecuteCommand = canExecuteCommand;
-            _executeCommand = null;
+            _executeCommand?.Invoke();
 
         }
 
@@ -71,7 +66,7 @@ namespace File.Manager
         public bool CanExecute(object? parameter)
         {
             // Return feedback
-            return (parameter is bool).Equals(null) ? true : _canExecuteCommand((parameter is bool));
+            return (parameter is bool).Equals(null) ? true : _canExecuteCommand(parameter is bool);
         }
 
         /// <summary>
@@ -80,10 +75,9 @@ namespace File.Manager
         public void Execute(object? parameter)
         {
             if (parameter is null)
-                _executeCommand();
+            _executeCommand?.Invoke();
             else
-                _executeCommandWithParameter(parameter);
-
+                _executeCommandWithParameter?.Invoke(parameter);
         }
     }
 }

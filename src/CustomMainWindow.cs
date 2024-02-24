@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Shell;
@@ -38,7 +35,6 @@ namespace File.Manager
 
             // Set this window's window chrome
             WindowChrome.SetWindowChrome(this, chrome);
-
         }
 
         /// <summary>
@@ -64,6 +60,8 @@ namespace File.Manager
                 // Hook into left mouse down event
                 captionArea.MouseLeftButtonDown += (sender, e) =>
                 {
+                    // TODO: support double click on laptop track pad
+
                     // check if user double clicked the title bar
                     if (e.ClickCount.Equals(2))
                         // Switch between normal and maximized states when user double clicks the title bar.

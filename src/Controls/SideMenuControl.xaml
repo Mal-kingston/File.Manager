@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="File.Manager.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="250"
+             d:Background="{StaticResource BlueColorBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="240" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+
+        <!--overview-->
+        <Border Grid.Row="0" Margin=" 0 30 0 0" >
+            <local:DirectoryCollectionControl Header="Overview" DataContext="{Binding OverViewItems}" />
+        </Border>
+        <!--quick access-->
+        <Border Grid.Row="1" Margin="0 -10 0 0" >
+            <local:DirectoryCollectionControl Header="Quick access" DataContext="{Binding QuickAccessItems}" IsParentToQuickAccessDirectories="True" />
+        </Border>
+        <!--main library-->
+        <Border Grid.Row="2" Margin="0 -50 0 0" >
+            <local:DirectoryCollectionControl Header="Main library" DataContext="{Binding MainLibraryItems}" />
+        </Border>
+        <!--drives-->
+        <Border Grid.Row="3" Margin="0 10 0 0" >
+            <local:DirectoryCollectionControl Header="Drives" DataContext="{Binding DrivesItems}" />
+        </Border>
+
+    </Grid>
+</UserControl>
