@@ -66,7 +66,7 @@
                                         </Grid>
 
                                         <!--Directories-->
-                                        <Grid x:Name="PART_SideMenu" Grid.Row="1" Margin="0 0 0 40" >
+                                        <Grid Grid.Row="1" Margin="0 40 0 20" >
                                             <local:SideMenuControl VerticalAlignment="Top" />
                                         </Grid>
                                         

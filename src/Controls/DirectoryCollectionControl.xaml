@@ -22,27 +22,17 @@
         <Label Grid.Row="0" Content="{Binding Header, ElementName=DirectoryCollection, FallbackValue=Header}" Margin="26 4 4 0"
                FontWeight="DemiBold" Foreground="{DynamicResource UltraLightBlueColorBrush}" />
         
-        <!--menu content-->
-        <ScrollViewer x:Name="ScrollViewer" Style="{StaticResource ScrollViewerStyle}" Grid.Row="1"
-                      HorizontalScrollBarVisibility="Disabled" ScrollChanged="ScrollViewer_ScrollChanged"
-                      VerticalScrollBarVisibility="Auto" >
-            <!--items layout-->
-            <Grid x:Name="ItemsLayout" Background="{DynamicResource BlueColorBrush}"
-                  Tag="{Binding IsParentToQuickAccessDirectories, ElementName=DirectoryCollection}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <!--items-->
-                <ItemsControl ItemsSource="{Binding DirectoryItems}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:DirectoryControl ShowTag="{Binding Tag, ElementName=ItemsLayout, FallbackValue=false}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-                <Border x:Name="RightBorder" Width="10" Grid.Column="1" Visibility="Collapsed" />
-            </Grid>
-        </ScrollViewer>
+        <!--items layout-->
+        <Grid Grid.Row="1" x:Name="ItemsLayout" Background="{DynamicResource BlueColorBrush}"
+              Tag="{Binding IsParentToQuickAccessDirectories, ElementName=DirectoryCollection}">
+            <!--items-->
+            <ItemsControl ItemsSource="{Binding DirectoryItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:DirectoryControl ShowTag="{Binding Tag, ElementName=ItemsLayout, FallbackValue=false}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

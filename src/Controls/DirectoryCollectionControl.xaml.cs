@@ -56,17 +56,5 @@ namespace File.Manager
         public static readonly DependencyProperty IsParentToQuickAccessDirectoriesProperty =
             DependencyProperty.Register("IsParentToQuickAccessDirectories", typeof(bool), typeof(DirectoryCollectionControl), new PropertyMetadata(defaultValue: false));
 
-        /// <summary>
-        /// Scroll viewer event 
-        /// </summary>
-        /// <param name="sender">The origin of this event</param>
-        /// <param name="e">The event argument</param>
-        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            // If scroll bar is visible...
-            if(ScrollViewer.ComputedVerticalScrollBarVisibility.Equals(Visibility.Visible))
-                // Make border visible
-                RightBorder.Visibility = Visibility.Visible;
-        }
     }
 }
