@@ -11,5 +11,6 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid >
+        <local:DirectoryViewPage />
     </Grid>
 </local:CustomMainWindow>

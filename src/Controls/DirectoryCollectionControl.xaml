@@ -29,7 +29,7 @@
             <ItemsControl ItemsSource="{Binding DirectoryItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:DirectoryControl ShowTag="{Binding Tag, ElementName=ItemsLayout, FallbackValue=false}"/>
+                        <local:DirectoryControl ShowTag="{Binding Tag, ElementName=ItemsLayout, FallbackValue=false}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

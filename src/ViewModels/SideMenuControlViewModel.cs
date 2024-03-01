@@ -112,6 +112,9 @@ namespace File.Manager
         /// </summary>
         public SideMenuControlViewModel()
         {
+            // Create required objects
+            var selectionEvent = new SelectionChangedEvent();
+
             #region Properties defaults
 
             // Set defaults for each item
@@ -120,10 +123,11 @@ namespace File.Manager
             {
                 DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
                 {
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.ThisPC,
-                        DirectoryName = "This PC",
+                        DirectoryName = "This PC", 
+                        IsSelected = true,
                     },
                 }
             };
@@ -132,17 +136,17 @@ namespace File.Manager
             {
                 DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
                 {
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Github",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Freelance",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Embedded System Design",
@@ -154,32 +158,32 @@ namespace File.Manager
             {
                 DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
                 {
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Desktop",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Documents",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Downloads,
                         DirectoryName = "Downloads",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Pictures,
                         DirectoryName = "Pictures",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Videos,
                         DirectoryName = "Videos",
                     },
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Music,
                         DirectoryName = "Music",
@@ -192,7 +196,7 @@ namespace File.Manager
             {
                 DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
                 {
-                    new DirectoryControlViewModel
+                    new DirectoryControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Drives,
                         DirectoryName = "Local Disk (C:)",
@@ -201,7 +205,7 @@ namespace File.Manager
             };
 
             #endregion
-
         }
+
     }
 }

@@ -38,6 +38,5 @@ namespace File.Manager
         public static readonly DependencyProperty ShowTagProperty =
             DependencyProperty.Register("ShowTag", typeof(bool), typeof(DirectoryControl), new PropertyMetadata(defaultValue: true));
 
-
     }
 }

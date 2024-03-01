@@ -58,5 +58,68 @@
         </Setter>
     </Style>
 
+    <!--navigation button style-->
+    <Style x:Key="NavigationButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+        <Setter Property="FontSize" Value="{StaticResource Small}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" UseLayoutRounding="True" Padding="0" >
+                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--hover event-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--path button icon-->
+    <Style x:Key="PathButtonIcon" TargetType="{x:Type Button}" BasedOn="{StaticResource NavigationButtonStyle}"/>
+
+    <!--view format style-->
+    <Style x:Key="ViewFormatStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+        <Setter Property="FontSize" Value="{StaticResource Small}" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}" >
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" Padding="4"
+                            UseLayoutRounding="True">
+                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--hover event-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
+                        </Trigger>
+                        <!--is-checked event-->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource BlueColorBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource WhiteColorBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
 </ResourceDictionary>

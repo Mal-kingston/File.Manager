@@ -8,12 +8,12 @@
         /// <summary>
         /// A singleton static instance of this class
         /// </summary>
-        public static DirectoryControlViewModel Instance => new DirectoryControlViewModel();
+        public static DirectoryControlDesignModel Instance => new DirectoryControlDesignModel(new SelectionChangedEvent());
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryControlDesignModel()
+        public DirectoryControlDesignModel(SelectionChangedEvent selectionEvent) : base(selectionEvent)
         {
             // Set data to use
             DirectoryName = "Documents";

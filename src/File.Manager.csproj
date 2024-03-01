@@ -33,4 +33,8 @@
     <Content Include=".Resources\MockUp.Design\App UI\File Manager UI.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

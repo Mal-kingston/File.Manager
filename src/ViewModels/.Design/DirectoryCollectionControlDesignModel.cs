@@ -8,6 +8,11 @@ namespace File.Manager
     public class DirectoryCollectionControlDesignModel : DirectoryCollectionControlViewModel
     {
         /// <summary>
+        /// Event that gets fired when this item gets selected in the view
+        /// </summary>
+        private readonly SelectionChangedEvent _selectionEvent = new SelectionChangedEvent();
+
+        /// <summary>
         /// A singleton static instance of this class
         /// </summary>
         public static DirectoryCollectionControlDesignModel Instance => new DirectoryCollectionControlDesignModel();
@@ -15,32 +20,32 @@ namespace File.Manager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryCollectionControlDesignModel() 
+        public DirectoryCollectionControlDesignModel()  
         {
-            // Actual data
+            // Actual design data
             DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
             {
-                new DirectoryControlViewModel
+                new DirectoryControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Folder,
                     DirectoryName = "Documents",
                 },
-                new DirectoryControlViewModel
+                new DirectoryControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Music,
                     DirectoryName = "Musics",
                 },
-                new DirectoryControlViewModel
+                new DirectoryControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Videos,
                     DirectoryName = "Videos",
                 },
-                new DirectoryControlViewModel
+                new DirectoryControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Downloads,
                     DirectoryName = "Downloads",
                 },
-                new DirectoryControlViewModel
+                new DirectoryControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Folder,
                     DirectoryName = "Github",
