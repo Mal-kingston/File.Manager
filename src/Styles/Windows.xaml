@@ -39,8 +39,10 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
+
                                 <!--Directories-->
                                 <Border Grid.Column="0"  Background="{DynamicResource BlueColorBrush}" Width="250" Panel.ZIndex="2">
+
                                     <!--drop-shadow effect-->
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="6" BlurRadius="14" Opacity="0.27" Direction="360" RenderingBias="Quality" />
