@@ -58,8 +58,8 @@
 
                         <ControlTemplate.Triggers>
                             <!--mouse hover event action--> 
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}"/>
+                            <Trigger Property="IsMouseOver" Value="True" >
+                                <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}" />
                             </Trigger>
                             <!--is-checked event-->

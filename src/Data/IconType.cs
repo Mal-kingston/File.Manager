@@ -32,6 +32,6 @@
         /// <summary>
         /// This PC icon
         /// </summary>
-        ThisPC,
+        Home,
     }
 }

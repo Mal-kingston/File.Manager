@@ -125,8 +125,8 @@ namespace File.Manager
                 {
                     new DirectoryControlViewModel(selectionEvent)
                     {
-                        IconType = IconType.ThisPC,
-                        DirectoryName = "This PC", 
+                        IconType = IconType.Home,
+                        DirectoryName = "Home", 
                         IsSelected = true,
                     },
                 }

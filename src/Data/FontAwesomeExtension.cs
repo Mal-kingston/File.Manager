@@ -35,7 +35,7 @@
                 // This PC icon
                 //case IconType.ThisPC:
                 //    return "\ue4e5";
-                case IconType.ThisPC:
+                case IconType.Home:
                     return "\ue163";
                 // Default icon to return [this is set to folder icon]
                 default:

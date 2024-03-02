@@ -73,10 +73,10 @@
             
         </Grid>
 
-        <!--directory list-->
+        <!--directories-->
         <Border Grid.Row="2">
 
-            <!--directories goes in here-->
+            
             
         </Border>
         
