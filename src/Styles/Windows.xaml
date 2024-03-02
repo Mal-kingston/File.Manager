@@ -13,7 +13,6 @@
         <Setter Property="Background" Value="{DynamicResource WhiteColorBrush}" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
 
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}" >
@@ -34,14 +33,16 @@
                             <Grid  >
 
                                 <Grid.ColumnDefinitions>
-                                    <!--side menu-->
+                                    <!--Directories-->
                                     <ColumnDefinition Width="Auto" />
                                     <!--main content area-->
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <!--side menu-->
-                                <Border Grid.Column="0"  Background="{DynamicResource BlueColorBrush}" Width="300" Panel.ZIndex="2">
+
+                                <!--Directories-->
+                                <Border Grid.Column="0"  Background="{DynamicResource BlueColorBrush}" Width="250" Panel.ZIndex="2">
+
                                     <!--drop-shadow effect-->
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="6" BlurRadius="14" Opacity="0.27" Direction="360" RenderingBias="Quality" />
@@ -51,7 +52,7 @@
                                         <Grid.RowDefinitions>
                                             <!--app title and icon-->
                                             <RowDefinition Height="Auto" />
-                                            <!--side menu-->
+                                            <!--Directories-->
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
@@ -60,15 +61,15 @@
                                             <!--icon-->
                                             <TextBlock Text="{StaticResource AppIcon}" FontFamily="{StaticResource FontAwesomeSolid}"
                                                         FontSize="{StaticResource XLarge}" Foreground="{StaticResource WhiteColorBrush}"
-                                                        FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="60 4 0 0" />
+                                                        FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40 4 0 0" />
                                             <!--title-->
-                                            <TextBlock Text="File Manager" FontSize="{StaticResource XLarge}" FontWeight="Medium" Margin="0 4 70 0"
+                                            <TextBlock Text="File Manager" FontSize="{StaticResource XLarge}" FontWeight="Medium" Margin="0 4 40 0"
                                                         Foreground="{StaticResource WhiteColorBrush}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                                         </Grid>
 
-                                        <!--side menu-->
-                                        <Grid Grid.Row="1">
-                                            
+                                        <!--Directories-->
+                                        <Grid Grid.Row="1" Margin="0 40 0 20" >
+                                            <local:SideMenuControl VerticalAlignment="Top" />
                                         </Grid>
                                         
                                     </Grid>

@@ -35,7 +35,6 @@ namespace File.Manager
 
             // Set this window's window chrome
             WindowChrome.SetWindowChrome(this, chrome);
-
         }
 
         /// <summary>

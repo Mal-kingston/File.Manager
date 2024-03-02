@@ -21,9 +21,11 @@
     <system:String x:Key="WindowMaximizeButtonIcon">&#xf2d0;</system:String>
     <system:String x:Key="WindowCloseButtonIcon">&#xf00d;</system:String>
     <system:String x:Key="AppIcon">&#xf0c9;</system:String>
-    <system:String x:Key="ThisPCIcon">&#xe4e5;</system:String>
+    <!--<system:String x:Key="ThisPCIcon">&#xe4e5;</system:String>-->
+    <system:String x:Key="ThisPCIcon">&#xe163;</system:String>
     <system:String x:Key="FolderIcon">&#xf07b;</system:String>
     <system:String x:Key="DownloadsIcon">&#xf019;</system:String>
+    <system:String x:Key="PicturesIcon">&#xf03e;</system:String>
     <system:String x:Key="VideosIcon">&#xf03d;</system:String>
     <system:String x:Key="MusicIcon">&#xf001;</system:String>
     <system:String x:Key="DriveIcon">&#xf0a0;</system:String>
@@ -33,5 +35,7 @@
     <system:String x:Key="ArrowUpIcon">&#xf062;</system:String>
     <system:String x:Key="ListIcon">&#xf03a;</system:String>
     <system:String x:Key="GridIcon">&#xf009;</system:String>
+    <system:String x:Key="PinIcon">&#xf08d;</system:String>
+    <system:String x:Key="VerticalDotsIcon">&#xf142;</system:String>
     
 </ResourceDictionary>

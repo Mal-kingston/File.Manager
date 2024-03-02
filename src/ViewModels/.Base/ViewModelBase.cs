@@ -17,7 +17,7 @@ namespace File.Manager
         /// Property changed callback
         /// </summary>
         /// <param name="propertyName">The property who's property has changed</param>
-        public virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             // Invoke the property changed event
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
