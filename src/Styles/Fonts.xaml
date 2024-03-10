@@ -37,5 +37,6 @@
     <system:String x:Key="GridIcon">&#xf009;</system:String>
     <system:String x:Key="PinIcon">&#xf08d;</system:String>
     <system:String x:Key="VerticalDotsIcon">&#xf142;</system:String>
+    <system:String x:Key="AngleRightIcon">&#xf105;</system:String>
     
 </ResourceDictionary>

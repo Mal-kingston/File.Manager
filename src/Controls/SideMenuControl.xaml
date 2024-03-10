@@ -34,7 +34,7 @@
             </Border>
             <!--drives-->
             <Border Grid.Row="3" Margin="0 30 0 0" >
-                <local:DirectoryCollectionControl Header="Drives" DataContext="{Binding DrivesItems}" />
+                <local:DirectoryCollectionControl Header="Drives and devices" DataContext="{Binding DrivesItems}" />
             </Border>
             
             <!--fills in and serves as a background to a transparent scrollviewer whenever it is active, But collapses whenever scrollviewer is inactive-->

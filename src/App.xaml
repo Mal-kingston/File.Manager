@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Styles\Colors.xaml" />
                 <ResourceDictionary Source="Styles\Buttons.xaml" />
                 <ResourceDictionary Source="Styles\ScrollViewers.xaml" />
+                <ResourceDictionary Source="Styles\DriveBar.xaml" />
+                <ResourceDictionary Source="Styles\ProgressIndicator.xaml" />
                 <ResourceDictionary Source="Styles\Windows.xaml" />
 
             </ResourceDictionary.MergedDictionaries>

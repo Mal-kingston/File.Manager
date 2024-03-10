@@ -10,7 +10,81 @@
         Icon="/.Resources/Images/appIcon.ico" 
         WindowStartupLocation="CenterScreen">
 
-    <Grid >
-        <local:DirectoryViewPage />
+    <!--window content outline-->
+    <Grid Margin="10 6 10 0"
+          Background="{DynamicResource WhiteColorBrush}">
+
+        <Grid.RowDefinitions>
+            <!--navigation and path-->
+            <RowDefinition Height="Auto" />
+            <!--directory title and view format-->
+            <RowDefinition Height="Auto" />
+            <!--app pages-->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--navigation and path-->
+        <Grid Grid.Row="0" Height="40">
+
+            <Grid.ColumnDefinitions>
+                <!--navigation-->
+                <ColumnDefinition Width="Auto" />
+                <!--separator-->
+                <ColumnDefinition Width="Auto" />
+                <!--path-->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--navigation-->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Content="{StaticResource ArrowLeftIcon}" 
+                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
+                <Button Content="{StaticResource ArrowRightIcon}" 
+                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
+                <Button Content="{StaticResource ArrowUpIcon}" 
+                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
+                <Button Content="{StaticResource SearchIcon}" 
+                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
+            </StackPanel>
+
+            <!--separator-->
+            <Border Grid.Column="1" Background="{DynamicResource BlueColorBrush}" VerticalAlignment="Center"
+                    Width="1.5" Height="26" Margin="12 0" Opacity="0.6" />
+
+            <!--path-->
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal" >
+                <!--path icon-->
+                <Button Content="{StaticResource ThisPCIcon}" Style="{StaticResource PathButtonIcon}"
+                        Width="40" IsEnabled="False"/>
+
+                <!--items control goes here to show path-->
+            </StackPanel>
+
+        </Grid>
+
+        <!--directory title and view format-->
+        <Grid Grid.Row="1">
+            <!--directory title-->
+            <TextBlock Text="[  Title  ]" FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />
+            <!--view format-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Margin="0 0 18 0" >
+                <RadioButton Content="{StaticResource ListIcon}" IsChecked="True" Margin="4 0" Style="{StaticResource ViewFormatStyle}" />
+                <RadioButton Content="{StaticResource GridIcon}" Margin="4 0" Style="{StaticResource ViewFormatStyle}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--app pages-->
+        <Frame Grid.Row="2" Margin="0 8">
+            <Frame.Content>
+                <local:HomePage VerticalAlignment="Top" />
+            </Frame.Content>
+        </Frame>
+        
     </Grid>
+
 </local:CustomMainWindow>
