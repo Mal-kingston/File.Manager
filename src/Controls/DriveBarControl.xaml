@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="File.Manager.DriveOverviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d"  d:DesignWidth="800"
+             x:Name="DriveBar">
+    
+    <Grid >
+        <Grid.RowDefinitions>
+            <!--information about total drive size-->
+            <RowDefinition Height="Auto" />
+            <!--progress bar-->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <!--information about total drive size-->
+        <Border Grid.Row="0" BorderBrush="{x:Null}" BorderThickness="0">
+            <Label Content="{Binding TotalDriveSize, ElementName=DriveBar, FallbackValue=Storage size: 476GB}" Foreground="{DynamicResource BlueColorBrush}" Padding="2"
+                   FontSize="{StaticResource XSmall}" HorizontalAlignment="Right" />
+        </Border>
+
+        <!--progress bar-->
+        <local:ProgressIndicator x:Name="ProgressIndicator" Grid.Row="1" Height="38" Background="{DynamicResource UltraLightBlueColorBrush}"
+                                 Foreground="{DynamicResource BlueColorBrush}" 
+                                 UsePercentage="{Binding UsePercentage, ElementName=DriveBar, FallbackValue=True}"
+                                 Value="{Binding CurrentValue, ElementName=DriveBar, FallbackValue=60}" 
+                                 UsedSpace="{Binding DriveUsedSpace, ElementName=DriveBar, FallbackValue=60%}"
+                                 UnUsedSpace="{Binding DriveAvailableSpace, ElementName=DriveBar, FallbackValue=40%}"/>
+    </Grid>
+</UserControl>

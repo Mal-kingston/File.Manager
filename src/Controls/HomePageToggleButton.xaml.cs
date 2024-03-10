@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace File.Manager
+namespace File.Manager.Controls
 {
     /// <summary>
-    /// Interaction logic for DirectoryViewPage.xaml
+    /// Interaction logic for HomePageToggleButton.xaml
     /// </summary>
-    public partial class DirectoryViewPage : UserControl
+    public partial class HomePageToggleButton : UserControl
     {
-        public DirectoryViewPage()
+        public HomePageToggleButton()
         {
             InitializeComponent();
         }

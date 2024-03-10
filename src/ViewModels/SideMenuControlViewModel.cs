@@ -118,7 +118,7 @@ namespace File.Manager
             #region Properties defaults
 
             // Set defaults for each item
-            // Overview
+            // Overview [ this item is selected by default ]
             _overViewItems =  new DirectoryCollectionControlViewModel
             {
                 DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
