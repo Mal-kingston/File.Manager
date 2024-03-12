@@ -1,19 +1,19 @@
 ﻿namespace File.Manager
 {
     /// <summary>
-    /// Design time data of a <see cref="DirectoryControl"/>
+    /// Design time data of a <see cref="SideMenuItemControl"/>
     /// </summary>
-    public class DirectoryControlDesignModel : DirectoryControlViewModel
+    public class SideMenuItemControlDesignModel : SideMenuItemControlViewModel
     {
         /// <summary>
         /// A singleton static instance of this class
         /// </summary>
-        public static DirectoryControlDesignModel Instance => new DirectoryControlDesignModel(new SelectionChangedEvent());
+        public static SideMenuItemControlDesignModel Instance => new SideMenuItemControlDesignModel(new SelectionChangedEvent());
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryControlDesignModel(SelectionChangedEvent selectionEvent) : base(selectionEvent)
+        public SideMenuItemControlDesignModel(SelectionChangedEvent selectionEvent) : base(selectionEvent)
         {
             // Set data to use
             DirectoryName = "Documents";

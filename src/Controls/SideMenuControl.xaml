@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:File.Manager"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="250" 
+             d:DesignHeight="950" d:DesignWidth="250" 
              d:Background="{StaticResource BlueColorBrush}" >
 
     <ScrollViewer x:Name="ScrollViewer" Style="{StaticResource ScrollViewerStyle}" Grid.Row="1"
@@ -22,19 +22,27 @@
 
             <!--overview-->
             <Border Grid.Row="0" Margin="0 0 0 30">
-                <local:DirectoryCollectionControl Header="Overview" DataContext="{Binding OverViewItems}" />
+                <local:SideMenuItemCollectionControl Header="Overview" 
+                                                     DataContext="{Binding OverViewItems}" 
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
             </Border>
             <!--quick access-->
             <Border Grid.Row="1" Margin="0 0 0 30" >
-                <local:DirectoryCollectionControl Header="Quick access" DataContext="{Binding QuickAccessItems}" IsParentToQuickAccessDirectories="True" />
+                <local:SideMenuItemCollectionControl Header="Quick access" 
+                                                     DataContext="{Binding QuickAccessItems}" IsQuickAccessCollection="True"
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
             </Border>
             <!--main library-->
             <Border Grid.Row="2" Margin="0 0 0 0" >
-                <local:DirectoryCollectionControl Header="Main library" DataContext="{Binding MainLibraryItems}" />
+                <local:SideMenuItemCollectionControl Header="Main library" 
+                                                     DataContext="{Binding MainLibraryItems}" 
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
             </Border>
             <!--drives-->
             <Border Grid.Row="3" Margin="0 30 0 0" >
-                <local:DirectoryCollectionControl Header="Drives and devices" DataContext="{Binding DrivesItems}" />
+                <local:SideMenuItemCollectionControl Header="Drives and devices"
+                                                     DataContext="{Binding DrivesItems}"
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
             </Border>
             
             <!--fills in and serves as a background to a transparent scrollviewer whenever it is active, But collapses whenever scrollviewer is inactive-->

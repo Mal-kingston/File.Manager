@@ -18,7 +18,7 @@ namespace File.Manager
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : UserControl
+    public partial class HomePage : Page
     {
         public HomePage()
         {

@@ -3,9 +3,9 @@
 namespace File.Manager
 {
     /// <summary>
-    /// Design time data of a <see cref="DirectoryCollectionControl"/>
+    /// Design time data of a <see cref="SideMenuItemCollectionControl"/>
     /// </summary>
-    public class DirectoryCollectionControlDesignModel : DirectoryCollectionControlViewModel
+    public class SideMenuItemCollectionControlDesignModel : SideMenuItemCollectionControlViewModel
     {
         /// <summary>
         /// Event that gets fired when this item gets selected in the view
@@ -15,37 +15,37 @@ namespace File.Manager
         /// <summary>
         /// A singleton static instance of this class
         /// </summary>
-        public static DirectoryCollectionControlDesignModel Instance => new DirectoryCollectionControlDesignModel();
+        public static SideMenuItemCollectionControlDesignModel Instance => new SideMenuItemCollectionControlDesignModel();
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryCollectionControlDesignModel()  
+        public SideMenuItemCollectionControlDesignModel()  
         {
-            // Actual design data
-            DirectoryItems = new ObservableCollection<DirectoryControlViewModel>
+            // Design data
+            Items = new ObservableCollection<SideMenuItemControlViewModel>
             {
-                new DirectoryControlViewModel(_selectionEvent)
+                new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Folder,
                     DirectoryName = "Documents",
                 },
-                new DirectoryControlViewModel(_selectionEvent)
+                new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Music,
                     DirectoryName = "Musics",
                 },
-                new DirectoryControlViewModel(_selectionEvent)
+                new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Videos,
                     DirectoryName = "Videos",
                 },
-                new DirectoryControlViewModel(_selectionEvent)
+                new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Downloads,
                     DirectoryName = "Downloads",
                 },
-                new DirectoryControlViewModel(_selectionEvent)
+                new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Folder,
                     DirectoryName = "Github",

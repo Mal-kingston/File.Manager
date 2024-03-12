@@ -17,7 +17,7 @@
                                        FontSize="{StaticResource Small}" 
                                        VerticalAlignment="Center" TextAlignment="Center" />
                         </Border>
-                        <Border x:Name="UnUsedSapceIndicator" Background="Transparent" HorizontalAlignment="Right">
+                        <Border x:Name="UnUsedSpaceIndicator" Background="Transparent" HorizontalAlignment="Right">
                             <!--un-used space indicator-->
                             <TextBlock x:Name="test" Text="{Binding UnUsedSpace, RelativeSource={RelativeSource TemplatedParent}}" 
                                        Foreground="{DynamicResource BlueColorBrush}"

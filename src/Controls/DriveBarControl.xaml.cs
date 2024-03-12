@@ -18,19 +18,23 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for DriveOverviewControl.xaml
+    /// Interaction logic for DriveBarControl.xaml
     /// </summary>
-    public partial class DriveOverviewControl : UserControl
+    public partial class DriveBarControl : UserControl
     {
-        public DriveOverviewControl()
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public DriveBarControl()
         {
             InitializeComponent();
+
             // Wait for this control to load
             Loaded += (sender, e) =>
             {
-                // set space options
-                DriveUsedSpace = UsePercentage ? string.Format($"{CurrentValue}%") : DriveUsedSpace;
-                DriveAvailableSpace = UsePercentage ? string.Format($"{(ProgressIndicator.Maximum - CurrentValue)}%") : DriveAvailableSpace;
+                // Set space options (display actual or percentage values)
+                DriveUsedSpace = UsePercentage ? string.Format($"{Math.Round((CurrentValue / RangeMax) * 100)}%") : DriveUsedSpace;
+                DriveAvailableSpace = UsePercentage ? string.Format($"{Math.Round(((RangeMax - CurrentValue) / RangeMax) * 100)}%") : DriveAvailableSpace;
             };
         }
 
@@ -45,7 +49,20 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for CurrentValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentValueProperty =
-            DependencyProperty.Register("CurrentValue", typeof(double), typeof(DriveOverviewControl), new PropertyMetadata(default(double)));
+            DependencyProperty.Register("CurrentValue", typeof(double), typeof(DriveBarControl), new PropertyMetadata(default(double)));
+
+        /// <summary>
+        /// Maximum range value of this control meter
+        /// </summary>
+        public double RangeMax
+        {
+            get { return (double)GetValue(RangeMaxProperty); }
+            set { SetValue(RangeMaxProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RangeMax.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RangeMaxProperty =
+            DependencyProperty.Register("RangeMax", typeof(double), typeof(DriveBarControl), new PropertyMetadata(default(double)));
 
         /// <summary>
         /// The used space size of a drive
@@ -58,7 +75,7 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for DriveUsedSpace.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DriveUsedSpaceProperty =
-            DependencyProperty.Register(nameof(DriveUsedSpace), typeof(string), typeof(DriveOverviewControl), new PropertyMetadata(default(string)));
+            DependencyProperty.Register(nameof(DriveUsedSpace), typeof(string), typeof(DriveBarControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// The available space size of a drive
@@ -71,7 +88,7 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for DriveAvailableSpace.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DriveAvailableSpaceProperty =
-            DependencyProperty.Register("DriveAvailableSpace", typeof(string), typeof(DriveOverviewControl), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("DriveAvailableSpace", typeof(string), typeof(DriveBarControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// The total size of a drive
@@ -84,7 +101,7 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for TotalDriveSize.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TotalDriveSizeProperty =
-            DependencyProperty.Register("TotalDriveSize", typeof(string), typeof(DriveOverviewControl), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("TotalDriveSize", typeof(string), typeof(DriveBarControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// True if percentage value should be used to indicate the percentages of used and un-used spaces in this control
@@ -98,7 +115,7 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for UsePercentage.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty UsePercentageProperty =
-            DependencyProperty.Register("UsePercentage", typeof(bool), typeof(DriveOverviewControl), new PropertyMetadata(default(bool)));
+            DependencyProperty.Register("UsePercentage", typeof(bool), typeof(DriveBarControl), new PropertyMetadata(default(bool)));
 
     }
 }

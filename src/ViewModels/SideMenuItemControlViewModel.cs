@@ -5,7 +5,7 @@ namespace File.Manager
     /// <summary>
     /// View model for <see cref="DirectoryControl"/> of this application
     /// </summary>
-    public class DirectoryControlViewModel : ViewModelBase
+    public class SideMenuItemControlViewModel : ViewModelBase
     {
         #region Private Fields
 
@@ -74,7 +74,7 @@ namespace File.Manager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryControlViewModel(SelectionChangedEvent selectionEvent)
+        public SideMenuItemControlViewModel(SelectionChangedEvent selectionEvent)
         {
             // Set data to use
             DirectoryName = "Documents";
@@ -117,7 +117,7 @@ namespace File.Manager
         private void OnSelectionChanged(object? sender, EventArgs e)
         {
             // Cast sender as directory-control-viewmodel
-            var directory = (sender as DirectoryControlViewModel);
+            var directory = (sender as SideMenuItemControlViewModel);
 
             // Reset selection
             IsSelected = false;

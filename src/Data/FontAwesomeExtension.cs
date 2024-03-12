@@ -24,6 +24,7 @@
                 // Pictures icon
                 case IconType.Pictures:
                     return "\uf03e";
+                // Video icon
                 case IconType.Videos:
                     return "\uf03d";
                 // Downloads

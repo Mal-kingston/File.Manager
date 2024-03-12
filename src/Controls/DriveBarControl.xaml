@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="File.Manager.DriveOverviewControl"
+﻿<UserControl x:Class="File.Manager.DriveBarControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,6 +25,7 @@
         <!--progress bar-->
         <local:ProgressIndicator x:Name="ProgressIndicator" Grid.Row="1" Height="38" Background="{DynamicResource UltraLightBlueColorBrush}"
                                  Foreground="{DynamicResource BlueColorBrush}" 
+                                 Maximum="{Binding RangeMax, ElementName=DriveBar, FallbackValue=100}"
                                  UsePercentage="{Binding UsePercentage, ElementName=DriveBar, FallbackValue=True}"
                                  Value="{Binding CurrentValue, ElementName=DriveBar, FallbackValue=60}" 
                                  UsedSpace="{Binding DriveUsedSpace, ElementName=DriveBar, FallbackValue=60%}"

@@ -152,7 +152,7 @@ namespace File.Manager
             // Set fields
             _range = (FrameworkElement)GetTemplateChild("Range");
             _usedSpaceIndicator = (FrameworkElement)GetTemplateChild("UsedSpaceIndicator");
-            _unUsedSpaceIndicator = (FrameworkElement)GetTemplateChild("UnUsedSapceIndicator");
+            _unUsedSpaceIndicator = (FrameworkElement)GetTemplateChild("UnUsedSpaceIndicator");
 
             // Make sure our fields are not null
             if (_usedSpaceIndicator != null && _unUsedSpaceIndicator != null)

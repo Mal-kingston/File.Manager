@@ -3,28 +3,28 @@
 namespace File.Manager
 {
     /// <summary>
-    /// View model for <see cref="DirectoryCollectionControl"/> of this application
+    /// View model for <see cref="SideMenuItemCollectionControl"/> of this application
     /// </summary>
-    public class DirectoryCollectionControlViewModel : ViewModelBase
+    public class SideMenuItemCollectionControlViewModel : ViewModelBase
     {
         /// <summary>
         /// List of directories <see cref="DirectoryControl"/>
         /// </summary>
-        private ObservableCollection<DirectoryControlViewModel> _directoryItems;
+        private ObservableCollection<SideMenuItemControlViewModel> _items;
 
         /// <summary>
         /// List of directories <see cref="DirectoryControl"/>
         /// </summary>
-        public ObservableCollection<DirectoryControlViewModel> DirectoryItems
+        public ObservableCollection<SideMenuItemControlViewModel> Items
         {
             // Get view model
-            get => _directoryItems;
+            get => _items;
             set
             {
                 // If value aren't the same...
-                if(_directoryItems != value)
+                if(_items != value)
                     // Make value same
-                    _directoryItems = value;
+                    _items = value;
                 // Update this property
                 OnPropertyChanged();
             }
@@ -33,10 +33,10 @@ namespace File.Manager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DirectoryCollectionControlViewModel()
+        public SideMenuItemCollectionControlViewModel()
         {
             // Set default properties
-            _directoryItems = new ObservableCollection<DirectoryControlViewModel>();
+            _items = new ObservableCollection<SideMenuItemControlViewModel>();
         }
     }
 }

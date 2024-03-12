@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for DirectoryControl.xaml
+    /// Interaction logic for SideMenuItemControl.xaml
     /// </summary>
-    public partial class DirectoryControl : UserControl
+    public partial class SideMenuItemControl : UserControl
     {
-        public DirectoryControl()
+        public SideMenuItemControl()
         {
             InitializeComponent();
         }
@@ -36,7 +36,7 @@ namespace File.Manager
 
         // Using a DependencyProperty as the backing store for ShowTag.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowTagProperty =
-            DependencyProperty.Register("ShowTag", typeof(bool), typeof(DirectoryControl), new PropertyMetadata(defaultValue: true));
+            DependencyProperty.Register("ShowTag", typeof(bool), typeof(SideMenuItemControl), new PropertyMetadata(defaultValue: true));
 
     }
 }
