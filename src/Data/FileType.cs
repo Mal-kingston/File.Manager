@@ -16,7 +16,7 @@
         /// <summary>
         /// File type of audio
         /// </summary>
-        Musics,
+        Music,
         /// <summary>
         /// File type of images/picture
         /// </summary>

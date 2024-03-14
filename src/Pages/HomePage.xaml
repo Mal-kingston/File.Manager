@@ -119,14 +119,18 @@
 
                                     <!--drive total and available storage space-->
                                     <Grid Grid.Row="0" Margin="0 -10 0 20">
+                                        <Grid.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick" Command="{Binding Content.ToggleDriveMeterValueDisplayMode}" />
+                                        </Grid.InputBindings>
 
                                         <!--custom drive meter / bar control that represents the used and available storage spaces on the logical drive-->
-                                        <local:DriveBarControl CurrentValue="{Binding Content.CurrentMeterValue}"
-                                                               RangeMax="{Binding Content.MaxRange}"
-                                                               DriveUsedSpace="{Binding Content.UsedSpace}"
-                                                               DriveAvailableSpace="{Binding Content.UnUsedSpace}"
-                                                               UsePercentage="{Binding Content.UsePercentage}"
-                                                               TotalDriveSize="{Binding Content.TotalDriveSize}" />
+                                        <local:DriveBarControl CurrentValue="{Binding Content.CurrentMeterValue, Mode=TwoWay}"
+                                                               RangeMax="{Binding Content.MaxRange, Mode=TwoWay}"
+                                                               DriveUsedSpace="{Binding Content.UsedSpace, Mode=TwoWay}"
+                                                               DriveAvailableSpace="{Binding Content.UnUsedSpace, Mode=TwoWay}"
+                                                               UsePercentage="{Binding Content.UsePercentage, Mode=TwoWay}"
+                                                               TotalDriveSize="{Binding Content.TotalDriveSize, Mode=TwoWay}" />
+
                                     </Grid>
 
                                     <!--file types and the amount of space they occupied in the current drive-->
@@ -135,17 +139,18 @@
                                         <!--kinds of files to display at the moment-->
                                         <!--Videos | Musics | Pictures | Documents | Others-->
 
-                                        <ItemsControl Visibility="Collapsed">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <local:DriveOverviewFileTypesAndSizesControl Icon="Music" FileTypeName="Music" 
-                                                                                                 OccupiedSpaceSize="134.45 Gb" />
+                                        <ItemsControl Visibility="Collapsed" >
+                                            <ItemsControl.ItemTemplate >
+                                                <DataTemplate >
+                                                    <local:DriveOverviewFileTypesAndSizesControl Icon="{Binding IconType}"
+                                                                                                 FileTypeName="{Binding FileType}" 
+                                                                                                 OccupiedSpaceSize="{Binding TotalSizeOnDrive}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
                                         
                                         <!--this is dummy data, remove once live data is plugged in-->
-                                        <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical" >
                                             <local:DriveOverviewFileTypesAndSizesControl Icon="Music" 
                                                                                          FileTypeName="Music" 
                                                                                          OccupiedSpaceSize="234.45 Gb" />

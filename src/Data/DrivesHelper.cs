@@ -37,10 +37,10 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted gigabyte value</returns>
-        public static string ConvertByteToGigaByte(long value, int decimalPlace, bool GetJustTheValue = false)
+        public static string ConvertByteToGigaByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
-            if(GetJustTheValue)
+            if(getJustTheValue)
                 // Return just the value
                return string.Format($"{Math.Round(value / (double)(1024 * 1024 * 1024), decimalPlace)}");
             // Otherwise...
@@ -56,10 +56,10 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted megabyte value</returns>
-        public static string ConvertByteToMegaByte(long value, int decimalPlace, bool GetJustTheValue = false)
+        public static string ConvertByteToMegaByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
-            if (GetJustTheValue)
+            if (getJustTheValue)
                 // Return just the value
                 return string.Format($"{Math.Round(value / (double)(1024 * 1024), decimalPlace)}");
             // Otherwise...
@@ -75,10 +75,10 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted kilobyte value</returns>
-        public static string ConvertByteToKiloByte(long value, int decimalPlace, bool GetJustTheValue = false)
+        public static string ConvertByteToKiloByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
-            if (GetJustTheValue)
+            if (getJustTheValue)
                 // Return just the value
                 return string.Format($"{Math.Round(value / (double)1024, decimalPlace)}");
             // Otherwise...

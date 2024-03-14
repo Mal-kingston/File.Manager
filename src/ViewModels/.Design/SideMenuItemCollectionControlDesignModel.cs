@@ -33,7 +33,7 @@ namespace File.Manager
                 new SideMenuItemControlViewModel(_selectionEvent)
                 {
                     IconType = IconType.Music,
-                    DirectoryName = "Musics",
+                    DirectoryName = "Music",
                 },
                 new SideMenuItemControlViewModel(_selectionEvent)
                 {

@@ -28,14 +28,6 @@ namespace File.Manager
         public DriveBarControl()
         {
             InitializeComponent();
-
-            // Wait for this control to load
-            Loaded += (sender, e) =>
-            {
-                // Set space options (display actual or percentage values)
-                DriveUsedSpace = UsePercentage ? string.Format($"{Math.Round((CurrentValue / RangeMax) * 100)}%") : DriveUsedSpace;
-                DriveAvailableSpace = UsePercentage ? string.Format($"{Math.Round(((RangeMax - CurrentValue) / RangeMax) * 100)}%") : DriveAvailableSpace;
-            };
         }
 
         /// <summary>

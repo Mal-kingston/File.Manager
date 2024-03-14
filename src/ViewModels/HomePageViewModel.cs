@@ -5,9 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Threading;
 using static File.Manager.DrivesHelper;
 
 namespace File.Manager
@@ -17,6 +20,8 @@ namespace File.Manager
     /// </summary>
     public class HomePageViewModel : ViewModelBase
     {
+
+        #region Private Fields
 
         /// <summary>
         /// Tabs
@@ -29,6 +34,10 @@ namespace File.Manager
         /// View model for <see cref="DriveBarControl"/>
         /// </summary>
         private DriveBarControlViewModel _driveBarControlVM;
+
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// Tabs
@@ -49,6 +58,9 @@ namespace File.Manager
             }
         }
 
+        /// <summary>
+        /// View model for the drive bar
+        /// </summary>
         public DriveBarControlViewModel DriveBarControlVM
         {
             get => _driveBarControlVM;
@@ -63,6 +75,10 @@ namespace File.Manager
             }
         }
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -72,39 +88,58 @@ namespace File.Manager
             _tabs = new ObservableCollection<TabItemModel>();
             _driveBarControlVM = new DriveBarControlViewModel();
 
+            // Sets up logical drive
+            LogicalDriveInitialSetup();
+
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Sets up logical drive
+        /// </summary>
+        protected void LogicalDriveInitialSetup()
+        {
             // Go through each drive on the machine
-            foreach ( var drive in DriveInfo.GetDrives())
+            foreach (var drive in DriveInfo.GetDrives())
             {
                 // Make sure drive is available
                 if (drive.IsReady)
                 {
                     // If total drive size is at least 1GB
-                    if (drive.TotalSize > 1 << 30)
+                    if (drive.TotalSize > (1 << 30))
                     {
                         // Convert drive values from byte to gigabyte
-                        DriveBarControlVM.TotalDriveSize = ConvertByteToGigaByte(drive.TotalSize, 2);
-                        DriveBarControlVM.MaxRange = ConvertByteToGigaByte(drive.TotalSize, 2, true);
-                        DriveBarControlVM.CurrentMeterValue = ConvertByteToGigaByte(drive.TotalSize - drive.AvailableFreeSpace, 2, true);
-                        DriveBarControlVM.UsedSpace = ConvertByteToGigaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
-                        DriveBarControlVM.UnUsedSpace = ConvertByteToGigaByte(drive.AvailableFreeSpace, 2);
-                        DriveBarControlVM.UsePercentage = true;
+                        _driveBarControlVM.TotalDriveSize = ConvertByteToGigaByte(drive.TotalSize, 2);
+                        _driveBarControlVM.MaxRange = ConvertByteToGigaByte(drive.TotalSize, 2, getJustTheValue: true);
+                        _driveBarControlVM.CurrentMeterValue = ConvertByteToGigaByte(drive.TotalSize - drive.AvailableFreeSpace, 2, getJustTheValue: true);
+                        _driveBarControlVM.UsedSpace = ConvertByteToGigaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
+                        _driveBarControlVM.UnUsedSpace = ConvertByteToGigaByte(drive.AvailableFreeSpace, 2);
                     }
                     // Otherwise, if total drive size is less that 1GB
                     else
                     {
                         // Convert drive values from byte to megabyte
-                        DriveBarControlVM.TotalDriveSize = ConvertByteToMegaByte(drive.TotalSize, 2);
-                        DriveBarControlVM.CurrentMeterValue = ConvertByteToMegaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
-                        DriveBarControlVM.UsedSpace = ConvertByteToMegaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
-                        DriveBarControlVM.UnUsedSpace = ConvertByteToMegaByte(drive.AvailableFreeSpace, 2);
+                        _driveBarControlVM.TotalDriveSize = ConvertByteToMegaByte(drive.TotalSize, 2);
+                        _driveBarControlVM.CurrentMeterValue = ConvertByteToMegaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
+                        _driveBarControlVM.UsedSpace = ConvertByteToMegaByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
+                        _driveBarControlVM.UnUsedSpace = ConvertByteToMegaByte(drive.AvailableFreeSpace, 2);
                     }
 
                     // Create label for each drive 
                     var label = FormatLogicalDriveVolumeLabel(drive);
                     // Add each drive to tab item.
-                    _tabs.Add(new TabItemModel { Header = label, Content = DriveBarControlVM });
+                    _tabs.Add(new TabItemModel { Header = label, Content = _driveBarControlVM });
+                    
+                    // Reset our item view model
+                    _driveBarControlVM = new DriveBarControlViewModel();
                 }
             }
         }
+
+        #endregion
+
     }
 }

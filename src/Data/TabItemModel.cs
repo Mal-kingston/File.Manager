@@ -14,6 +14,5 @@
         /// The content of this tab
         /// </summary>
         public DriveBarControlViewModel? Content { get; set; }
-
     }
 }
