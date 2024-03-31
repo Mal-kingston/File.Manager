@@ -1,0 +1,208 @@
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
+
+namespace File.Manager
+{
+    /// <summary>
+    /// A helper class for logical drive
+    /// </summary>
+    public static class DirectoryHelper
+    {
+        #region Bytes Converter
+
+        /// <summary>
+        /// Converts byte value to gigabyte (GB)
+        /// </summary>
+        /// <param name="value">The value to convert</param>
+        /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
+        /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
+        /// <returns>A converted gigabyte value</returns>
+        public static string ConvertByteToGigaByte(long value, int decimalPlace, bool getJustTheValue = false)
+        {
+            // If just the value is needed...
+            if (getJustTheValue)
+                // Return just the value
+                return string.Format($"{Math.Round(value / (double)(1024 * 1024 * 1024), decimalPlace)}");
+            // Otherwise...
+            else
+                // Add tag to the returned value
+                return string.Format($"{Math.Round(value / (double)(1024 * 1024 * 1024), decimalPlace)} GB");
+        }
+
+        /// <summary>
+        /// Converts byte value to megabyte (MB)
+        /// </summary>
+        /// <param name="value">The value to convert</param>
+        /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
+        /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
+        /// <returns>A converted megabyte value</returns>
+        public static string ConvertByteToMegaByte(long value, int decimalPlace, bool getJustTheValue = false)
+        {
+            // If just the value is needed...
+            if (getJustTheValue)
+                // Return just the value
+                return string.Format($"{Math.Round(value / (double)(1024 * 1024), decimalPlace)}");
+            // Otherwise...
+            else
+                // Add tag to the returned value
+                return string.Format($"{Math.Round(value / (double)(1024 * 1024), decimalPlace)} MB");
+        }
+
+        /// <summary>
+        /// Converts byte value to kilobyte (GB)
+        /// </summary>
+        /// <param name="value">The value to convert</param>
+        /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
+        /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
+        /// <returns>A converted kilobyte value</returns>
+        public static string ConvertByteToKiloByte(long value, int decimalPlace, bool getJustTheValue = false)
+        {
+            // If just the value is needed...
+            if (getJustTheValue)
+                // Return just the value
+                return string.Format($"{Math.Round(value / (double)1024, decimalPlace)}");
+            // Otherwise...
+            else
+                // Add tag to the returned value
+                return string.Format($"{Math.Round(value / (double)1024, decimalPlace)} KB");
+        }
+
+        /// <summary>
+        /// Converts raw byte value to Kilobyte, Megabyte or Gigabyte
+        /// TODO: Implement converting to terabyte
+        /// </summary>
+        /// <param name="value">The raw value in bytes to convert</param>
+        /// <param name="decimalPlace">The number of decimal places desired</param>
+        /// <param name="getJustTheValue">
+        /// If true, prefix [ KB | MB | GB ] to the returned converted value,
+        /// Otherwise false if only the numerical value is to be returned
+        /// </param>
+        /// <returns></returns>
+        public static string ConvertByte(long value, int decimalPlace, bool getJustTheValue = false)
+        {
+            // If total drive size is at least 1GB
+            if (value >= (1 << 30))
+                return ConvertByteToGigaByte(value, decimalPlace, getJustTheValue);
+            // If total drive size is at least 1MB
+            else if (value >= (1 << 20) && value < (1 << 30))
+                return ConvertByteToMegaByte(value, decimalPlace, getJustTheValue);
+            else
+                // Otherwise, convert value to kilobyte
+                return ConvertByteToKiloByte(value, decimalPlace, getJustTheValue);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Get logical drive label to include to drive letter
+        /// </summary>
+        /// <param name="drive">The drive to format it's label</param>
+        /// <returns>Formatted drive label</returns>
+        public static string GetLogicalDriveVolumeLabel(DriveInfo drive)
+        {
+            // Create an empty string variable
+            string driveTrimmedName = string.Empty;
+            // If drive is available...
+            if (drive.IsReady)
+                // Trim back-slash off of its name
+                driveTrimmedName = drive.Name.Trim('\\');
+            // return formatted drive label attached with trimmed drive name.
+            return string.Format($"{drive.VolumeLabel} ({driveTrimmedName})");
+        }
+
+        /// <summary>
+        /// Scans and retrieves total size of the specified path contents
+        /// </summary>
+        /// <param name="secondaryPath ">The secondary directory path to obtain total size of it's contents</param>
+        /// <param name="path">The directory path to obtain total size of it's contents</param>
+        /// <returns>Total size of a directory</returns>
+        public static async Task<string> GetDirectorySizeAsync(string path, string? secondaryPath = null) 
+        {
+            // Set up the directory path
+            var directoryInfo = new DirectoryInfo(path);
+            // Create total size variable
+            var totalSize = 0L;
+
+            // Run on thread
+            await Task.Run(() => 
+            {
+                try
+                {
+                    // Get the total size of files in the directory path
+                    totalSize = directoryInfo.EnumerateFiles("*.*", new EnumerationOptions { RecurseSubdirectories = true }).Sum(file => file.Length);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developers
+                    //Logger.Log(ex.Message);
+                }
+            });
+
+            // If we have secondary path...
+            if (!string.IsNullOrEmpty(secondaryPath))
+                // Get the total size of files in the directory path
+                totalSize =+ await Task.Run(() => directoryInfo.EnumerateFiles("*.*", new EnumerationOptions { RecurseSubdirectories = true }).Sum(file => file.Length));
+
+            // Convert to appropriate format and return total size
+            return ConvertByte(totalSize, 2);
+        }
+
+        /// <summary>
+        /// Scans and retrieves total size of installed apps in 32 and 64 bit registry
+        /// </summary>
+        /// <returns>Total size of installed apps in 32 and 64 bit registry</returns>
+        public static async Task<string> GetInstalledAppsTotalSizeAsync() 
+        {
+            // Create total size variable
+            long totalSize = 0;
+
+            // Registry keys to check for installed applications
+            string[] registryKeys =
+            {
+                @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
+                @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall",
+            };
+
+            // Run on thread
+            await Task.Run(() =>
+            {
+                // Loop through both 32-bit and 64-bit registry
+                foreach (var keyPath in registryKeys)
+                {
+                    using (var key = Registry.LocalMachine.OpenSubKey(keyPath))
+                    {
+                        if (key != null)
+                        {
+                            foreach (var subKeyName in key.GetSubKeyNames())
+                            {
+                                using (var subkey = key.OpenSubKey(subKeyName))
+                                {
+                                    var sizeObj = subkey?.GetValue("EstimatedSize");
+                                    if (sizeObj != null)
+                                    {
+                                        long size = Convert.ToInt64(sizeObj) * 1024;
+                                        totalSize += size;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            });
+
+            // Convert to appropriate format and return total size
+            return ConvertByte(totalSize, 2);
+        }
+
+    }
+}
