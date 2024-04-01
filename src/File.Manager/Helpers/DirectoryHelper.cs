@@ -87,7 +87,7 @@ namespace File.Manager
         /// Otherwise false if only the numerical value is to be returned
         /// </param>
         /// <returns></returns>
-        public static string ConvertByte(long value, int decimalPlace, bool getJustTheValue = false)
+        public static string ConvertByteToReadableValue(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If total drive size is at least 1GB
             if (value >= (1 << 30))
@@ -98,6 +98,51 @@ namespace File.Manager
             else
                 // Otherwise, convert value to kilobyte
                 return ConvertByteToKiloByte(value, decimalPlace, getJustTheValue);
+        }
+
+        /// <summary>
+        /// Converts Readable values in Kilobyte, Megabyte or Gigabyte into raw bytes
+        /// </summary>
+        /// <param name="value">The value to convert</param>
+        /// <returns>Bytes size of the converted value</returns>
+        public static long ConvertValueToByte(string value)
+        {
+            // Define variables and signatures
+            string gigaByteSignNature = "GB";
+            string megaByteSignNature = "MB";
+            string kiloByteSignNature = "KB";
+            double valueParser;
+            long rawDataSize = 0L;
+
+            // If value to be converted is GB...
+            if(value.Contains(gigaByteSignNature))
+            {
+                // Format and convert value to double
+                valueParser = double.Parse(value.Split(' ')[0]);
+                // Convert value to bytes
+                rawDataSize = (long)(valueParser * (1024 * 1024 * 1024));
+            }
+
+            // If value to be converted is MB...
+            if (value.Contains(megaByteSignNature))
+            {
+                // Format and convert value to double
+                valueParser = double.Parse(value.Split(' ')[0]);
+                // Convert value to bytes
+                rawDataSize = (long)(valueParser * (1024 * 1024));
+            }
+
+            // If value to be converted is KB...
+            if (value.Contains(kiloByteSignNature))
+            {
+                // Format and convert value to double
+                valueParser = double.Parse(value.Split(' ')[0]);
+                // Convert value to bytes
+                rawDataSize = (long)(valueParser * 1024);
+            }
+
+            // Return converted value 
+            return rawDataSize;
         }
 
         #endregion
@@ -153,7 +198,7 @@ namespace File.Manager
                 totalSize =+ await Task.Run(() => directoryInfo.EnumerateFiles("*.*", new EnumerationOptions { RecurseSubdirectories = true }).Sum(file => file.Length));
 
             // Convert to appropriate format and return total size
-            return ConvertByte(totalSize, 2);
+            return ConvertByteToReadableValue(totalSize, 2);
         }
 
         /// <summary>
@@ -201,7 +246,7 @@ namespace File.Manager
             });
 
             // Convert to appropriate format and return total size
-            return ConvertByte(totalSize, 2);
+            return ConvertByteToReadableValue(totalSize, 2);
         }
 
     }

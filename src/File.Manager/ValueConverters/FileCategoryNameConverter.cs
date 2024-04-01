@@ -33,7 +33,7 @@ namespace File.Manager
                     return "Pictures";
                 // Music
                 case FileType.Music:
-                    return "Pictures";
+                    return "Music";
                 // Videos
                 case FileType.Videos:
                     return "Videos";

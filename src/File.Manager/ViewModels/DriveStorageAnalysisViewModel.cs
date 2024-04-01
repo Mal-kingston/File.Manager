@@ -23,5 +23,13 @@ namespace File.Manager
         /// </summary>
         public string TotalSizeOnDrive { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The raw size this category in byte
+        /// <remark>
+        /// Used in sorting categories in a descending order by how much space they occupy on drive
+        /// </remark>
+        /// </summary>
+        public double RawTotalSizeOnDriveData { get => DirectoryHelper.ConvertValueToByte(TotalSizeOnDrive); private set { } }
+
     }
 }

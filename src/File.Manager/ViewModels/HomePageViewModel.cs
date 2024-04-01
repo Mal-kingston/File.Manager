@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -147,6 +148,7 @@ namespace File.Manager
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();
             DriveAnalysisTask = LogicalDriveAnalysisAsync();
+
         }
 
         #endregion
@@ -165,11 +167,11 @@ namespace File.Manager
                 if (drive.IsReady)
                 {
                     // Convert drive values from byte to gigabyte
-                    _driveBarControlVM.TotalDriveSize = ConvertByte(drive.TotalSize, 2);
-                    _driveBarControlVM.MaxRange = ConvertByte(drive.TotalSize, 2, getJustTheValue: true);
-                    _driveBarControlVM.CurrentMeterValue = ConvertByte(drive.TotalSize - drive.AvailableFreeSpace, 2, getJustTheValue: true);
-                    _driveBarControlVM.UsedSpace = ConvertByte(drive.TotalSize - drive.AvailableFreeSpace, 2);
-                    _driveBarControlVM.UnUsedSpace = ConvertByte(drive.AvailableFreeSpace, 2);
+                    _driveBarControlVM.TotalDriveSize = ConvertByteToReadableValue(drive.TotalSize, 2);
+                    _driveBarControlVM.MaxRange = ConvertByteToReadableValue(drive.TotalSize, 2, getJustTheValue: true);
+                    _driveBarControlVM.CurrentMeterValue = ConvertByteToReadableValue(drive.TotalSize - drive.AvailableFreeSpace, 2, getJustTheValue: true);
+                    _driveBarControlVM.UsedSpace = ConvertByteToReadableValue(drive.TotalSize - drive.AvailableFreeSpace, 2);
+                    _driveBarControlVM.UnUsedSpace = ConvertByteToReadableValue(drive.AvailableFreeSpace, 2);
 
                     // Create label for each drive 
                     var label = GetLogicalDriveVolumeLabel(drive);
@@ -247,11 +249,11 @@ namespace File.Manager
             var installedFilesTask = GetInstalledAppsTotalSizeAsync();
 
             // Wait for result to complete
-            var result = await Task.WhenAny(pictureFilesTask, videoFilesTask, musicFilesTask, documentFilesTask, temporaryFilesTask, installedFilesTask);
+            var result = await Task.WhenAll(pictureFilesTask, videoFilesTask, musicFilesTask, documentFilesTask, temporaryFilesTask, installedFilesTask);
             // Run on thread
             await Task.Run(() =>
             {
-                // Set total sizes to their respective categories
+                // Set each total sizes to their respective categories
                 music.TotalSizeOnDrive = musicFilesTask.Result;
                 pictures.TotalSizeOnDrive = pictureFilesTask.Result;
                 videos.TotalSizeOnDrive = videoFilesTask.Result;
@@ -260,8 +262,12 @@ namespace File.Manager
                 installedApps.TotalSizeOnDrive = installedFilesTask.Result;
             });
 
+            // Sort items in a descending order according to their sizes
+            CollectionViewSource.GetDefaultView(DriveFilesAnalysis).SortDescriptions.Add(new SortDescription(nameof(DriveStorageAnalysisViewModel.RawTotalSizeOnDriveData), ListSortDirection.Descending));
+
             // Refresh drive files analysis collection to update it with the latest data
             CollectionViewSource.GetDefaultView(DriveFilesAnalysis).Refresh();
+
         }
 
         #endregion
