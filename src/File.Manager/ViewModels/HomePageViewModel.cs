@@ -1,29 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.DirectoryServices;
-using System.DirectoryServices.ActiveDirectory;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Management;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
-using System.Security.AccessControl;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Threading;
 using static File.Manager.DirectoryHelper;
+using IWshRuntimeLibrary;
 
 namespace File.Manager
 {
@@ -52,7 +33,7 @@ namespace File.Manager
         private DriveBarControlViewModel _driveBarControlVM;
 
 
-        private ObservableCollection<DirectoryInfo> _recentDirectories;
+        private ObservableCollection<DirectoryItemControlViewModel> _recentDirectories;
 
         #endregion
         
@@ -111,7 +92,7 @@ namespace File.Manager
             }
         }
 
-        public ObservableCollection<DirectoryInfo> RecentDirectories
+        public ObservableCollection<DirectoryItemControlViewModel> RecentDirectories
         {
             get => _recentDirectories;
             set
@@ -143,11 +124,12 @@ namespace File.Manager
             _driveBarControlVM = new DriveBarControlViewModel();
             _tabs = new ObservableCollection<TabItemModel>();
             _driveFilesAnalysis = new ObservableCollection<DriveStorageAnalysisViewModel>();
-            _recentDirectories = new ObservableCollection<DirectoryInfo>();
+            _recentDirectories = new ObservableCollection<DirectoryItemControlViewModel>();
 
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();
             DriveAnalysisTask = LogicalDriveAnalysisAsync();
+            SetupRecentFolders();
 
         }
 
@@ -268,6 +250,40 @@ namespace File.Manager
             // Refresh drive files analysis collection to update it with the latest data
             CollectionViewSource.GetDefaultView(DriveFilesAnalysis).Refresh();
 
+        }
+
+        /// <summary>
+        /// Fetch and setup recently accessed directories
+        /// </summary>
+        private void SetupRecentFolders()
+        {
+            // Get the path to recent folders
+            var recentDirectories = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+
+            // Get the info about the path
+            var recentDirectoryInfo = new DirectoryInfo(recentDirectories);
+
+            // Go through files in the path
+            foreach(var directory in recentDirectoryInfo.GetFiles())
+            {
+                // Resolve path full name
+                var resolvedShortcut = ResolveShortcut(directory.FullName);
+                // If path exists...
+                if (Directory.Exists(resolvedShortcut))
+                    // Create directory item control view model and set up information about this path with the view model
+                    _recentDirectories.Add(new DirectoryItemControlViewModel
+                    {
+                        // Set properties
+                        DirectoryName = directory.Name.Split('.')[0],
+                        LastDateAccessed = directory.LastAccessTimeUtc,
+                        LastDateModified = directory.LastWriteTimeUtc.ToString("g"),
+                        DirectoryItemType = "File folder",
+                        SizeOfDirectoryItem = ConvertByteToReadableValue(directory.Length, 2),
+                        FullPath = resolvedShortcut,
+                    }) ;
+            }
+            // Sort recently accessed directories by the most recently accessed
+            CollectionViewSource.GetDefaultView(RecentDirectories).SortDescriptions.Add(new SortDescription(nameof(DirectoryItemControlViewModel.LastDateAccessed), ListSortDirection.Descending));
         }
 
         #endregion

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:File.Manager"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
+      d:DesignHeight="800" d:DesignWidth="800">
 
     <Page.Resources>
         <!--tab control style-->
@@ -187,7 +187,7 @@
                   Visibility="{Binding IsChecked, ElementName=RecentFoldersToggleButton, 
                   Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
                 <ScrollViewer Grid.Row="0" >
-                    <ItemsControl>
+                    <ItemsControl ItemsSource="{Binding RecentDirectories}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />
@@ -196,32 +196,15 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!--folders / directories-->
-                                <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" 
-                                                            LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
+                                <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="{Binding DirectoryName}" 
+                                                            LastModifyDateTime="{Binding LastDateModified}" 
+                                                            FileType="{Binding DirectoryItemType}" 
+                                                            FileSize="{Binding SizeOfDirectoryItem}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
 
-                <!--remove once live data is plugged in-->
-                <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                    <StackPanel Orientation="Vertical">
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="Chronicle.Journal" LastModifyDataTime="3.10.2024 5:11 PM" FileType="Folder" FileSize="368.26 MB" />
-                    </StackPanel>
-                        
-                </ScrollViewer>
-
-                
             </Grid>
 
         </Grid>

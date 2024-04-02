@@ -1,14 +1,6 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using IWshRuntimeLibrary;
+using Microsoft.Win32;
 using System.IO;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 
 namespace File.Manager
 {
@@ -185,7 +177,7 @@ namespace File.Manager
                     // Get the total size of files in the directory path
                     totalSize = directoryInfo.EnumerateFiles("*.*", new EnumerationOptions { RecurseSubdirectories = true }).Sum(file => file.Length);
                 }
-                catch (Exception ex)
+                catch (Exception /* ex */ )
                 {
                     // Notify developers
                     //Logger.Log(ex.Message);
@@ -249,5 +241,32 @@ namespace File.Manager
             return ConvertByteToReadableValue(totalSize, 2);
         }
 
+        /// <summary>
+        /// Resolve shortcut to a full path
+        /// </summary>
+        /// <param name="shortcut">The shortcut to resolve</param>
+        /// <returns>Resolved full path</returns>
+        public static string ResolveShortcut(string shortcut)
+        {
+            // Create an empty resolved full path
+            string resolvedFullPath = string.Empty;
+
+            // Create window script host
+            var shell = new WshShell();
+
+            try
+            {
+                // Attempt to get path out of the passed in shortcut
+                resolvedFullPath = ((IWshShortcut)shell.CreateShortcut(shortcut)).TargetPath;
+            }
+            // Handle exceptions that might occur
+            catch (Exception /* ex */)
+            {
+                // Notify developers
+            }
+
+            // Return resolved full path
+            return resolvedFullPath;
+        }
     }
 }

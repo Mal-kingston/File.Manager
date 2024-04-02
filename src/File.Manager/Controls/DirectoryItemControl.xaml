@@ -6,9 +6,11 @@
              xmlns:local="clr-namespace:File.Manager"
              xmlns:core="fil"
              mc:Ignorable="d" 
+             Name="DirectoryItem"
              d:DesignHeight="40" d:DesignWidth="800">
 
     <UserControl.Resources>
+        <!--mouse hover--> 
         <Style TargetType="{x:Type local:DirectoryItemControl}">
             <Setter Property="Background" Value="{DynamicResource WhiteColorBrush}" />
             <Style.Triggers>
@@ -28,11 +30,11 @@
             <!--directory item name-->
             <ColumnDefinition Width="*" />
             <!--latest date and time this directory was modified-->
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MaxWidth="180" />
             <!--directory item type-->
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MaxWidth="120" />
             <!--size of this directory-->
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MaxWidth="100" />
         </Grid.ColumnDefinitions>
 
         <!--directory item icon-->
@@ -44,25 +46,25 @@
         <!--directory item name-->
         <Border Grid.Column="1" HorizontalAlignment="Left"
                 Padding="4" Margin="20 0">
-            <TextBlock Text="Chronicle.Journal" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <TextBlock Text="{Binding DirectoryName, ElementName=DirectoryItem}" d:Text="Chronical.Journal" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="{DynamicResource BlueColorBrush}" FontSize="{StaticResource Small}" />
         </Border>
 
         <!--latest date and time this directory was modified-->
-        <Border Grid.Column="2" Padding="4" Margin="20 0">
-            <TextBlock Text="3.10.2024 4:48 PM" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Border Grid.Column="2" Padding="4" Margin="10 0">
+            <TextBlock Text="{Binding LastModifyDateTime, ElementName=DirectoryItem}" d:Text="3.10.2024 4:48 PM" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="{DynamicResource BlueColorBrush}" FontSize="{StaticResource Small}" />
         </Border>
     
         <!--directory item type-->
-        <Border Grid.Column="3" Padding="4" Margin="20 0">
-            <TextBlock Text="File folder" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Border Grid.Column="3" Padding="4" Margin="10 0">
+            <TextBlock Text="{Binding FileType, ElementName=DirectoryItem}"  d:Text="File folder" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="{DynamicResource BlueColorBrush}" FontSize="{StaticResource Small}" />
         </Border>
     
         <!--size of this directory-->
-        <Border Grid.Column="4" Padding="4" Margin="20 0">
-            <TextBlock Text="385.22 MB" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Border Grid.Column="4" Padding="4" Margin="10 0">
+            <TextBlock Text="{Binding FileSize, ElementName=DirectoryItem}" d:Text="385.22 MB" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="{DynamicResource BlueColorBrush}" FontSize="{StaticResource Small}" />
         </Border>
 

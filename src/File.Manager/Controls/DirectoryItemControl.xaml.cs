@@ -57,28 +57,28 @@ namespace File.Manager
         /// <summary>
         /// The latest date and time this directory was modified
         /// </summary>
-        public string LastModifyDataTime
+        public string LastModifyDateTime
         {
-            get { return (string)GetValue(LastModifyDataTimeProperty); }
-            set { SetValue(LastModifyDataTimeProperty, value); }
+            get { return (string)GetValue(LastModifyDateTimeProperty); }
+            set { SetValue(LastModifyDateTimeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for LastModifyDataTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastModifyDataTimeProperty =
-            DependencyProperty.Register("LastModifyDataTime", typeof(string), typeof(DirectoryItemControl), new PropertyMetadata(default(string)));
+        // Using a DependencyProperty as the backing store for LastModifyDateTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastModifyDateTimeProperty =
+            DependencyProperty.Register("LastModifyDateTime", typeof(string), typeof(DirectoryItemControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// The type of this directory item
         /// </summary>
-        public FileType FileType
+        public string FileType
         {
-            get { return (FileType)GetValue(FileTypeProperty); }
+            get { return (string)GetValue(FileTypeProperty); }
             set { SetValue(FileTypeProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for FileType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FileTypeProperty =
-            DependencyProperty.Register("FileType", typeof(FileType), typeof(DirectoryItemControl), new PropertyMetadata(default(FileType)));
+            DependencyProperty.Register("FileType", typeof(string), typeof(DirectoryItemControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// The size of this directory item
