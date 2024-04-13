@@ -29,6 +29,11 @@ namespace File.Manager
         /// </summary>
         private FrameworkElement _unUsedSpaceIndicator;
 
+        /// <summary>
+        /// The application main window
+        /// </summary>
+        private Window AppWindow => Application.Current.MainWindow;
+
         #endregion
 
         #region Constructor
@@ -46,8 +51,12 @@ namespace File.Manager
             Minimum = 0;
 
             // Adjust values when window changes it's size or state
-            Application.Current.MainWindow.SizeChanged += (sender, e) => SetIndicatorsValue();
+            //Application.Current.MainWindow.SizeChanged += (sender, e) => SetIndicatorsValue();
 
+            // If window is not null...
+            if(AppWindow != null )
+            // Adjust values when window changes it's size or state
+                AppWindow.SizeChanged += (sender, e) => SetIndicatorsValue();
         }
 
         #endregion

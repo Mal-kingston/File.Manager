@@ -47,6 +47,11 @@ namespace File.Manager
         public IconType IconType { get; set; }
 
         /// <summary>
+        /// Types of views
+        /// </summary>
+        public ViewType ViewType { get; set; }
+
+        /// <summary>
         /// True if this item is current selected in the view
         /// otherwise false.
         /// </summary>
@@ -76,9 +81,10 @@ namespace File.Manager
         /// </summary>
         public SideMenuItemControlViewModel(SelectionChangedEvent selectionEvent)
         {
-            // Set data to use
+            // Set default data to use
             DirectoryName = "Documents";
             IconType = IconType.Folder;
+            
             // Events
             _selectionEvent = selectionEvent;
 
@@ -87,8 +93,9 @@ namespace File.Manager
 
             // Create commands
             EditCommand = new RelayCommand(EditDirectory, canExecuteCommand => this != null);
-            IsSelectedCommand = new RelayCommand(() => 
+            IsSelectedCommand = new RelayCommand((parameter) => 
             {
+                GotoSelectedPage((SideMenuItemControlViewModel)parameter);
                 _selectionEvent.ItemSelected(this);
             }, canExecuteCommand => this != null);
         }
@@ -106,6 +113,32 @@ namespace File.Manager
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Goes to page that the selected object points to
+        /// </summary>
+        /// <param name="SideMenuItemControlViewModel">The selected item object</param>
+        private void GotoSelectedPage(SideMenuItemControlViewModel SideMenuItemControlViewModel)
+        {
+            // Sort and navigate to appropriate views
+            switch (SideMenuItemControlViewModel.ViewType)
+            {
+                // Home view
+                case ViewType.HomeView:
+                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
+                    break;
+                // Drives and devices view
+                case ViewType.DrivesAndDevicesView:
+                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices);
+                    break;
+
+                // Default ( Home view )
+                default:
+                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer);
+                    break;
+            }
+
+        }
+
         #endregion
 
         #region Event Methods
@@ -116,7 +149,7 @@ namespace File.Manager
         /// <param name="directory">The currently selected item</param>
         private void OnSelectionChanged(object? sender, EventArgs e)
         {
-            // Cast sender as directory-control-viewmodel
+            // Cast sender as directory control view-model
             var directory = (sender as SideMenuItemControlViewModel);
 
             // Reset selection

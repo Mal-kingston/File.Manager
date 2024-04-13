@@ -128,6 +128,7 @@ namespace File.Manager
                         IconType = IconType.Home,
                         DirectoryName = "Home", 
                         IsSelected = true,
+                        ViewType = ViewType.HomeView
                     },
                 }
             };
@@ -140,16 +141,19 @@ namespace File.Manager
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Github",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Freelance",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Embedded System Design",
+                        ViewType = ViewType.DirectoryView
                     },
                 }
             };
@@ -162,21 +166,25 @@ namespace File.Manager
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Desktop",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Documents",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Downloads,
                         DirectoryName = "Downloads",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Pictures,
                         DirectoryName = "Pictures",
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
@@ -187,6 +195,7 @@ namespace File.Manager
                     {
                         IconType = IconType.Music,
                         DirectoryName = "Music",
+                        ViewType = ViewType.DirectoryView
                     },
 
                 }
@@ -200,6 +209,7 @@ namespace File.Manager
                     {
                         IconType = IconType.Drives,
                         DirectoryName = "Local Disk (C:)",
+                        ViewType = ViewType.DrivesAndDevicesView
                     },
                 }
             };

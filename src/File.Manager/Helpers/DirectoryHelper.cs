@@ -165,9 +165,9 @@ namespace File.Manager
         public static async Task<string> GetDirectorySizeAsync(string path, string? secondaryPath = null) 
         {
             // Set up the directory path
-            var directoryInfo = new DirectoryInfo(path);
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
             // Create total size variable
-            var totalSize = 0L;
+            long totalSize = 0L;
 
             // Run on thread
             await Task.Run(() => 
@@ -252,7 +252,7 @@ namespace File.Manager
             string resolvedFullPath = string.Empty;
 
             // Create window script host
-            var shell = new WshShell();
+            WshShell shell = new WshShell();
 
             try
             {

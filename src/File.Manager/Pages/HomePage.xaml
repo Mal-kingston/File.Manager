@@ -100,7 +100,7 @@
             <!--toggle button-->
             <ToggleButton x:Name="DriveOverviewToggleButton" Grid.Row="0" Content="Drives and devices overview"
                           HorizontalAlignment="Stretch" VerticalAlignment="Center" IsChecked="True"
-                          Style="{StaticResource HomepageToggleButtonstyle}" Margin="0 0 0 4"/>
+                          Style="{StaticResource HomepageToggleButtonstyle}" Margin="0 0 0 8"/>
 
             <!--data overview-->
             <Grid Grid.Row="1" d:Height="400" Visibility="{Binding IsChecked, ElementName=DriveOverviewToggleButton, 
@@ -128,11 +128,11 @@
 
                                         <!--custom drive meter / bar control that represents the used and available storage spaces on the logical drive-->
                                         <local:DriveBarControl CurrentValue="{Binding Content.CurrentMeterValue, Mode=TwoWay}"
-                                                            RangeMax="{Binding Content.MaxRange, Mode=TwoWay}"
-                                                            DriveUsedSpace="{Binding Content.UsedSpace, Mode=TwoWay}"
-                                                            DriveAvailableSpace="{Binding Content.UnUsedSpace, Mode=TwoWay}"
-                                                            UsePercentage="{Binding Content.UsePercentage, Mode=TwoWay}"
-                                                            TotalDriveSize="{Binding Content.TotalDriveSize, Mode=TwoWay}" />
+                                                               RangeMax="{Binding Content.MaxRange, Mode=TwoWay}"
+                                                               DriveUsedSpace="{Binding Content.UsedSpace, Mode=TwoWay}"
+                                                               DriveAvailableSpace="{Binding Content.UnUsedSpace, Mode=TwoWay}"
+                                                               UsePercentage="{Binding Content.UsePercentage, Mode=TwoWay}"
+                                                               TotalDriveSize="{Binding Content.TotalDriveSize, Mode=TwoWay}" />
 
                                     </Grid>
                                 </Border>
@@ -194,7 +194,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate >
                                 <!--folders / directories-->
                                 <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="{Binding DirectoryName}" 
                                                             LastModifyDateTime="{Binding LastDateModified}" 

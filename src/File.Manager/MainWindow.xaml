@@ -56,9 +56,17 @@
                         Orientation="Horizontal" >
                 <!--path icon-->
                 <Button Content="{StaticResource ThisPCIcon}" Style="{StaticResource PathButtonIcon}"
-                        Width="40" IsEnabled="False"/>
+                        Width="40" IsEnabled="False" Margin="0 0 8 0"/>
 
                 <!--items control goes here to show path-->
+                <Label Content="Home"
+                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
+                <Label Content="Github"
+                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
+                <Label Content="Chronical.Journal"
+                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
+                <Label Content="Src"
+                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
             </StackPanel>
 
         </Grid>
@@ -66,24 +74,23 @@
         <!--directory title and view format-->
         <Grid Grid.Row="1">
             <!--directory title-->
-            <TextBlock Text="  Home-page  " FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
+            <TextBlock Text="  Home  " FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />
             <!--view format-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="0 0 18 0" >
-                <RadioButton Content="{StaticResource ListIcon}" IsChecked="True" Margin="4 0" Style="{StaticResource ViewFormatStyle}" />
+                <RadioButton Content="{StaticResource ListIcon}"
+                             IsChecked="True" Margin="4 0" Style="{StaticResource ViewFormatStyle}" />
                 <RadioButton Content="{StaticResource GridIcon}" Margin="4 0" Style="{StaticResource ViewFormatStyle}"/>
             </StackPanel>
 
         </Grid>
 
-        <!--app pages-->
-        <Frame Grid.Row="2" Margin="0 8">
-            <Frame.Content>
-                <local:HomePage VerticalAlignment="Top" />
-            </Frame.Content>
-        </Frame>
+        <!--app current page-->
+        <Frame x:Name="AppPageContainer" Grid.Row="2" Margin="0 8" 
+               Content="{Binding CurrentPage, Converter={x:Static local:ApplicationPageConverter.Instance}, 
+               Source={x:Static local:ViewModelLocator.AppViewModel}}" NavigationUIVisibility="Hidden" />
 
     </Grid>
 

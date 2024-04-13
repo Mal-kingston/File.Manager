@@ -24,6 +24,10 @@ namespace File.Manager
         public MainWindow()
         {
             InitializeComponent();
+
+            // Clear history of navigated pages
+            AppPageContainer.Navigated += (sender, e) => AppPageContainer.NavigationService.RemoveBackEntry();
         }
+
     }
 }

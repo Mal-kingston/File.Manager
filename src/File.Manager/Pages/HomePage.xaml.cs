@@ -25,7 +25,7 @@ namespace File.Manager
             InitializeComponent();
 
             // Set data context
-            DataContext = new HomePageViewModel();
+            DataContext = ViewModelLocator.HomePageViewModel;
 
             // Listen out for when tab control is first loaded into view
             TabControl.Loaded += (sender, e) =>

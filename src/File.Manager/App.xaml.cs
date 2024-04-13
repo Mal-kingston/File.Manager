@@ -16,15 +16,15 @@ namespace File.Manager
         {
             base.OnStartup(e);
 
-            // Used to scan for external drives / devices
-            USBInterfaceMonitor.ScanForAvailableDrives(this, new DoWorkEventArgs(default));
-
             // Create main window and set it's data context
             var mainAppWindow = new MainWindow { DataContext = new MainWindowViewModel() };
             // Set app main window to main-app-window 
             Current.MainWindow = mainAppWindow;
             // Show window
             Current.MainWindow.Show();
+
+            // Used to scan for external drives / devices
+            USBInterfaceMonitor.ScanForAvailableDrives(this, new DoWorkEventArgs(default));
 
         }
 

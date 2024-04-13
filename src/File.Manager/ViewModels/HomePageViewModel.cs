@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Data;
 using static File.Manager.DirectoryHelper;
-using IWshRuntimeLibrary;
 
 namespace File.Manager
 {
@@ -121,15 +119,15 @@ namespace File.Manager
         public HomePageViewModel()
         {
             // Set field defaults
-            _driveBarControlVM = new DriveBarControlViewModel();
             _tabs = new ObservableCollection<TabItemModel>();
+            _driveBarControlVM = new DriveBarControlViewModel();
             _driveFilesAnalysis = new ObservableCollection<DriveStorageAnalysisViewModel>();
             _recentDirectories = new ObservableCollection<DirectoryItemControlViewModel>();
 
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();
-            DriveAnalysisTask = LogicalDriveAnalysisAsync();
             SetupRecentFolders();
+            DriveAnalysisTask = LogicalDriveAnalysisAsync();
 
         }
 
@@ -156,7 +154,7 @@ namespace File.Manager
                     _driveBarControlVM.UnUsedSpace = ConvertByteToReadableValue(drive.AvailableFreeSpace, 2);
 
                     // Create label for each drive 
-                    var label = GetLogicalDriveVolumeLabel(drive);
+                    string label = GetLogicalDriveVolumeLabel(drive);
                     // Add each drive to tab item.
                     _tabs.Add(new TabItemModel { Header = label, Content = _driveBarControlVM });
 
@@ -258,16 +256,16 @@ namespace File.Manager
         private void SetupRecentFolders()
         {
             // Get the path to recent folders
-            var recentDirectories = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+            string recentDirectories = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
 
             // Get the info about the path
-            var recentDirectoryInfo = new DirectoryInfo(recentDirectories);
+            DirectoryInfo recentDirectoryInfo = new DirectoryInfo(recentDirectories);
 
             // Go through files in the path
-            foreach(var directory in recentDirectoryInfo.GetFiles())
+            foreach(FileInfo directory in recentDirectoryInfo.GetFiles())
             {
                 // Resolve path full name
-                var resolvedShortcut = ResolveShortcut(directory.FullName);
+                string resolvedShortcut = ResolveShortcut(directory.FullName);
                 // If path exists...
                 if (Directory.Exists(resolvedShortcut))
                     // Create directory item control view model and set up information about this path with the view model
