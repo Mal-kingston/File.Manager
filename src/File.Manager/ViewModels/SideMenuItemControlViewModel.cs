@@ -41,6 +41,9 @@ namespace File.Manager
             }
         }
 
+
+        public string DirectoryFullPath { get; set; } 
+
         /// <summary>
         /// The Current icon type of this directory
         /// </summary>
@@ -84,6 +87,8 @@ namespace File.Manager
             // Set default data to use
             DirectoryName = "Documents";
             IconType = IconType.Folder;
+
+            //DirectoryFullPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             
             // Events
             _selectionEvent = selectionEvent;
@@ -117,24 +122,29 @@ namespace File.Manager
         /// Goes to page that the selected object points to
         /// </summary>
         /// <param name="SideMenuItemControlViewModel">The selected item object</param>
-        private void GotoSelectedPage(SideMenuItemControlViewModel SideMenuItemControlViewModel)
+        private void GotoSelectedPage(SideMenuItemControlViewModel sideMenuItemControlViewModel)
         {
             // Sort and navigate to appropriate views
-            switch (SideMenuItemControlViewModel.ViewType)
+            switch (sideMenuItemControlViewModel.ViewType)
             {
                 // Home view
                 case ViewType.HomeView:
-                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
-                    break;
-                // Drives and devices view
-                case ViewType.DrivesAndDevicesView:
-                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices);
+                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
                     break;
 
-                // Default ( Home view )
-                default:
-                    ViewModelLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer);
+                // Directory view
+                case ViewType.DirectoryView:
+                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer, DirectoryFullPath);
                     break;
+
+                // Drives and devices view
+                case ViewType.DrivesAndDevicesView:
+                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices);
+                    break;
+
+                // Default 
+                default:
+                    throw new Exception("Application page not found");
             }
 
         }

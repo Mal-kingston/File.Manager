@@ -140,7 +140,7 @@ namespace File.Manager
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
-                        DirectoryName = "Github",
+                        DirectoryName = "GitHub",
                         ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
@@ -166,38 +166,44 @@ namespace File.Manager
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Desktop",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Desktop),
                         ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Documents",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Documents),
                         ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Downloads,
                         DirectoryName = "Downloads",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Downloads),
                         ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Pictures,
                         DirectoryName = "Pictures",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Pictures),
                         ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Videos,
                         DirectoryName = "Videos",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Videos),
+                        ViewType = ViewType.DirectoryView
                     },
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Music,
                         DirectoryName = "Music",
+                        DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Music),
                         ViewType = ViewType.DirectoryView
                     },
-
                 }
             };
             // Drives

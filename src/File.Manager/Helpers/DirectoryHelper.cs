@@ -1,6 +1,7 @@
 ﻿using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace File.Manager
 {
@@ -268,5 +269,87 @@ namespace File.Manager
             // Return resolved full path
             return resolvedFullPath;
         }
+
+        #region DLL import
+
+        //Desktop: {B4BFCC3A-DB2C-424C-B029-7FE99A87C641}
+        //Documents: {FDD39AD0-238F-46AF-ADB4-6C85480369C7}
+        //Pictures: {33E28130-4E1E-4676-835A-98395C3BC3BB}
+        //Music: {4BD8D571-6D19-48D3-BE97-422220080E43}
+        //Videos: {18989B1D-99B5-455B-841C-AB7C74E4DDFC}
+        //Downloads: {374DE290-123F-4565-9164-39C4925E467B}
+
+        // Default directories id
+        public static readonly Guid Desktop = new Guid("B4BFCC3A-DB2C-424C-B029-7FE99A87C641");
+        public static readonly Guid Documents = new Guid("FDD39AD0-238F-46AF-ADB4-6C85480369C7");
+        public static readonly Guid Downloads = new Guid("374DE290-123F-4565-9164-39C4925E467B");
+        public static readonly Guid Music = new Guid("4BD8D571-6D19-48D3-BE97-422220080E43");
+        public static readonly Guid Pictures = new Guid("33E28130-4E1E-4676-835A-98395C3BC3BB");
+        public static readonly Guid Videos = new Guid("18989B1D-99B5-455B-841C-AB7C74E4DDFC");
+
+        /// <summary>
+        /// DLL Import
+        /// </summary>
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken, out IntPtr pszPath);
+
+        /// <summary>
+        /// Gets full path to the specified default directory type
+        /// </summary>
+        /// <param name="defaultDirectoryType">The <see cref="DefaultDirectoryType"/></param>
+        /// <returns>Full path to a specified default path</returns>
+        /// <exception cref="NotImplementedException">Thrown when path provided hasn't been implemented</exception>
+        public static string GetDefaultDirectoryPath(DefaultDirectoryType defaultDirectoryType)
+        {
+            // Sort and get the appropriate path
+            switch(defaultDirectoryType)
+            {
+                case DefaultDirectoryType.Desktop:
+                    return GetDirectoryPath(Desktop);
+
+                case DefaultDirectoryType.Documents:
+                    return GetDirectoryPath(Documents);
+
+                case DefaultDirectoryType.Downloads:
+                    return GetDirectoryPath(Downloads);
+
+                case DefaultDirectoryType.Music:
+                    return GetDirectoryPath(Music);
+
+                case DefaultDirectoryType.Pictures:
+                    return GetDirectoryPath(Pictures);
+
+                case DefaultDirectoryType.Videos:
+                    return GetDirectoryPath(Videos);
+                
+                // Throw exception if path isn't implemented
+                default:
+                    throw new NotImplementedException("Directory not set up yet");
+            }
+
+        }
+
+        /// <summary>
+        /// Get known directory path
+        /// </summary>
+        /// <param name="defaultPathId">The id of the know directory</param>
+        /// <returns>Full path of a known directory</returns>
+        /// <exception cref="Exception"></exception>
+        public static string GetDirectoryPath(Guid defaultPathId)
+        {
+            IntPtr pszPath;
+            SHGetKnownFolderPath(defaultPathId, 0, IntPtr.Zero, out pszPath);
+            string? path = Marshal.PtrToStringUni(pszPath);
+            Marshal.FreeCoTaskMem(pszPath);
+
+            // Make sure path is not null
+            if (path == null)
+                throw new Exception("Invalid path");
+
+            return path;
+        }
+
+        #endregion
+
     }
 }

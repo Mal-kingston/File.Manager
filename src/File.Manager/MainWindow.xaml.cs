@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace File.Manager
 
             // Clear history of navigated pages
             AppPageContainer.Navigated += (sender, e) => AppPageContainer.NavigationService.RemoveBackEntry();
+
         }
 
     }

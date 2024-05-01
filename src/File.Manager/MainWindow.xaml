@@ -87,10 +87,21 @@
 
         </Grid>
 
+        <!--#region Application page-->
+        
+        <!--design-time app current page-->
+        <d:Frame Grid.Row="2" Margin="0 8"
+                 Content="{Binding CurrentPage, Converter={x:Static local:MainWindowContentDesignTimeData.DesignInstance},
+                 Source={x:Static local:MainWindowContentDesignTimeData.DesignTimeAppViewModel}}"
+                 NavigationUIVisibility="Hidden" />
+
         <!--app current page-->
         <Frame x:Name="AppPageContainer" Grid.Row="2" Margin="0 8" 
-               Content="{Binding CurrentPage, Converter={x:Static local:ApplicationPageConverter.Instance}, 
-               Source={x:Static local:ViewModelLocator.AppViewModel}}" NavigationUIVisibility="Hidden" />
+               Content="{Binding CurrentPage, Converter={x:Static local:ApplicationPageConverter.Instance},
+               Source={x:Static local:ServiceLocator.AppViewModel}}"
+               NavigationUIVisibility="Hidden" />
+
+        <!--#endregion -->
 
     </Grid>
 

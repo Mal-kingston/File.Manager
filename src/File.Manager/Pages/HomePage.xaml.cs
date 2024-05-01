@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +26,12 @@ namespace File.Manager
         {
             InitializeComponent();
 
-            // Set data context
-            DataContext = ViewModelLocator.HomePageViewModel;
+            // Design-mode data context
+            if (DesignerProperties.GetIsInDesignMode(this))
+                DataContext = new HomePageViewModel();
+            else
+                // Set live data context
+                DataContext = ServiceLocator.HomePageViewModel;
 
             // Listen out for when tab control is first loaded into view
             TabControl.Loaded += (sender, e) =>

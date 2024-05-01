@@ -6,6 +6,11 @@
     public enum ViewType
     {
         /// <summary>
+        /// No view
+        /// </summary>
+        None,
+
+        /// <summary>
         /// Home view
         /// </summary>
         HomeView,

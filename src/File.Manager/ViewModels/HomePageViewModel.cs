@@ -126,7 +126,7 @@ namespace File.Manager
 
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();
-            SetupRecentFolders();
+            LoadRecentFolders();
             DriveAnalysisTask = LogicalDriveAnalysisAsync();
 
         }
@@ -225,7 +225,7 @@ namespace File.Manager
             var pictureFilesTask = GetDirectorySizeAsync(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
             var videoFilesTask = GetDirectorySizeAsync(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
             var documentFilesTask = GetDirectorySizeAsync(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-            var temporaryFilesTask = GetDirectorySizeAsync(Environment.GetEnvironmentVariable("TEMP") ?? string.Empty);
+            var temporaryFilesTask = GetDirectorySizeAsync(Environment.GetEnvironmentVariable("TEMP") ?? throw new Exception("Environment variable not found"));
             var installedFilesTask = GetInstalledAppsTotalSizeAsync();
 
             // Wait for result to complete
@@ -246,14 +246,14 @@ namespace File.Manager
             CollectionViewSource.GetDefaultView(DriveFilesAnalysis).SortDescriptions.Add(new SortDescription(nameof(DriveStorageAnalysisViewModel.RawTotalSizeOnDriveData), ListSortDirection.Descending));
 
             // Refresh drive files analysis collection to update it with the latest data
-            CollectionViewSource.GetDefaultView(DriveFilesAnalysis).Refresh();
+            //CollectionViewSource.GetDefaultView(DriveFilesAnalysis).Refresh();
 
         }
 
         /// <summary>
         /// Fetch and setup recently accessed directories
         /// </summary>
-        private void SetupRecentFolders()
+        private void LoadRecentFolders()
         {
             // Get the path to recent folders
             string recentDirectories = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
@@ -268,17 +268,19 @@ namespace File.Manager
                 string resolvedShortcut = ResolveShortcut(directory.FullName);
                 // If path exists...
                 if (Directory.Exists(resolvedShortcut))
+                {
                     // Create directory item control view model and set up information about this path with the view model
                     _recentDirectories.Add(new DirectoryItemControlViewModel
                     {
                         // Set properties
-                        DirectoryName = directory.Name.Split('.')[0],
+                        DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
                         LastDateAccessed = directory.LastAccessTimeUtc,
                         LastDateModified = directory.LastWriteTimeUtc.ToString("g"),
                         DirectoryItemType = "File folder",
                         SizeOfDirectoryItem = ConvertByteToReadableValue(directory.Length, 2),
                         FullPath = resolvedShortcut,
                     }) ;
+                }
             }
             // Sort recently accessed directories by the most recently accessed
             CollectionViewSource.GetDefaultView(RecentDirectories).SortDescriptions.Add(new SortDescription(nameof(DirectoryItemControlViewModel.LastDateAccessed), ListSortDirection.Descending));

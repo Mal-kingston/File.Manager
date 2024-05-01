@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.CodeDom;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace File.Manager
@@ -23,17 +26,23 @@ namespace File.Manager
             // Sort and return the appropriate page
             switch ((ApplicationPages)value)
             {
-                // Home page
+                // Home page 
                 case ApplicationPages.Home:
-                    return new HomePage();
+                    return DependencyInjection.GetDependency<HomePage>();
 
                 // Drives and plugged in devices page
                 case ApplicationPages.DrivesAndDevices:
-                    return new DrivesAndDevicesPage();
+                    return DependencyInjection.GetDependency<DrivesAndDevicesPage>();
+
+                // Drives and plugged in devices page
+                case ApplicationPages.DirectoryExplorer:
+                    return DependencyInjection.GetDependency<DirectoryExplorer>();
 
                 // Default
                 default:
-                    return new HomePage();
+                    //return DependencyInjection.GetDependency<HomePage>();
+                    throw new Exception("Application page not found");
+
             }
         }
 

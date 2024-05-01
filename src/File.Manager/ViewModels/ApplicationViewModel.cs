@@ -13,6 +13,9 @@ namespace File.Manager
     /// </summary>
     public class ApplicationViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The navigation service
+        /// </summary>
         private readonly INavigationService _navigationService;
 
         /// <summary>
@@ -51,8 +54,9 @@ namespace File.Manager
             // Initialize
             IsViewLayoutSetToList = true;
             _navigationService = navigationService;
-            _navigationService.CurrentPage = ApplicationPages.Home;
+            //_navigationService.CurrentPage = ApplicationPages.Home;
             _navigationService.NewPageRequested += (sender, e) => OnPropertyChanged(nameof(CurrentPage));
+
 
             //GridViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));
             //ListViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));

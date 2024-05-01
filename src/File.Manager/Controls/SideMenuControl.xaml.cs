@@ -25,7 +25,7 @@ namespace File.Manager
             InitializeComponent();
 
             // Set data context
-            DataContext = new SideMenuControlViewModel();
+            DataContext = ServiceLocator.SideMenuControlViewModel;
 
         }
 
