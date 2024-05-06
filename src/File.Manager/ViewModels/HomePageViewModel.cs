@@ -30,7 +30,9 @@ namespace File.Manager
         /// </summary>
         private DriveBarControlViewModel _driveBarControlVM;
 
-
+        /// <summary>
+        /// The list of recent directories
+        /// </summary>
         private ObservableCollection<DirectoryItemControlViewModel> _recentDirectories;
 
         #endregion
@@ -261,8 +263,11 @@ namespace File.Manager
             // Get the info about the path
             DirectoryInfo recentDirectoryInfo = new DirectoryInfo(recentDirectories);
 
+            // Directory item selection event
+            SelectionChangedEvent selectionChangedEvent = new SelectionChangedEvent();
+
             // Go through files in the path
-            foreach(FileInfo directory in recentDirectoryInfo.GetFiles())
+            foreach (FileInfo directory in recentDirectoryInfo.GetFiles())
             {
                 // Resolve path full name
                 string resolvedShortcut = ResolveShortcut(directory.FullName);
@@ -270,7 +275,7 @@ namespace File.Manager
                 if (Directory.Exists(resolvedShortcut))
                 {
                     // Create directory item control view model and set up information about this path with the view model
-                    _recentDirectories.Add(new DirectoryItemControlViewModel
+                    _recentDirectories.Add(new DirectoryItemControlViewModel(selectionChangedEvent)
                     {
                         // Set properties
                         DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),

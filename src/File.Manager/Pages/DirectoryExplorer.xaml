@@ -20,9 +20,9 @@
                     <DataTemplate >
                         <!--folders / directories-->
                         <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="{Binding DirectoryName}" 
-                                                            LastModifyDateTime="{Binding LastDateModified}" 
-                                                            FileType="{Binding DirectoryItemType}" 
-                                                            FileSize="{Binding SizeOfDirectoryItem}" />
+                                                    LastModifyDateTime="{Binding LastDateModified}" 
+                                                    FileType="{Binding DirectoryItemType}" 
+                                                    FileSize="{Binding SizeOfDirectoryItem}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

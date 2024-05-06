@@ -107,13 +107,15 @@ namespace File.Manager
 
         #endregion
 
+        #region Constructor
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public SideMenuControlViewModel()
         {
             // Create required objects
-            var selectionEvent = new SelectionChangedEvent();
+            SelectionChangedEvent selectionEvent = new SelectionChangedEvent();
 
             #region Properties defaults
 
@@ -222,6 +224,8 @@ namespace File.Manager
 
             #endregion
         }
+
+        #endregion
 
     }
 }

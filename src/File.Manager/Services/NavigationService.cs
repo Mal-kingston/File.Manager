@@ -71,11 +71,14 @@ namespace File.Manager
         /// Navigates to a specified page
         /// </summary>
         /// <param name="page">The specific page to navigate to</param>
+        /// <param name="pathToDirectory">The path to directory to navigate to if not null</param>
         public void NavigateToPage(ApplicationPages page, string? pathToDirectory)
         {
             //UpdateNavigatedPageHistory(page);
 
+            // If we have path to a directory...
             if(pathToDirectory != null)
+                // Load the directory of the path
                 ServiceLocator.DirectoryExplorerViewModel.LoadDirectoryItems(pathToDirectory);
 
             // If current page is not up to date
@@ -123,7 +126,7 @@ namespace File.Manager
         /// <summary>
         /// Raises the <see cref="NewPageRequested"/> event
         /// </summary>
-        public virtual void OnNewPageRequested()
+        protected virtual void OnNewPageRequested()
         {
             NewPageRequested?.Invoke(this, EventArgs.Empty);
         }

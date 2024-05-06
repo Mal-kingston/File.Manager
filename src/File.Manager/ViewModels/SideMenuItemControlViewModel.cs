@@ -17,7 +17,7 @@ namespace File.Manager
         /// <summary>
         /// Default directory name
         /// </summary>
-        private string _directoryName = "New Folder";
+        private string _directoryName = string.Empty;
 
         #endregion
 
@@ -41,8 +41,10 @@ namespace File.Manager
             }
         }
 
-
-        public string DirectoryFullPath { get; set; } 
+        /// <summary>
+        /// Full path of this directory
+        /// </summary>
+        public string DirectoryFullPath { get; set; } = string.Empty;
 
         /// <summary>
         /// The Current icon type of this directory
@@ -88,8 +90,6 @@ namespace File.Manager
             DirectoryName = "Documents";
             IconType = IconType.Folder;
 
-            //DirectoryFullPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            
             // Events
             _selectionEvent = selectionEvent;
 

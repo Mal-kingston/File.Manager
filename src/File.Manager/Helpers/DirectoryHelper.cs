@@ -19,7 +19,7 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted gigabyte value</returns>
-        public static string ConvertByteToGigaByte(long value, int decimalPlace, bool getJustTheValue = false)
+        private static string ConvertByteToGigaByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
             if (getJustTheValue)
@@ -38,7 +38,7 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted megabyte value</returns>
-        public static string ConvertByteToMegaByte(long value, int decimalPlace, bool getJustTheValue = false)
+        private static string ConvertByteToMegaByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
             if (getJustTheValue)
@@ -57,7 +57,7 @@ namespace File.Manager
         /// <param name="decimalPlace">The desired amount of decimal place the returned value can have</param>
         /// <param name="getJustTheValue">True if just the numerical value is to be returned, otherwise false</param>
         /// <returns>A converted kilobyte value</returns>
-        public static string ConvertByteToKiloByte(long value, int decimalPlace, bool getJustTheValue = false)
+        private static string ConvertByteToKiloByte(long value, int decimalPlace, bool getJustTheValue = false)
         {
             // If just the value is needed...
             if (getJustTheValue)
