@@ -19,8 +19,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate >
                         <!--folders / directories-->
-                        <local:DirectoryItemControl Height="40" Icon="Folder" DirectoryName="{Binding DirectoryName}" 
+                        <local:DirectoryItemControl Height="40" DirectoryName="{Binding DirectoryName}" 
                                                     LastModifyDateTime="{Binding LastDateModified}" 
+                                                    Icon="{Binding IconType}"
                                                     FileType="{Binding DirectoryItemType}" 
                                                     FileSize="{Binding SizeOfDirectoryItem}" />
                     </DataTemplate>

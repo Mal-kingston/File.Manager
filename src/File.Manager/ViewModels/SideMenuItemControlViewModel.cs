@@ -122,23 +122,26 @@ namespace File.Manager
         /// Goes to page that the selected object points to
         /// </summary>
         /// <param name="SideMenuItemControlViewModel">The selected item object</param>
-        private void GotoSelectedPage(SideMenuItemControlViewModel sideMenuItemControlViewModel)
+        public void GotoSelectedPage(SideMenuItemControlViewModel sideMenuItemControlViewModel)
         {
             // Sort and navigate to appropriate views
             switch (sideMenuItemControlViewModel.ViewType)
             {
                 // Home view
                 case ViewType.HomeView:
+                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
                     break;
 
                 // Directory view
                 case ViewType.DirectoryView:
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer, DirectoryFullPath);
+                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
                     break;
 
                 // Drives and devices view
                 case ViewType.DrivesAndDevicesView:
+                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices);
                     break;
 
@@ -164,7 +167,7 @@ namespace File.Manager
 
             // Reset selection
             IsSelected = false;
-            // If current item is the currently item that user is clicked on...
+            // If current item is the currently item that user clicked on...
             if (DirectoryName.Equals(directory?.DirectoryName))
                 // Mark is selected
                 IsSelected = true;

@@ -20,18 +20,23 @@ namespace File.Manager
         /// <summary>
         /// The <see cref="HomePage"/> view model
         /// </summary>
-        public static HomePageViewModel HomePageViewModel => DependencyInjection.GetDependency<HomePageViewModel>();
+        public static HomePageViewModel HomePageVM => DependencyInjection.GetDependency<HomePageViewModel>();
 
         /// <summary>
         /// The <see cref="SideMenuControlViewModel"/> view model
         /// </summary>
 
-        public static SideMenuControlViewModel SideMenuControlViewModel => DependencyInjection.GetDependency<SideMenuControlViewModel>();
+        public static SideMenuControlViewModel SideMenuControlVM => DependencyInjection.GetDependency<SideMenuControlViewModel>();
 
         /// <summary>
-        /// The <see cref="DirectoryExplorerViewModel "/> view model
+        /// The <see cref="DirectoryExplorer"/> view model
         /// </summary>
-        public static DirectoryExplorerViewModel DirectoryExplorerViewModel => DependencyInjection.GetDependency<DirectoryExplorerViewModel>();
+        public static DirectoryExplorerViewModel DirectoryExplorerVM => DependencyInjection.GetDependency<DirectoryExplorerViewModel>();
+
+        /// <summary>
+        /// The <see cref="NavigationBarControl"/> view model
+        /// </summary>
+        public static NavigationBarViewModel NavigationBarVM => DependencyInjection.GetDependency<NavigationBarViewModel>();
 
     }
 }

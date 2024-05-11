@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,12 +56,12 @@ namespace File.Manager
             IsViewLayoutSetToList = true;
             _navigationService = navigationService;
             //_navigationService.CurrentPage = ApplicationPages.Home;
-            _navigationService.NewPageRequested += (sender, e) => OnPropertyChanged(nameof(CurrentPage));
 
+            // Event hookup
+            _navigationService.NewPageRequested += (sender, e) => OnPropertyChanged(nameof(CurrentPage));
 
             //GridViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));
             //ListViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));
         }
-
     }
 }

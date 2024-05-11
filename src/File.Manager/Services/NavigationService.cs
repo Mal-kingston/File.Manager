@@ -7,7 +7,7 @@ namespace File.Manager
     /// </summary>
     public interface INavigationService
     {
-        List<ApplicationPages> NavigatedPageHistory { get; set; }
+        List<(ApplicationPages, string)> NavigatedPageHistory { get; set; }
 
         /// <summary>
         /// The page that is currently in view
@@ -52,7 +52,7 @@ namespace File.Manager
         /// </summary>
         public ApplicationPages CurrentPage { get; set; }
 
-        public List<ApplicationPages> NavigatedPageHistory { get; set; } = new List<ApplicationPages>();
+        public List<(ApplicationPages, string)> NavigatedPageHistory { get; set; } = new List<(ApplicationPages, string)>();
 
         public ApplicationPages PreviousPage { get; set; }
         public ApplicationPages NextPage { get; set; }
@@ -74,12 +74,15 @@ namespace File.Manager
         /// <param name="pathToDirectory">The path to directory to navigate to if not null</param>
         public void NavigateToPage(ApplicationPages page, string? pathToDirectory)
         {
-            //UpdateNavigatedPageHistory(page);
-
             // If we have path to a directory...
             if(pathToDirectory != null)
+            {
                 // Load the directory of the path
-                ServiceLocator.DirectoryExplorerViewModel.LoadDirectoryItems(pathToDirectory);
+                ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(pathToDirectory);
+
+                // Set nav-bar path to directory
+                ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(pathToDirectory);
+            }
 
             // If current page is not up to date
             if (CurrentPage != page)
@@ -89,13 +92,15 @@ namespace File.Manager
                 // Raise new_page_requested_event
                 OnNewPageRequested();
             }
+
+            UpdateNavigatedPageHistory(page, pathToDirectory!);
         }
 
         public void NavigateToNextPage()
         {
             CurrentPage = NextPage;
 
-            UpdateNavigatedPageHistory();
+            //UpdateNavigatedPageHistory();
 
             OnNewPageRequested();
         }
@@ -104,23 +109,14 @@ namespace File.Manager
         {
             CurrentPage = PreviousPage;
 
-            UpdateNavigatedPageHistory();
+            //UpdateNavigatedPageHistory();
 
             OnNewPageRequested();
         }
 
-        private void UpdateNavigatedPageHistory(ApplicationPages? page = null)
+        private void UpdateNavigatedPageHistory(ApplicationPages page, string currentPagePath)
         {
-            //if (CurrentPage == ApplicationPages.None)
-            //    NavigatedPageHistory.Add((ApplicationPages)page);
-            //else
-            //    NavigatedPageHistory.Add(CurrentPage);
-
-            //if (NavigatedPageHistory.Count > 1)
-            //    PreviousPage = NavigatedPageHistory.FirstOrDefault(CurrentPage);
-
-            //if (NavigatedPageHistory.Count > 2)
-            //    NextPage = (ApplicationPages)(NavigatedPageHistory.IndexOf(PreviousPage) + 2);
+            NavigatedPageHistory.Add((page, currentPagePath));
         }
 
         /// <summary>

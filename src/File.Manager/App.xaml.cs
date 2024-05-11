@@ -32,6 +32,8 @@ namespace File.Manager
 
             // Set default page
             ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
+            // Set default page path
+            ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath("Home");
 
             // Get main window
             var mainAppWindow = DependencyInjection.GetDependency<MainWindow>();

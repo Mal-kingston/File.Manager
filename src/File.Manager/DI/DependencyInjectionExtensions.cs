@@ -38,6 +38,7 @@ namespace File.Manager
             });
             services.AddSingleton<DirectoryExplorerViewModel>();
             services.AddSingleton<SideMenuControlViewModel>();
+            services.AddSingleton<NavigationBarViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<HomePageViewModel>();
 

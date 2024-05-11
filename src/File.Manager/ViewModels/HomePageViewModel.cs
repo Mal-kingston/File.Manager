@@ -281,9 +281,9 @@ namespace File.Manager
                         DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
                         LastDateAccessed = directory.LastAccessTimeUtc,
                         LastDateModified = directory.LastWriteTimeUtc.ToString("g"),
-                        DirectoryItemType = "File folder",
-                        SizeOfDirectoryItem = ConvertByteToReadableValue(directory.Length, 2),
+                        DirectoryItemType = "Folder",
                         FullPath = resolvedShortcut,
+                        //SizeOfDirectoryItem = ConvertByteToReadableValue(directory.Length, 2),
                     }) ;
                 }
             }

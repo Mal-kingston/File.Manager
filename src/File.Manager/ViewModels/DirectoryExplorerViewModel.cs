@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.IO;
-
 
 namespace File.Manager
 {
@@ -47,6 +47,9 @@ namespace File.Manager
         /// </summary>
         public FileType DirectoryItemType { get; set; }
 
+        /// <summary>
+        /// Event to fire when <see cref="DirectoryItemControlViewModel"/> item is selected
+        /// </summary>
         private SelectionChangedEvent SelectionChangedEvent;
 
         #endregion
@@ -76,21 +79,46 @@ namespace File.Manager
             // Remove any existing directory
             _directories.Clear();
 
-            // Get information about the directory to load
+            // Get information about the directory items to load
             DirectoryInfo directoryInfo = new DirectoryInfo(fullPath);
+            FileInfo fileInfo = new FileInfo(fullPath);
 
             // Go through every directory
             foreach (DirectoryInfo directory in directoryInfo.GetDirectories())
             {
-                // Add directory to list of directories
-                _directories.Add(new DirectoryItemControlViewModel(SelectionChangedEvent)
+                // Make sure directory item is usable by the operating system
+                if(!directory.Attributes.HasFlag(FileAttributes.NotContentIndexed))
                 {
-                    DirectoryName = directory.Name,
-                    LastDateModified = directory.LastWriteTime.ToString("g"),
-                    DirectoryItemType = "File folder",
-                    FullPath = directory.FullName,
-                });
+                    // Add directory to list of directories
+                    _directories.Add(new DirectoryItemControlViewModel(SelectionChangedEvent)
+                    {
+                        IconType = IconType.Folder,
+                        DirectoryName = directory.Name,
+                        LastDateModified = directory.LastWriteTime.ToString("g"),
+                        DirectoryItemType = "Folder",
+                        FullPath = directory.FullName,
+                    });
+                }
+            }
 
+            // Go through every directory
+            foreach(FileInfo file in directoryInfo.GetFiles())
+            {
+                // Filter non user files
+                if(!file.Attributes.HasFlag(FileAttributes.System))
+                {
+                    // Add file to the list of directories
+                    _directories.Add(new DirectoryItemControlViewModel(SelectionChangedEvent)
+                    {
+                        DirectoryName = file.Name,
+                        LastDateModified = file.LastWriteTime.ToString("g"),
+                        DirectoryItemType = DirectoryHelper.GetFileType(file.FullName),
+                        IconType = DirectoryHelper.GetFileIconType(DirectoryHelper.GetFileType(file.FullName)),
+                        FullPath = file.FullName,
+                        SizeOfDirectoryItem = DirectoryHelper.ConvertByteToReadableValue(file.Length, 2)
+                    });
+
+                }
             }
 
             // Update property

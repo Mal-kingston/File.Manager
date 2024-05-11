@@ -15,10 +15,10 @@ namespace File.Manager
         public static IconTypeConverter Instance => new IconTypeConverter();
 
         /// <summary>
-        /// Converts a fontawesome icon defined in XAML to unicode string
+        /// Converts a font-awesome icon defined in XAML to unicode string
         /// </summary>
         /// <param name="value">Value to convert</param>
-        /// <returns>Unicode string of a fontawesome</returns>
+        /// <returns>Unicode string of a font-awesome</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Return desired icon type

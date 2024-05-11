@@ -31,7 +31,7 @@ namespace File.Manager
                 DataContext = new HomePageViewModel();
             else
                 // Set live data context
-                DataContext = ServiceLocator.HomePageViewModel;
+                DataContext = ServiceLocator.HomePageVM;
 
             // Listen out for when tab control is first loaded into view
             TabControl.Loaded += (sender, e) =>

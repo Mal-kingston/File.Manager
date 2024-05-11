@@ -16,16 +16,13 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for DirectoryExplorer.xaml
+    /// Interaction logic for NavigationBarPathItemControl.xaml
     /// </summary>
-    public partial class DirectoryExplorer : Page
+    public partial class NavigationBarPathItemControl : UserControl
     {
-        public DirectoryExplorer()
+        public NavigationBarPathItemControl()
         {
             InitializeComponent();
-
-            // Data-context
-            DataContext = ServiceLocator.DirectoryExplorerVM;
         }
     }
 }

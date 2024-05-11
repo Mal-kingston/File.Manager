@@ -25,56 +25,17 @@
 
         <!--navigation and path-->
         <Grid Grid.Row="0" Height="40">
-
-            <Grid.ColumnDefinitions>
-                <!--navigation-->
-                <ColumnDefinition Width="Auto" />
-                <!--separator-->
-                <ColumnDefinition Width="Auto" />
-                <!--path-->
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <!--navigation-->
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button Content="{StaticResource ArrowLeftIcon}" 
-                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
-                <Button Content="{StaticResource ArrowRightIcon}" 
-                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
-                <Button Content="{StaticResource ArrowUpIcon}" 
-                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
-                <Button Content="{StaticResource SearchIcon}" 
-                        Width="40" Style="{StaticResource NavigationButtonStyle}" />
-            </StackPanel>
-
-            <!--separator-->
-            <Border Grid.Column="1" Background="{DynamicResource BlueColorBrush}" VerticalAlignment="Center"
-                    Width="1.5" Height="26" Margin="12 0" Opacity="0.6" />
-
-            <!--path-->
-            <StackPanel Grid.Column="2"
-                        Orientation="Horizontal" >
-                <!--path icon-->
-                <Button Content="{StaticResource ThisPCIcon}" Style="{StaticResource PathButtonIcon}"
-                        Width="40" IsEnabled="False" Margin="0 0 8 0"/>
-
-                <!--items control goes here to show path-->
-                <Label Content="Home"
-                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-                <Label Content="Github"
-                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-                <Label Content="Chronical.Journal"
-                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-                <Label Content="Src"
-                       VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-            </StackPanel>
+            <!--navigation bar-->
+            <local:NavigationBarControl />
 
         </Grid>
 
         <!--directory title and view format-->
         <Grid Grid.Row="1">
             <!--directory title-->
-            <TextBlock Text="  Home  " FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
+            <TextBlock Text="{Binding CurrentPage, Converter={x:Static local:ApplicationPageTitleConverter.Instance},
+                       Source={x:Static local:ServiceLocator.AppViewModel}}"
+                       FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />
             <!--view format-->

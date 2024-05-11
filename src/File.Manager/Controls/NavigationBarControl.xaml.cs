@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,16 +17,16 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for DirectoryExplorer.xaml
+    /// Interaction logic for NavigationBarControl.xaml
     /// </summary>
-    public partial class DirectoryExplorer : Page
+    public partial class NavigationBarControl : UserControl
     {
-        public DirectoryExplorer()
+        public NavigationBarControl()
         {
             InitializeComponent();
 
-            // Data-context
-            DataContext = ServiceLocator.DirectoryExplorerVM;
+            // Set Data context
+            DataContext = ServiceLocator.NavigationBarVM;
         }
     }
 }

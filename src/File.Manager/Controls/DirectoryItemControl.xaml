@@ -33,11 +33,14 @@
                                     <ColumnDefinition MaxWidth="120" />
                                     <!--size of this directory-->
                                     <ColumnDefinition MaxWidth="100" />
+                                    <!--dummy space-->
+                                    <ColumnDefinition MaxWidth="40" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--directory item icon-->
                                 <Border Grid.Column="0" Padding="4" Margin="20 0" >
-                                    <TextBlock x:Name="FolderIcon" Text="{StaticResource FolderIcon}" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.9"
+                                    <TextBlock x:Name="FolderIcon" Text="{Binding Icon, ElementName=DirectoryItem, FallbackValue=Folder, Converter={x:Static local:IconTypeConverter.Instance}}" 
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.9"
                                                Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" FontFamily="{StaticResource FontAwesomeSolid}" />
                                 </Border>
 
@@ -56,16 +59,29 @@
 
                                 <!--directory item type-->
                                 <Border Grid.Column="3" Padding="4" Margin="10 0">
-                                    <TextBlock Text="{Binding FileType, ElementName=DirectoryItem}"  d:Text="File folder" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                    <TextBlock Text="{Binding FileType, ElementName=DirectoryItem}"  d:Text="File folder" 
+                                               VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" 
+                                               ToolTipOpening="TextBlock_ToolTipOpening">
+                                        <TextBlock.ToolTip>
+                                            <ToolTip Content="{Binding DirectoryItemType}"
+                                                     HorizontalContentAlignment="Center"
+                                                     Placement="Center"
+                                                     Width="Auto"
+                                                     Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}"
+                                                     BorderBrush="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
                                 </Border>
 
                                 <!--size of this directory-->
                                 <Border Grid.Column="4" Padding="4" Margin="10 0">
-                                    <TextBlock Text="{Binding FileSize, ElementName=DirectoryItem}" d:Text="385.22 MB" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock Text="{Binding FileSize, ElementName=DirectoryItem}" d:Text="385.22 MB" VerticalAlignment="Center" HorizontalAlignment="Right"
                                                Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
                                 </Border>
-
+                                
+                                <!--dumm space--> 
+                                <Border Grid.Column="5" Padding="4" Margin="10 0" />
                             </Grid>
                         </Border>
 

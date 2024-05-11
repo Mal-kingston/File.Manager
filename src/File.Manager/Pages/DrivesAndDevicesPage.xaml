@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DrivesAndDevicesPage">
     
-    <Grid Background="Green" >
-        
+    <Grid >
+        <local:DrivesControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" />
     </Grid>
 </Page>

@@ -2,6 +2,8 @@
 using Microsoft.Win32;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace File.Manager
 {
@@ -270,6 +272,43 @@ namespace File.Manager
             return resolvedFullPath;
         }
 
+        /// <summary>
+        /// Types of common files
+        /// </summary>
+        const string PNGFile = "png file";
+        const string JPGFile = "jpg file";
+        const string MP4File = "mp4 file";
+        const string MP3File = "mp3 file";
+
+        /// <summary>
+        /// Gets a file icon based on it's type
+        /// </summary>
+        /// <param name="fileType">The type of file to use to in finding the appropriate icon</param>
+        /// <returns>Type of icon <see cref="IconType"/></returns>
+        public static IconType GetFileIconType(string fileType)
+        {
+            // Sort and retrieve the appropriate icon
+            switch (fileType.ToLower())
+            {
+                // Images / Pictures
+                case PNGFile:
+                case JPGFile:
+                    return IconType.Pictures;
+
+                // Videos
+                case MP4File:
+                    return IconType.Videos;
+
+                // Audios
+                case MP3File:
+                    return IconType.Music;
+
+                // Default to document icon type
+                default: 
+                    return IconType.Documents;
+            }
+        }
+
         #region DLL import
 
         //Desktop: {B4BFCC3A-DB2C-424C-B029-7FE99A87C641}
@@ -346,8 +385,56 @@ namespace File.Manager
             if (path == null)
                 throw new Exception("Invalid path");
 
+            // Return path
             return path;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHFILEINFO
+        {
+            public IntPtr hIcon;
+            public int iIcon;
+            public uint dwAttributes;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szDisplayName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string szTypeName;
+        };
+
+        public static class FILE_ATTRIBUTE
+        {
+            public const uint FILE_ATTRIBUTE_NORMAL = 0x80;
+        }
+
+        public static class SHGFI
+        {
+            public const uint SHGFI_TYPENAME = 0x000000400;
+            public const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
+        }
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, uint uFlags);
+
+        /// <summary>
+        /// Fetches type of file from the specified file path
+        /// </summary>
+        /// <param name="filePath">The specified file path</param>
+        /// <returns>Type of file</returns>
+        public static string GetFileType(string filePath)
+        {
+
+            SHFILEINFO info = new SHFILEINFO();
+
+            uint dwFileAttributes = FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL;
+            uint uFlags = (uint)(SHGFI.SHGFI_TYPENAME | SHGFI.SHGFI_USEFILEATTRIBUTES);
+
+            SHGetFileInfo(filePath, dwFileAttributes, ref info, (uint)Marshal.SizeOf(info), uFlags);
+
+            // Return file type
+            return info.szTypeName;
+
+        }
+
 
         #endregion
 

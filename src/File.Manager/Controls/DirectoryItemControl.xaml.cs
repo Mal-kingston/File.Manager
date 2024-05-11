@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace File.Manager
         {
             InitializeComponent();
         }
+
+        #region Dependency Properties
 
         /// <summary>
         /// This directory icon
@@ -93,6 +96,38 @@ namespace File.Manager
         // Using a DependencyProperty as the backing store for FileSize.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FileSizeProperty =
             DependencyProperty.Register("FileSize", typeof(string), typeof(DirectoryItemControl), new PropertyMetadata(default(string)));
+
+        #endregion
+
+        #region Private Event
+
+        /// <summary>
+        /// Makes sure that only texts with character ellipses can be shown on tool-tip
+        /// <remark>This event fires when tool-tip is about to open</remark>
+        /// </summary>
+        /// <param name="sender">The text</param>
+        /// <param name="e">The event args</param>
+        private void TextBlock_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            // Get the text block
+            TextBlock text = ((TextBlock)sender);
+
+            Typeface typeface = new Typeface(text.FontFamily, text.FontStyle, text.FontWeight, text.FontStretch);
+            FormattedText formattedText = new FormattedText(text.Text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, typeface, text.FontSize, text.Foreground);
+
+            formattedText.MaxTextWidth = text.ActualWidth;
+
+            // if formatted text width and actual text width are the same...
+            if (formattedText.Width == text.ActualWidth)
+            {
+                // Mark this event as handled
+                e.Handled = true;
+                // Do not show tool-tip
+                return;
+            }
+        }
+
+        #endregion
 
     }
 }
