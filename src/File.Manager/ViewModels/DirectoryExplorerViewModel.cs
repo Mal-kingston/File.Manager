@@ -81,7 +81,6 @@ namespace File.Manager
 
             // Get information about the directory items to load
             DirectoryInfo directoryInfo = new DirectoryInfo(fullPath);
-            FileInfo fileInfo = new FileInfo(fullPath);
 
             // Go through every directory
             foreach (DirectoryInfo directory in directoryInfo.GetDirectories())
@@ -99,10 +98,11 @@ namespace File.Manager
                         FullPath = directory.FullName,
                     });
                 }
+                
             }
 
             // Go through every directory
-            foreach(FileInfo file in directoryInfo.GetFiles())
+            foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 // Filter non user files
                 if(!file.Attributes.HasFlag(FileAttributes.System))
@@ -120,6 +120,10 @@ namespace File.Manager
 
                 }
             }
+
+            // Set nav-bar directory path 
+            ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(fullPath);
+            ServiceLocator.NavigationService.UpdateNavigatedPageHistory(ServiceLocator.NavigationService.CurrentPage, fullPath);
 
             // Update property
             OnPropertyChanged(nameof(IsDirectoryEmpty));

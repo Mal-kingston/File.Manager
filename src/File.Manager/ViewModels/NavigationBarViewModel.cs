@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace File.Manager
 {
@@ -30,13 +31,37 @@ namespace File.Manager
         }
 
         /// <summary>
+        /// Command to navigate to previous page
+        /// </summary>
+        public ICommand NavigateToPreviousPageCommand { get; set; }
+
+        /// <summary>
+        /// Command to navigate to next page
+        /// </summary>
+        public ICommand NavigateToNextPageCommand { get; set; }
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public NavigationBarViewModel()
         {
             // Initialize objects
             _currentDirectoryFullPath = new ObservableCollection<NavigationBarPathItemViewModel>();
+
+            // Create commands
+            NavigateToPreviousPageCommand = new RelayCommand(NavigateToPreviousPage, canExecuteCommand => true);
+            NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => true);
         }
+
+        /// <summary>
+        /// Navigates to next page from the current page
+        /// </summary>
+        private void NavigateToNextPage() => ServiceLocator.NavigationService.NavigateToNextPage();
+
+        /// <summary>
+        /// Navigates to previous page from the current page
+        /// </summary>
+        private void NavigateToPreviousPage() => ServiceLocator.NavigationService.NavigateToPreviousPage();
 
         /// <summary>
         /// Sets navigated directory path using object passed in

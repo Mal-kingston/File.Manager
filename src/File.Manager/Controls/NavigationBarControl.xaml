@@ -15,10 +15,12 @@
         
         <!--navigation buttons-->
         <StackPanel Grid.Column="0" Orientation="Horizontal">
-            <Button Content="{StaticResource ArrowLeftIcon}" 
-                    Width="40" Style="{StaticResource NavigationButtonStyle}" />
+            <Button Content="{StaticResource ArrowLeftIcon}"
+                    Width="40" Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavigateToPreviousPageCommand}"/>
             <Button Content="{StaticResource ArrowRightIcon}" 
-                    Width="40" Style="{StaticResource NavigationButtonStyle}" />
+                    Width="40" Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavigateToNextPageCommand}"/>
             <Button Content="{StaticResource ArrowUpIcon}" 
                     Width="40" Style="{StaticResource NavigationButtonStyle}" />
             <!--search button-->

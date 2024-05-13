@@ -25,7 +25,7 @@ namespace File.Manager
         {
             InitializeComponent();
 
-            // Set Data context
+            // Set Data context            
             DataContext = ServiceLocator.NavigationBarVM;
         }
     }

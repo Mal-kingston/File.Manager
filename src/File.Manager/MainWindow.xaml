@@ -25,6 +25,7 @@
 
         <!--navigation and path-->
         <Grid Grid.Row="0" Height="40">
+
             <!--navigation bar-->
             <local:NavigationBarControl />
 

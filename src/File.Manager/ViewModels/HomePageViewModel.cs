@@ -135,7 +135,7 @@ namespace File.Manager
 
         #endregion
 
-        #region Private Methods
+        #region Methods
 
         /// <summary>
         /// Sets up logical drive
@@ -281,10 +281,9 @@ namespace File.Manager
                         DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
                         LastDateAccessed = directory.LastAccessTimeUtc,
                         LastDateModified = directory.LastWriteTimeUtc.ToString("g"),
-                        DirectoryItemType = "Folder",
+                        DirectoryItemType = "Recent Folder",
                         FullPath = resolvedShortcut,
-                        //SizeOfDirectoryItem = ConvertByteToReadableValue(directory.Length, 2),
-                    }) ;
+                    });
                 }
             }
             // Sort recently accessed directories by the most recently accessed

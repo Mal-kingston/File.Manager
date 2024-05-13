@@ -136,7 +136,6 @@ namespace File.Manager
                 // Directory view
                 case ViewType.DirectoryView:
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer, DirectoryFullPath);
-                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
                     break;
 
                 // Drives and devices view

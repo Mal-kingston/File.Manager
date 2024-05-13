@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace File.Manager
 {
@@ -99,7 +100,7 @@ namespace File.Manager
 
         #endregion
 
-        #region Private Event
+        #region Event
 
         /// <summary>
         /// Makes sure that only texts with character ellipses can be shown on tool-tip
@@ -112,13 +113,17 @@ namespace File.Manager
             // Get the text block
             TextBlock text = ((TextBlock)sender);
 
+            // Get text styling properties
             Typeface typeface = new Typeface(text.FontFamily, text.FontStyle, text.FontWeight, text.FontStretch);
-            FormattedText formattedText = new FormattedText(text.Text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, typeface, text.FontSize, text.Foreground);
 
-            formattedText.MaxTextWidth = text.ActualWidth;
+            // Format text
+            FormattedText formattedText = new FormattedText(text.Text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, typeface, text.FontSize, text.Foreground, new NumberSubstitution(), TextFormattingMode.Display);
+
+            // Formatted text with (including trailing white spaces)
+            double actualWidth = formattedText.WidthIncludingTrailingWhitespace;
 
             // if formatted text width and actual text width are the same...
-            if (formattedText.Width == text.ActualWidth)
+            if (!(actualWidth > text.ActualWidth))
             {
                 // Mark this event as handled
                 e.Handled = true;

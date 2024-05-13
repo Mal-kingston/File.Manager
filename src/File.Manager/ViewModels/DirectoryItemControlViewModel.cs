@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using IWshRuntimeLibrary;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Input;
 
@@ -103,8 +104,11 @@ namespace File.Manager
         {
             // TODO: Handle opening a zipped folder
 
+            // Get information about directory item
+            FileInfo fileInfo = new FileInfo(FullPath);
+
             // If full path is not of type directory...
-            if (new FileInfo(FullPath).Attributes != FileAttributes.Directory)
+            if (!Directory.Exists(FullPath))
             {
                 // Open the file
                 LoadFile(FullPath);
@@ -121,8 +125,6 @@ namespace File.Manager
             {
                 // Load path directoryItem into view
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(FullPath);
-                // Set nav-bar path to directory
-                ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(FullPath);
             }
         }
 
@@ -132,6 +134,21 @@ namespace File.Manager
         /// <param name="fullPath">The full path of the file to open</param>
         private void LoadFile(string fullPath)
         {
+            // TODO: Open a zipped folder correctly
+
+            // if path points to a zip folder
+            if (fullPath.EndsWith(".zip"))
+            {
+                // Remove extension to be able to load the zip folder
+                fullPath = fullPath.Replace(".zip", string.Empty);
+
+                // Set nav-bar directory path 
+                ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(fullPath);
+
+                // Do nothing else
+                return;
+            }
+
             // Create process
             ProcessStartInfo process = new ProcessStartInfo(fullPath)
             {
