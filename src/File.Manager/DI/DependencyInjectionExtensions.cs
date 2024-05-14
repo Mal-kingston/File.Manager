@@ -36,6 +36,7 @@ namespace File.Manager
                 if (navigationService == null) throw new Exception($"Requested service {navigationService} not found");
                 return new ApplicationViewModel(navigationService);
             });
+            services.AddSingleton<SideMenuItemControlViewModel>();
             services.AddSingleton<DirectoryExplorerViewModel>();
             services.AddSingleton<SideMenuControlViewModel>();
             services.AddSingleton<NavigationBarViewModel>();

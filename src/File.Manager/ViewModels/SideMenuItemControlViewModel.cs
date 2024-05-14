@@ -129,8 +129,7 @@ namespace File.Manager
             {
                 // Home view
                 case ViewType.HomeView:
-                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
-                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home);
+                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home, DirectoryName);
                     break;
 
                 // Directory view
@@ -140,8 +139,7 @@ namespace File.Manager
 
                 // Drives and devices view
                 case ViewType.DrivesAndDevicesView:
-                    ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(DirectoryName);
-                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices);
+                    ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices, DirectoryName);
                     break;
 
                 // Default 

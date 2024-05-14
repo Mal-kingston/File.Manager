@@ -125,6 +125,8 @@ namespace File.Manager
             {
                 // Load path directoryItem into view
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(FullPath);
+                // Keep record of navigated view
+                ServiceLocator.NavigationService.UpdateNavigatedPageHistory(ServiceLocator.NavigationService.CurrentPage, FullPath);
             }
         }
 
@@ -134,7 +136,7 @@ namespace File.Manager
         /// <param name="fullPath">The full path of the file to open</param>
         private void LoadFile(string fullPath)
         {
-            // TODO: Open a zipped folder correctly
+            // TODO: Try opening a zipped folder correctly
 
             // if path points to a zip folder
             if (fullPath.EndsWith(".zip"))
@@ -142,7 +144,7 @@ namespace File.Manager
                 // Remove extension to be able to load the zip folder
                 fullPath = fullPath.Replace(".zip", string.Empty);
 
-                // Set nav-bar directory path 
+                // Load path to view
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(fullPath);
 
                 // Do nothing else

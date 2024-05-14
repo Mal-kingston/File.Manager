@@ -38,5 +38,10 @@ namespace File.Manager
         /// </summary>
         public static NavigationBarViewModel NavigationBarVM => DependencyInjection.GetDependency<NavigationBarViewModel>();
 
+        /// <summary>
+        /// The <see cref="SideMenuItemControlViewModel "/> view model
+        /// </summary>
+        public static SideMenuItemControlViewModel SideMenuItemControlVM => DependencyInjection.GetDependency<SideMenuItemControlViewModel>();
+
     }
 }

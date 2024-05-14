@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 
 namespace File.Manager
@@ -98,7 +97,6 @@ namespace File.Manager
                         FullPath = directory.FullName,
                     });
                 }
-                
             }
 
             // Go through every directory
@@ -117,19 +115,16 @@ namespace File.Manager
                         FullPath = file.FullName,
                         SizeOfDirectoryItem = DirectoryHelper.ConvertByteToReadableValue(file.Length, 2)
                     });
-
                 }
             }
 
             // Set nav-bar directory path 
             ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(fullPath);
-            ServiceLocator.NavigationService.UpdateNavigatedPageHistory(ServiceLocator.NavigationService.CurrentPage, fullPath);
 
             // Update property
             OnPropertyChanged(nameof(IsDirectoryEmpty));
         }
 
         #endregion
-
     }
 }

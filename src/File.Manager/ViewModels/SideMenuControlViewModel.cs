@@ -226,6 +226,5 @@ namespace File.Manager
         }
 
         #endregion
-
     }
 }

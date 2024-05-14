@@ -33,14 +33,14 @@
                             <Grid  >
 
                                 <Grid.ColumnDefinitions>
-                                    <!--Directories-->
+                                    <!--side menu-->
                                     <ColumnDefinition Width="Auto" />
                                     <!--main content area-->
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
 
-                                <!--Directories-->
+                                <!--side menu-->
                                 <Border Grid.Column="0"  Background="{DynamicResource BlueColorBrush}" Width="250" Panel.ZIndex="2">
 
                                     <!--drop-shadow effect-->
@@ -52,7 +52,7 @@
                                         <Grid.RowDefinitions>
                                             <!--app title and icon-->
                                             <RowDefinition Height="Auto" />
-                                            <!--Directories-->
+                                            <!--side menu-->
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
@@ -67,7 +67,7 @@
                                                         Foreground="{StaticResource WhiteColorBrush}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                                         </Grid>
 
-                                        <!--Directories-->
+                                        <!--side menu-->
                                         <Grid Grid.Row="1" Margin="0 40 0 20" >
                                             <local:SideMenuControl VerticalAlignment="Top" />
                                         </Grid>
