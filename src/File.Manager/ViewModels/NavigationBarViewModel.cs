@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 
 namespace File.Manager
@@ -8,6 +9,8 @@ namespace File.Manager
     /// </summary>
     public class NavigationBarViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService = ServiceLocator.NavigationService;
+
         /// <summary>
         /// Current navigated directory path
         /// </summary>
@@ -41,6 +44,11 @@ namespace File.Manager
         public ICommand NavigateToNextPageCommand { get; set; }
 
         /// <summary>
+        /// Command to navigate to parent directory
+        /// </summary>
+        public ICommand NavigateToParentDirectoryCommand { get; set; }
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public NavigationBarViewModel()
@@ -49,9 +57,15 @@ namespace File.Manager
             _currentDirectoryFullPath = new ObservableCollection<NavigationBarPathItemViewModel>();
 
             // Create commands
-            NavigateToPreviousPageCommand = new RelayCommand(NavigateToPreviousPage, canExecuteCommand => true);
-            NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => true);
+            NavigateToPreviousPageCommand = new RelayCommand(NavigateToPreviousPage, canExecuteCommand => _navigationService.NavigatedPageCounter > 2);
+            NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => !(_navigationService.NavigatedPageCounter.Equals(_navigationService.NavigatedPageHistory.Count)));
+            NavigateToParentDirectoryCommand = new RelayCommand(NavigateToParentDirectory, canExecuteCommand => true);
         }
+
+        /// <summary>
+        /// Navigates to the parent directory of a navigated path
+        /// </summary>
+        private void NavigateToParentDirectory() => ServiceLocator.NavigationService.NavigateToParentDirectory();
 
         /// <summary>
         /// Navigates to next page from the current page
@@ -76,7 +90,7 @@ namespace File.Manager
             string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
             // Remove path to user profile from incoming path
-            string subPath = ((string)pathToDirectory).Replace(userProfilePath, string.Empty);
+            string subPath = (pathToDirectory).Replace(userProfilePath, string.Empty);
 
             // Count backlashes on the path
             int backlashCount = subPath.Count(x => x.Equals('\\'));
@@ -85,7 +99,7 @@ namespace File.Manager
             if (backlashCount == 0)
             {
                 // Set navigated path
-                _currentDirectoryFullPath.Add(new NavigationBarPathItemViewModel() { DirectoryName = (string)pathToDirectory });
+                _currentDirectoryFullPath.Add(new NavigationBarPathItemViewModel() { DirectoryName = pathToDirectory });
             }
 
             // While we still have backlash...
@@ -108,7 +122,6 @@ namespace File.Manager
                 // Decrease backlash count
                 backlashCount--;
             }
-
         }
     }
 }

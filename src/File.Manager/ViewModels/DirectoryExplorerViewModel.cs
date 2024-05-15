@@ -28,7 +28,9 @@ namespace File.Manager
 
             set
             {
+                // If directories value isn't up to date
                 if (_directories != value) 
+                    // Update directories
                     _directories = value;
 
                 // Update property

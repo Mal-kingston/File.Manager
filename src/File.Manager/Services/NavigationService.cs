@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Windows.Navigation;
+﻿using System.IO;
 
 namespace File.Manager
 {
@@ -8,6 +7,9 @@ namespace File.Manager
     /// </summary>
     public interface INavigationService
     {
+        /// <summary>
+        /// Navigation history
+        /// </summary>
         List<(ApplicationPages, string)> NavigatedPageHistory { get; set; }
 
         /// <summary>
@@ -26,6 +28,11 @@ namespace File.Manager
         (ApplicationPages, string)  NextPage { get; set; }
 
         /// <summary>
+        /// Keeps track of navigated pages when going through navigated page history
+        /// </summary>
+        int NavigatedPageCounter => 0;
+
+        /// <summary>
         /// Event to fire when a new page is requested
         /// </summary>
         event EventHandler<object>? NewPageRequested;
@@ -36,13 +43,27 @@ namespace File.Manager
         /// <param name="page">The specific page to navigate to</param>
         void NavigateToPage(ApplicationPages page, string pathToDirectory);
 
+        /// <summary>
+        /// Captures and keeps the navigated page history
+        /// </summary>
+        /// <param name="page">The page type <see cref="ApplicationPages"/></param>
+        /// <param name="currentPagePath">Path to navigated page item</param>
         void UpdateNavigatedPageHistory(ApplicationPages page, string currentPagePath);
 
+        /// <summary>
+        /// Navigates to the previously navigated page
+        /// </summary>
         void NavigateToPreviousPage();
+
+        /// <summary>
+        /// Navigates to the next navigated page
+        /// </summary>
         void NavigateToNextPage();
 
-        ApplicationPages GetPage(ApplicationPages? page = null);
-
+        /// <summary>
+        /// Navigates to the parent directory of the currently navigated directory
+        /// </summary>
+        void NavigateToParentDirectory();
     }
 
     /// <summary>
@@ -50,6 +71,8 @@ namespace File.Manager
     /// </summary>
     public class NavigationService : INavigationService
     {
+        #region Public Properties
+
         /// <summary>
         /// The page that is currently in view
         /// </summary>
@@ -60,9 +83,15 @@ namespace File.Manager
         /// </summary>
         public List<(ApplicationPages, string)> NavigatedPageHistory { get; set; } = new List<(ApplicationPages, string)>() { (ApplicationPages.None, "") };
 
-        private int NavigatedPageCounter = 0;
+        /// <summary>
+        /// Keeps track of navigated pages when going through navigated page history
+        /// </summary>
+        public int NavigatedPageCounter { get; private set; } = 0;
 
-        private NavigationMode NavigationMode = NavigationMode.NewPage;
+        /// <summary>
+        /// Mode of navigation
+        /// </summary>
+        public NavigationMode NavigationMode = NavigationMode.NewPage;
 
         /// <summary>
         /// The previous page to navigate back to
@@ -74,15 +103,18 @@ namespace File.Manager
         /// </summary>
         public (ApplicationPages, string) NextPage { get; set; }
 
+        #endregion
+
+        #region Public Events
+
         /// <summary>
         /// Event to fire when a new page is requested
         /// </summary>
         public event EventHandler<object>? NewPageRequested;
 
-        public ApplicationPages GetPage(ApplicationPages? page = null)
-        {
-            return ApplicationPages.None;
-        }
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Navigates to a specified page
@@ -96,8 +128,8 @@ namespace File.Manager
                 // Do nothing
                 return;
 
-            // 
-            if(NavigationMode.Equals(NavigationMode.PreviousPage))
+            // Navigation mode is to previous or next page...
+            if(NavigationMode.Equals(NavigationMode.PreviousPage) || NavigationMode.Equals(NavigationMode.NextPage))
             {
                 // Reset navigated page history and counter
                 NavigatedPageHistory.RemoveRange(2, NavigatedPageHistory.Count - 2);
@@ -127,13 +159,47 @@ namespace File.Manager
             OnNewPageRequested();
         }
 
+        /// <summary>
+        /// Navigates to the next navigated page
+        /// </summary>
         public void NavigateToNextPage()
         {
-            //CurrentPage = NextPage;
+            // If navigation mode isn't next-page...
+            if (!NavigationMode.Equals(NavigationMode.NextPage))
+                // Set navigation mode
+                NavigationMode = NavigationMode.NextPage;
 
-            //UpdateNavigatedPageHistory();
+            // If counter is not equals to the number of pages in navigated-page-history...
+            if (!NavigatedPageCounter.Equals(NavigatedPageHistory.Count))
+                // Increase counter
+                NavigatedPageCounter++;
+            // Otherwise
+            else
+                // Do nothing
+                return;
 
-            //OnNewPageRequested();
+            // Get the next page
+            NextPage = NavigatedPageHistory[NavigatedPageCounter - 1];
+
+            // If we don't have a valid page...
+            if (PreviousPage.Item1.Equals(ApplicationPages.None))
+                // Do nothing
+                return;
+
+            // Set current page
+            CurrentPage = NextPage.Item1;
+
+            // If page path contains path to user profile...
+            if (NextPage.Item2.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+                // Load the path
+                ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(NextPage.Item2);
+            // If not...
+            else
+                // Set navigation path
+                ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(NextPage.Item2);
+
+            // Raise new_page_requested_event
+            OnNewPageRequested();
         }
 
         /// <summary>
@@ -146,10 +212,10 @@ namespace File.Manager
                 // Set navigation mode
                 NavigationMode = NavigationMode.PreviousPage;
 
-            // If counter is zero [ 0 ]
-            if(NavigatedPageCounter == 0)
-                // Get the number of navigated pages
-                NavigatedPageCounter = NavigatedPageHistory.Count;
+            //// If counter is zero [ 0 ]
+            //if(NavigatedPageCounter == 0)
+            //    // Get the number of navigated pages
+            //    NavigatedPageCounter = NavigatedPageHistory.Count;
 
             // Get the previous page
             PreviousPage = NavigatedPageHistory[NavigatedPageCounter - 2];
@@ -186,6 +252,42 @@ namespace File.Manager
         }
 
         /// <summary>
+        /// Navigates to the parent directory of the currently navigated directory
+        /// </summary>
+        public void NavigateToParentDirectory()
+        {
+            // Current directory variable
+            string currentDirectory;
+
+            // If we have a directory item 
+            if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
+                // Get the first item of the current directory
+                currentDirectory = ServiceLocator.DirectoryExplorerVM.Directories[0].FullPath;
+            // Otherwise
+            else
+                // Do nothing
+                return;
+
+            // Get information about the directory
+            DirectoryInfo currentDirectoryInfo = new DirectoryInfo(currentDirectory);
+
+            // If parent directory of current directory isn't null...
+            if (currentDirectoryInfo.Parent != null)
+            {
+                // Get the full path
+                string parentDirectoryPath = currentDirectoryInfo.Parent.FullName;
+
+                // The actual parent directory path
+                parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\"));
+
+                // If path is not the same as user profile...
+                if(!parentDirectoryPath.Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+                    // Navigate to the parent directory
+                    NavigateToPage(ApplicationPages.DirectoryExplorer, parentDirectoryPath);
+            }
+        }
+
+        /// <summary>
         /// Captures and keeps the navigated page history
         /// </summary>
         /// <param name="page">The page type <see cref="ApplicationPages"/></param>
@@ -196,7 +298,14 @@ namespace File.Manager
             if (!(NavigatedPageHistory[NavigatedPageHistory.Count - 1].Equals((page, currentPagePath))))
                 // Add it to the navigation history
                 NavigatedPageHistory.Add((page, currentPagePath));
+
+            // Keep track of number of navigated page
+            NavigatedPageCounter = NavigatedPageHistory.Count;
         }
+
+        #endregion
+
+        #region Event Methods
 
         /// <summary>
         /// Raises the <see cref="NewPageRequested"/> event
@@ -205,5 +314,7 @@ namespace File.Manager
         {
             NewPageRequested?.Invoke(this, EventArgs.Empty);
         }
+
+        #endregion
     }
 }

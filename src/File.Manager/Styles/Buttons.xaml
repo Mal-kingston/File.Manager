@@ -77,15 +77,36 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledButtonColorBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--path button icon-->
+    <Style x:Key="NavigationHomeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NavigationButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" UseLayoutRounding="True" Padding="0" >
+                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <!--hover event-->
+                        <!--<Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
+                        </Trigger>-->
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     
-    <!--path button icon-->
-    <Style x:Key="PathButtonIcon" TargetType="{x:Type Button}" BasedOn="{StaticResource NavigationButtonStyle}"/>
-
     <!--view format style-->
     <Style x:Key="ViewFormatStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="BorderBrush" Value="{x:Null}" />

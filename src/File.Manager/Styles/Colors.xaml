@@ -6,11 +6,13 @@
     <Color x:Key="BlueColor">#69929f</Color>
     <Color x:Key="LightBlueColor">#9fbac2</Color>
     <Color x:Key="UltraLightBlueColor">#d5e1e6</Color>
+    <Color x:Key="DisabledButtonColor">#b1bbbf</Color>
     
     <!--brushes-->
     <SolidColorBrush x:Key="WhiteColorBrush" Color="{DynamicResource WhiteColor}" />
     <SolidColorBrush x:Key="BlueColorBrush" Color="{DynamicResource BlueColor}" />
     <SolidColorBrush x:Key="LightBlueColorBrush" Color="{DynamicResource LightBlueColor}" />
     <SolidColorBrush x:Key="UltraLightBlueColorBrush" Color="{DynamicResource UltraLightBlueColor}" />
+    <SolidColorBrush x:Key="DisabledButtonColorBrush" Color="{DynamicResource DisabledButtonColor}" />
 
 </ResourceDictionary>
