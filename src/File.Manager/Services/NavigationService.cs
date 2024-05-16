@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace File.Manager
 {
@@ -31,6 +32,8 @@ namespace File.Manager
         /// Keeps track of navigated pages when going through navigated page history
         /// </summary>
         int NavigatedPageCounter => 0;
+
+        bool CanNavigateToParentDirectory { get; }
 
         /// <summary>
         /// Event to fire when a new page is requested
@@ -102,6 +105,11 @@ namespace File.Manager
         /// The next page page to navigate forward to
         /// </summary>
         public (ApplicationPages, string) NextPage { get; set; }
+
+        /// <summary>
+        /// True if we can navigate to parent directory, otherwise false
+        /// </summary>
+        public bool CanNavigateToParentDirectory => CanNavigateToParent();
 
         #endregion
 
@@ -296,11 +304,61 @@ namespace File.Manager
         {
             // If page in navigation is not the same as the previously navigated page...
             if (!(NavigatedPageHistory[NavigatedPageHistory.Count - 1].Equals((page, currentPagePath))))
+            {
+                // If possible...
+                try
+                {
+                    // Make sure we have a history item
+                    if (NavigatedPageCounter > 0)
+                    {
+                        // Get information about previous and current path
+                        DirectoryInfo currentPagePathDirectoryInfo = new DirectoryInfo(currentPagePath);
+                        DirectoryInfo previousPagePathDirectoryInfo = new DirectoryInfo(NavigatedPageHistory[NavigatedPageCounter].Item2);
+
+                        // If both paths have the same parent...
+                        if (currentPagePathDirectoryInfo.Parent?.FullName == previousPagePathDirectoryInfo.Parent?.FullName)
+                            // Remove every thing 
+                            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, NavigatedPageHistory.Count - NavigatedPageCounter);
+                    }
+                }
+                catch (Exception) { }
+
                 // Add it to the navigation history
                 NavigatedPageHistory.Add((page, currentPagePath));
 
+            }
+
             // Keep track of number of navigated page
             NavigatedPageCounter = NavigatedPageHistory.Count;
+
+            // Raise new_page_requested_event
+            OnNewPageRequested();
+        }
+
+        /// <summary>
+        /// Determines if we can navigate to the parent directory of the current directory in view 
+        /// </summary>
+        /// <returns>True if we can navigate to the parent directory, otherwise false</returns>
+        public bool CanNavigateToParent()
+        {
+            // Get the current directory
+            DirectoryInfo currentDirectoryInfo = new DirectoryInfo(NavigatedPageHistory[NavigatedPageCounter - 1].Item2);
+            // Get the breaking point path
+            string breakPoint = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+            // If the item in view doesn't contain the break-point
+            if (!(NavigatedPageHistory[NavigatedPageCounter - 1].Item2.Contains(breakPoint)))
+                // return false
+                return false;
+
+            // Make sure parent of the current directory is not null
+            if (currentDirectoryInfo.Parent == null)
+                // If not, return false
+                return false;
+
+            // Return false is current directory parent's full name is same as break-point, otherwise return true
+            return currentDirectoryInfo.Parent.FullName.Equals(breakPoint) ? false : true;
+
         }
 
         #endregion
@@ -309,10 +367,14 @@ namespace File.Manager
 
         /// <summary>
         /// Raises the <see cref="NewPageRequested"/> event
+        /// <remark>Also triggers a condition that checks if navigating to parent directory is allowed</remark>
         /// </summary>
         protected virtual void OnNewPageRequested()
         {
             NewPageRequested?.Invoke(this, EventArgs.Empty);
+
+            // Determines if we can navigate to parent directory
+            CanNavigateToParent();
         }
 
         #endregion

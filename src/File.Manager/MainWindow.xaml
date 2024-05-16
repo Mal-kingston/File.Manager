@@ -35,7 +35,7 @@
         <Grid Grid.Row="1">
             <!--directory title-->
             <TextBlock Text="{Binding CurrentPage, Converter={x:Static local:ApplicationPageTitleConverter.Instance},
-                       Source={x:Static local:ServiceLocator.AppViewModel}, Mode=TwoWay}"
+                       Source={x:Static local:ServiceLocator.AppViewModel}, UpdateSourceTrigger=PropertyChanged}"
                        FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />

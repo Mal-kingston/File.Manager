@@ -9,6 +9,9 @@ namespace File.Manager
     /// </summary>
     public class NavigationBarViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The <see cref="INavigationService"/>
+        /// </summary>
         private readonly INavigationService _navigationService = ServiceLocator.NavigationService;
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace File.Manager
             // Create commands
             NavigateToPreviousPageCommand = new RelayCommand(NavigateToPreviousPage, canExecuteCommand => _navigationService.NavigatedPageCounter > 2);
             NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => !(_navigationService.NavigatedPageCounter.Equals(_navigationService.NavigatedPageHistory.Count)));
-            NavigateToParentDirectoryCommand = new RelayCommand(NavigateToParentDirectory, canExecuteCommand => true);
+            NavigateToParentDirectoryCommand = new RelayCommand(NavigateToParentDirectory, canExecuteCommand => _navigationService.CanNavigateToParentDirectory);
         }
 
         /// <summary>
