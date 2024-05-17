@@ -328,6 +328,7 @@ namespace File.Manager
         public static readonly Guid Music = new Guid("4BD8D571-6D19-48D3-BE97-422220080E43");
         public static readonly Guid Pictures = new Guid("33E28130-4E1E-4676-835A-98395C3BC3BB");
         public static readonly Guid Videos = new Guid("18989B1D-99B5-455B-841C-AB7C74E4DDFC");
+        public static readonly Guid OneDrive = new Guid("A52BBA46-E9E1-435f-B3D9-28DAA648C0F6");
 
         /// <summary>
         /// DLL Import
@@ -363,6 +364,9 @@ namespace File.Manager
 
                 case DefaultDirectoryType.Videos:
                     return GetDirectoryPath(Videos);
+
+                case DefaultDirectoryType.OneDrive:
+                    return GetDirectoryPath(OneDrive);
                 
                 // Throw exception if path isn't implemented
                 default:
@@ -377,7 +381,7 @@ namespace File.Manager
         /// <param name="defaultPathId">The id of the know directory</param>
         /// <returns>Full path of a known directory</returns>
         /// <exception cref="Exception"></exception>
-        public static string GetDirectoryPath(Guid defaultPathId)
+        private static string GetDirectoryPath(Guid defaultPathId)
         {
             IntPtr pszPath;
             SHGetKnownFolderPath(defaultPathId, 0, IntPtr.Zero, out pszPath);

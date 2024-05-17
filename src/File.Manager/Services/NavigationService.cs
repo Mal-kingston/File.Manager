@@ -140,10 +140,10 @@ namespace File.Manager
             if(NavigationMode.Equals(NavigationMode.PreviousPage) || NavigationMode.Equals(NavigationMode.NextPage))
             {
                 // Reset navigated page history and counter
-                NavigatedPageHistory.RemoveRange(2, NavigatedPageHistory.Count - 2);
+                //NavigatedPageHistory.RemoveRange(2, NavigatedPageHistory.Count - 2);
 
                 // Reset counter
-                NavigatedPageCounter = 0;
+                //NavigatedPageCounter = 0;
 
                 // Set navigation mode
                 NavigationMode = NavigationMode.NewPage;
@@ -318,7 +318,7 @@ namespace File.Manager
                         // If both paths have the same parent...
                         if (currentPagePathDirectoryInfo.Parent?.FullName == previousPagePathDirectoryInfo.Parent?.FullName)
                             // Remove every thing 
-                            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, NavigatedPageHistory.Count - NavigatedPageCounter);
+                            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, 1);
                     }
                 }
                 catch (Exception) { }
@@ -357,7 +357,7 @@ namespace File.Manager
                 return false;
 
             // Return false is current directory parent's full name is same as break-point, otherwise return true
-            return currentDirectoryInfo.Parent.FullName.Equals(breakPoint) ? false : true;
+            return currentDirectoryInfo.Parent.FullName.Equals(breakPoint) || currentDirectoryInfo.Parent.FullName.Equals(DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.OneDrive)) ? false : true;
 
         }
 

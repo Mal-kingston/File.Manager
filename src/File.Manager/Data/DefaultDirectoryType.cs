@@ -1,7 +1,7 @@
 ﻿namespace File.Manager
 {
     /// <summary>
-    /// Default directories [ Desktop | Documents | Downloads | Music | Videos | Pictures]
+    /// Default directories [ Desktop | Documents | Downloads | Music | Videos | Pictures | OneDrive ]
     /// </summary>
     public enum DefaultDirectoryType
     {
@@ -33,7 +33,12 @@
         /// <summary>
         /// Videos
         /// </summary>
-        Videos
+        Videos,
+
+        /// <summary>
+        /// OneDrive
+        /// </summary>
+        OneDrive
     }
 
 }

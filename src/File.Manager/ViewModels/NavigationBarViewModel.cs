@@ -89,11 +89,20 @@ namespace File.Manager
             // Clear any directory path residue
             _currentDirectoryFullPath.Clear();
 
+            // Sub-path variable
+            string subPath;
+
             // Get path to user profile
             string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string userOneDriveProfilePath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.OneDrive);
 
-            // Remove path to user profile from incoming path
-            string subPath = (pathToDirectory).Replace(userProfilePath, string.Empty);
+            // If path to user includes One-Drive network drive...
+            if(pathToDirectory.Contains(userOneDriveProfilePath))
+                // Remove the path from incoming path
+                subPath = (pathToDirectory).Replace(userOneDriveProfilePath, string.Empty);
+            else
+                // Remove the path from incoming path
+                subPath = (pathToDirectory).Replace(userProfilePath, string.Empty);
 
             // Count backlashes on the path
             int backlashCount = subPath.Count(x => x.Equals('\\'));
