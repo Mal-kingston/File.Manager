@@ -9,6 +9,8 @@ namespace File.Manager
     /// </summary>
     public class NavigationBarViewModel : ViewModelBase
     {
+        #region Private Fields
+
         /// <summary>
         /// The <see cref="INavigationService"/>
         /// </summary>
@@ -18,6 +20,10 @@ namespace File.Manager
         /// Current navigated directory path
         /// </summary>
         private ObservableCollection<NavigationBarPathItemViewModel> _currentDirectoryFullPath;
+
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// Current navigated directory path
@@ -36,6 +42,10 @@ namespace File.Manager
             }
         }
 
+        #endregion
+
+        #region Public Commands
+
         /// <summary>
         /// Command to navigate to previous page
         /// </summary>
@@ -51,6 +61,10 @@ namespace File.Manager
         /// </summary>
         public ICommand NavigateToParentDirectoryCommand { get; set; }
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -64,6 +78,10 @@ namespace File.Manager
             NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => !(_navigationService.NavigatedPageCounter.Equals(_navigationService.NavigatedPageHistory.Count)));
             NavigateToParentDirectoryCommand = new RelayCommand(NavigateToParentDirectory, canExecuteCommand => _navigationService.CanNavigateToParentDirectory);
         }
+
+        #endregion
+
+        #region Command Methods
 
         /// <summary>
         /// Navigates to the parent directory of a navigated path
@@ -79,6 +97,10 @@ namespace File.Manager
         /// Navigates to previous page from the current page
         /// </summary>
         private void NavigateToPreviousPage() => ServiceLocator.NavigationService.NavigateToPreviousPage();
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Sets navigated directory path using object passed in
@@ -135,5 +157,7 @@ namespace File.Manager
                 backlashCount--;
             }
         }
+
+        #endregion
     }
 }

@@ -33,7 +33,15 @@ namespace File.Manager
         /// </summary>
         int NavigatedPageCounter => 0;
 
+        /// <summary>
+        /// True if we can navigate to parent directory, otherwise false
+        /// </summary>
         bool CanNavigateToParentDirectory { get; }
+
+        /// <summary>
+        /// Mode of navigation
+        /// </summary>
+        NavigationMode NavigationMode { get; set; }
 
         /// <summary>
         /// Event to fire when a new page is requested
@@ -94,7 +102,7 @@ namespace File.Manager
         /// <summary>
         /// Mode of navigation
         /// </summary>
-        public NavigationMode NavigationMode = NavigationMode.NewPage;
+        public NavigationMode NavigationMode { get; set; } = NavigationMode.NewPage;
 
         /// <summary>
         /// The previous page to navigate back to
@@ -305,23 +313,28 @@ namespace File.Manager
             // If page in navigation is not the same as the previously navigated page...
             if (!(NavigatedPageHistory[NavigatedPageHistory.Count - 1].Equals((page, currentPagePath))))
             {
-                // If possible...
-                try
-                {
-                    // Make sure we have a history item
-                    if (NavigatedPageCounter > 0)
-                    {
-                        // Get information about previous and current path
-                        DirectoryInfo currentPagePathDirectoryInfo = new DirectoryInfo(currentPagePath);
-                        DirectoryInfo previousPagePathDirectoryInfo = new DirectoryInfo(NavigatedPageHistory[NavigatedPageCounter].Item2);
+                // Make sure we are navigating to a new page...
+                if (NavigatedPageCounter > 0 && NavigationMode.Equals(NavigationMode.NewPage))
+                    // Remove page(s) that are not needed anymore
+                    NavigatedPageHistory.RemoveRange(NavigatedPageCounter, NavigatedPageHistory.Count - NavigatedPageCounter);
 
-                        // If both paths have the same parent...
-                        if (currentPagePathDirectoryInfo.Parent?.FullName == previousPagePathDirectoryInfo.Parent?.FullName)
-                            // Remove every thing 
-                            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, 1);
-                    }
-                }
-                catch (Exception) { }
+                // If possible...
+                //try
+                //{
+                //    // Make sure we have a history item
+                //    if (NavigatedPageCounter > 0)
+                //    {
+                //        // Get information about previous and current path
+                //        DirectoryInfo currentPagePathDirectoryInfo = new DirectoryInfo(currentPagePath);
+                //        DirectoryInfo previousPagePathDirectoryInfo = new DirectoryInfo(NavigatedPageHistory[NavigatedPageCounter].Item2);
+
+                //        // If both paths have the same parent...
+                //        if (currentPagePathDirectoryInfo.Parent?.FullName == previousPagePathDirectoryInfo.Parent?.FullName)
+                //            // Remove every thing 
+                //            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, 1);
+                //    }
+                //}
+                //catch (Exception) { }
 
                 // Add it to the navigation history
                 NavigatedPageHistory.Add((page, currentPagePath));
@@ -358,7 +371,6 @@ namespace File.Manager
 
             // Return false is current directory parent's full name is same as break-point, otherwise return true
             return currentDirectoryInfo.Parent.FullName.Equals(breakPoint) || currentDirectoryInfo.Parent.FullName.Equals(DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.OneDrive)) ? false : true;
-
         }
 
         #endregion

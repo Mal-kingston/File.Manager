@@ -125,6 +125,8 @@ namespace File.Manager
             {
                 // Load path directoryItem into view
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(FullPath);
+                // Set navigation mode
+                ServiceLocator.NavigationService.NavigationMode = NavigationMode.NewPage;
                 // Keep record of navigated view
                 ServiceLocator.NavigationService.UpdateNavigatedPageHistory(ServiceLocator.NavigationService.CurrentPage, FullPath);
             }

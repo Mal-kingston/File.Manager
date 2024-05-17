@@ -27,14 +27,17 @@
             <!--search button-->
             <Button Content="{StaticResource SearchIcon}" 
                     Width="40" Style="{StaticResource NavigationButtonStyle}" />
+
         </StackPanel>
+
+        <local:SearchBarControl Grid.Column="1" Grid.ColumnSpan="2" Width="800" Visibility="Collapsed"/>
 
         <!--separator-->
         <Border Grid.Column="1" Background="{DynamicResource BlueColorBrush}" VerticalAlignment="Center"
                 Width="1.5" Height="26" Margin="12 0" Opacity="0.6" />
 
         <!--path-->
-        <StackPanel Grid.Column="2"
+        <StackPanel Grid.Column="2" Visibility="Visible"
                     Orientation="Horizontal" >
             <!--path icon-->
             <Button Content="{StaticResource ThisPCIcon}" Style="{StaticResource NavigationHomeButtonStyle}"
@@ -54,14 +57,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             
-            <!--<Label Content="Home"
-                   VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-            <Label Content="Github"
-                   VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-            <Label Content="Chronical.Journal"
-                   VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>
-            <Label Content="Src"
-                   VerticalAlignment="Center" Style="{StaticResource PathTextStyle}"/>-->
         </StackPanel>
 
     </Grid>
