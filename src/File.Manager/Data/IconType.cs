@@ -37,5 +37,13 @@
         /// Documents icon
         /// </summary>
         Documents,
+        /// <summary>
+        /// Search icon
+        /// </summary>
+        Search,
+        /// <summary>
+        /// Close icon
+        /// </summary>
+        Close,
     }
 }

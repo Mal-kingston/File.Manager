@@ -187,7 +187,7 @@
                   Visibility="{Binding IsChecked, ElementName=RecentFoldersToggleButton, 
                   Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" >
-                    <ItemsControl ItemsSource="{Binding RecentDirectories}">
+                    <ItemsControl ItemsSource="{Binding RecentDirectories, UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />

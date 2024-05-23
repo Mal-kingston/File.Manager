@@ -123,7 +123,10 @@ namespace File.Manager
             // Set nav-bar directory path 
             ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(fullPath);
 
-            // Update property
+            // Set number of directory items
+            ServiceLocator.AppViewModel.NumberOfItemsInView = $"{_directories.Count} item(s)";
+
+            // Update properties
             OnPropertyChanged(nameof(IsDirectoryEmpty));
         }
 

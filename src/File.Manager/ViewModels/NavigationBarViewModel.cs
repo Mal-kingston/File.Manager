@@ -42,6 +42,20 @@ namespace File.Manager
             }
         }
 
+        /// <summary>
+        /// True if search bar is open, otherwise false
+        /// </summary>
+        public bool IsSearchBarOpen { get; set; } 
+
+        /// <summary>
+        /// Content of search button
+        /// <remark>
+        /// Shows a normal search icon when search bar is not visible
+        /// But shows a close icon when search bar is visible
+        /// </remark>
+        /// </summary>
+        public IconType SearchButtonIconType { get; set; }
+
         #endregion
 
         #region Public Commands
@@ -61,6 +75,11 @@ namespace File.Manager
         /// </summary>
         public ICommand NavigateToParentDirectoryCommand { get; set; }
 
+        /// <summary>
+        /// Command to open and close search bar
+        /// </summary>
+        public ICommand SearchBarCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -72,11 +91,14 @@ namespace File.Manager
         {
             // Initialize objects
             _currentDirectoryFullPath = new ObservableCollection<NavigationBarPathItemViewModel>();
+            SearchButtonIconType = IconType.Search;
+            IsSearchBarOpen = false;
 
             // Create commands
             NavigateToPreviousPageCommand = new RelayCommand(NavigateToPreviousPage, canExecuteCommand => _navigationService.NavigatedPageCounter > 2);
             NavigateToNextPageCommand = new RelayCommand(NavigateToNextPage, canExecuteCommand => !(_navigationService.NavigatedPageCounter.Equals(_navigationService.NavigatedPageHistory.Count)));
             NavigateToParentDirectoryCommand = new RelayCommand(NavigateToParentDirectory, canExecuteCommand => _navigationService.CanNavigateToParentDirectory);
+            SearchBarCommand = new RelayCommand(ToggleSearchBar, canExecuteCommand => true);
         }
 
         #endregion
@@ -97,6 +119,24 @@ namespace File.Manager
         /// Navigates to previous page from the current page
         /// </summary>
         private void NavigateToPreviousPage() => ServiceLocator.NavigationService.NavigateToPreviousPage();
+
+        /// <summary>
+        /// Toggles the search bar between visible and collapsed mode
+        /// </summary>
+        private void ToggleSearchBar()
+        {
+            // If value is true ? make is false (vice versa)
+            IsSearchBarOpen ^= true;
+
+            // Set search button icon type
+            SearchButtonIconType = IsSearchBarOpen ? IconType.Close : IconType.Search;
+
+            // Update properties
+            OnPropertyChanged(nameof(SearchButtonIconType));
+            OnPropertyChanged(nameof(IsSearchBarOpen));
+        }
+
+
 
         #endregion
 

@@ -28,5 +28,13 @@ namespace File.Manager
             // Set Data context            
             DataContext = ServiceLocator.NavigationBarVM;
         }
+
+        /// <summary>
+        /// Scroll to the latest navigated path
+        /// </summary>
+        /// <param name="sender">The origin of this event</param>
+        /// <param name="e">Event args</param>
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e) => ((ScrollViewer)sender).ScrollToRightEnd();
+        
     }
 }

@@ -20,6 +20,11 @@ namespace File.Manager
         private readonly INavigationService _navigationService;
 
         /// <summary>
+        /// The number items loaded into view
+        /// </summary>
+        private string _numberOfItemsInView;
+
+        /// <summary>
         /// The page currently in view
         /// </summary>
         public ApplicationPages CurrentPage 
@@ -31,6 +36,22 @@ namespace File.Manager
                 if (_navigationService.CurrentPage != value)
                     // Set current page
                     _navigationService.CurrentPage = value;
+                // Update property
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The number items loaded into view
+        /// </summary>
+        public string NumberOfItemsInView 
+        { 
+            get => _numberOfItemsInView;
+            set
+            {
+                // Set value
+                _numberOfItemsInView = value;
+
                 // Update property
                 OnPropertyChanged();
             }
@@ -56,6 +77,7 @@ namespace File.Manager
             IsViewLayoutSetToList = true;
             _navigationService = navigationService;
             //_navigationService.CurrentPage = ApplicationPages.Home;
+            _numberOfItemsInView = "0 items(s)";
 
             // Event hookup
             _navigationService.NewPageRequested += (sender, e) => OnPropertyChanged(nameof(CurrentPage));

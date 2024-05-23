@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Data;
 using static File.Manager.DirectoryHelper;
@@ -35,8 +36,13 @@ namespace File.Manager
         /// </summary>
         private ObservableCollection<DirectoryItemControlViewModel> _recentDirectories;
 
+        /// <summary>
+        /// Selection changed event
+        /// </summary>
+        private SelectionChangedEvent _selectionChangedEvent;
+
         #endregion
-        
+
         #region Public Properties
 
         /// <summary>
@@ -92,6 +98,9 @@ namespace File.Manager
             }
         }
 
+        /// <summary>
+        /// The list of recent directories
+        /// </summary>
         public ObservableCollection<DirectoryItemControlViewModel> RecentDirectories
         {
             get => _recentDirectories;
@@ -125,6 +134,7 @@ namespace File.Manager
             _driveBarControlVM = new DriveBarControlViewModel();
             _driveFilesAnalysis = new ObservableCollection<DriveStorageAnalysisViewModel>();
             _recentDirectories = new ObservableCollection<DirectoryItemControlViewModel>();
+            _selectionChangedEvent = new SelectionChangedEvent();
 
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();
@@ -255,8 +265,11 @@ namespace File.Manager
         /// <summary>
         /// Fetch and setup recently accessed directories
         /// </summary>
-        private void LoadRecentFolders()
+        public void LoadRecentFolders()
         {
+            // Clear any existing directories
+            _recentDirectories.Clear();
+
             // Get the path to recent folders
             string recentDirectories = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
 
@@ -264,7 +277,7 @@ namespace File.Manager
             DirectoryInfo recentDirectoryInfo = new DirectoryInfo(recentDirectories);
 
             // Directory item selection event
-            SelectionChangedEvent selectionChangedEvent = new SelectionChangedEvent();
+            //SelectionChangedEvent selectionChangedEvent = new SelectionChangedEvent();
 
             // Go through files in the path
             foreach (FileInfo directory in recentDirectoryInfo.GetFiles())
@@ -275,19 +288,26 @@ namespace File.Manager
                 if (Directory.Exists(resolvedShortcut))
                 {
                     // Create directory item control view model and set up information about this path with the view model
-                    _recentDirectories.Add(new DirectoryItemControlViewModel(selectionChangedEvent)
+                    _recentDirectories.Add(new DirectoryItemControlViewModel(_selectionChangedEvent)
                     {
                         // Set properties
                         DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
-                        LastDateAccessed = directory.LastAccessTimeUtc,
-                        LastDateModified = directory.LastWriteTimeUtc.ToString("g"),
+                        LastDateAccessed = directory.LastAccessTime,
+                        LastDateModified = directory.LastAccessTime.ToString("g"), 
                         DirectoryItemType = "Recent Folder",
                         FullPath = resolvedShortcut,
                     });
                 }
             }
+
             // Sort recently accessed directories by the most recently accessed
             CollectionViewSource.GetDefaultView(RecentDirectories).SortDescriptions.Add(new SortDescription(nameof(DirectoryItemControlViewModel.LastDateAccessed), ListSortDirection.Descending));
+
+            // Set number of directory items
+            ServiceLocator.AppViewModel.NumberOfItemsInView = $"{_recentDirectories.Count} item(s)";
+
+            // Update property
+            OnPropertyChanged(nameof(RecentDirectories));
         }
 
         #endregion

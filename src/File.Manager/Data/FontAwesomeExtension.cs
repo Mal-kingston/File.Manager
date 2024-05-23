@@ -6,10 +6,10 @@
     public static class FontAwesomeExtension
     {
         /// <summary>
-        /// Gets a fontawesome icon type requested
+        /// Gets a font-awesome icon type requested
         /// </summary>
         /// <param name="Icon">The icon requested to get</param>
-        /// <returns>Fontawesome icon</returns>
+        /// <returns>Font-awesome icon</returns>
         public static string GetFontAwesomeIcon(this IconType Icon)
         {
             // Look for the icon
@@ -41,6 +41,12 @@
                 // Documents
                 case IconType.Documents:
                     return "\uf15c";
+                // Search
+                case IconType.Search:
+                    return "\xf002";
+                // Search
+                case IconType.Close:
+                    return "\xf00d";
                 // Default icon to return [this is set to folder icon]
                 default:
                     return "\uf07b";

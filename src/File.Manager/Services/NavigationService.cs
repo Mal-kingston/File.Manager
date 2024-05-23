@@ -281,8 +281,9 @@ namespace File.Manager
                 currentDirectory = ServiceLocator.DirectoryExplorerVM.Directories[0].FullPath;
             // Otherwise
             else
-                // Do nothing
-                return;
+                // Get the path from history
+                currentDirectory = NavigatedPageHistory[NavigatedPageCounter - 1].Item2;
+               
 
             // Get information about the directory
             DirectoryInfo currentDirectoryInfo = new DirectoryInfo(currentDirectory);
@@ -293,8 +294,10 @@ namespace File.Manager
                 // Get the full path
                 string parentDirectoryPath = currentDirectoryInfo.Parent.FullName;
 
-                // The actual parent directory path
-                parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\"));
+                // If we have a directory item 
+                if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
+                    // The actual parent directory path
+                    parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\"));
 
                 // If path is not the same as user profile...
                 if(!parentDirectoryPath.Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
@@ -387,6 +390,7 @@ namespace File.Manager
 
             // Determines if we can navigate to parent directory
             CanNavigateToParent();
+
         }
 
         #endregion

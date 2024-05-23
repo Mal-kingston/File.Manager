@@ -102,16 +102,17 @@ namespace File.Manager
         /// </summary>
         private void OpenDirectoryItem()
         {
-            // TODO: Handle opening a zipped folder
-
-            // Get information about directory item
-            FileInfo fileInfo = new FileInfo(FullPath);
+            // TODO: Handle opening and extracting a zipped folder
 
             // If full path is not of type directory...
             if (!Directory.Exists(FullPath))
             {
                 // Open the file
                 LoadFile(FullPath);
+
+                // Reload recent directory with the most recent data
+                ServiceLocator.HomePageVM.LoadRecentFolders();
+
                 // Do nothing else
                 return;
             }
@@ -153,8 +154,8 @@ namespace File.Manager
                 return;
             }
 
-            // Create process
-            ProcessStartInfo process = new ProcessStartInfo(fullPath)
+            // Create processInfo
+            ProcessStartInfo processInfo = new ProcessStartInfo(fullPath)
             {
                 Arguments = Path.GetFileName(fullPath),
                 UseShellExecute = true,
@@ -162,8 +163,9 @@ namespace File.Manager
                 FileName = fullPath,
                 Verb = "OPEN"
             };
-            // Start process
-            Process.Start(process);
+            // Start processInfo
+            Process.Start(processInfo);
+
         }
 
         /// <summary>

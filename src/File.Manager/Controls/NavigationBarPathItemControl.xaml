@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:File.Manager"
              mc:Ignorable="d" >
 
-    <Grid>
+    <Grid >
 
         <!--design time--> 
         <d:Label Content="Home"

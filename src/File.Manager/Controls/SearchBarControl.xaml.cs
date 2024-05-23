@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for NavigationBarPathItemControl.xaml
+    /// Interaction logic for SearchBarControl.xaml
     /// </summary>
-    public partial class NavigationBarPathItemControl : UserControl
+    public partial class SearchBarControl : UserControl
     {
-        public NavigationBarPathItemControl()
+        public SearchBarControl()
         {
             InitializeComponent();
         }

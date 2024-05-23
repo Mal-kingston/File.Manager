@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="File.Manager.SearchBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" x:Name="SearchBar"
+             d:DesignWidth="700" >
+
+    <UserControl.Resources>
+
+        <!--search bar style-->
+        <Style x:Key="SearchBarStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}" />
+            <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource BlueColorBrush}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="{StaticResource Small}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Margin="0" Background="{TemplateBinding Background}" 
+                                Padding="20 0 0 0" UseLayoutRounding="True" Focusable="True">
+
+                            <Grid Focusable="False">
+
+                                <Grid.ColumnDefinitions>
+                                    <!--text input area-->
+                                    <ColumnDefinition Width="*" />
+                                    <!--search button area-->
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--place holder text-->
+                                <TextBlock x:Name="PlaceHolder" Grid.Column="0" Text="Search file or folder name" Foreground="{DynamicResource DisabledButtonColorBrush}"
+                                           FontSize="{StaticResource Small}" Margin="1 0 0 0"
+                                           HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed" />
+
+                                <!--search text-->
+                                <ScrollViewer x:Name="PART_ContentHost" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                              FontSize="{StaticResource Small}" Margin="0 0 20 0" />
+
+                                <!--search button area-->
+                                <Button Grid.Column="1" Content="Search" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                        Style="{StaticResource SearchButtonStyle}" Width="120" Height="40" />
+
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                                <Setter Property="Visibility" Value="Visible" TargetName="PlaceHolder" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        
+        <!--actual control-->
+        <TextBox x:Name="TextControl" Style="{StaticResource SearchBarStyle}" Height="40"
+                 local:FocusAttachedProperties.Value="True" />
+        
+    </Grid>
+    
+</UserControl>

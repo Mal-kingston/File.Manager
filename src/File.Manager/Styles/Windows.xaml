@@ -102,12 +102,20 @@
 
                                     <!--window content area-->
                                     <Grid Grid.Row="1">
-                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </Grid>
 
                                     <!--footer-->
                                     <Border Grid.Row="2" Background="{DynamicResource UltraLightBlueColorBrush}"
-                                                Height="{Binding FooterHeight}" />
+                                                Height="{Binding FooterHeight}" >
+                                        
+                                        <!--item counter-->
+                                        <TextBlock Text="{Binding NumberOfItemsInView, 
+                                                   Source={x:Static local:ServiceLocator.AppViewModel}, UpdateSourceTrigger=PropertyChanged}"
+                                                   Foreground="{DynamicResource BlueColorBrush}" 
+                                                   FontSize="{StaticResource Small}"
+                                                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20 0" />
+                                    </Border>
 
                                 </Grid>
 

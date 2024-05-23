@@ -9,7 +9,7 @@
       Title="DirectoryExplorer">
 
     <Grid >
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Directories}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

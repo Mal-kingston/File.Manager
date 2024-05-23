@@ -8,7 +8,7 @@
         Height="850" Width="1280" 
         d:DesignStyle="{StaticResource CustomMainWindowStyle}" 
         Icon="/.Resources/Images/appIcon.ico" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" >
 
     <!--window content outline-->
     <Grid Margin="10 6 10 0"
@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <!--navigation and path-->
-        <Grid Grid.Row="0" Height="40">
+        <Grid Grid.Row="0" Height="40" Margin="0 10">
 
             <!--navigation bar-->
             <local:NavigationBarControl />
@@ -36,15 +36,16 @@
             <!--directory title-->
             <TextBlock Text="{Binding CurrentPage, Converter={x:Static local:ApplicationPageTitleConverter.Instance},
                        Source={x:Static local:ServiceLocator.AppViewModel}, UpdateSourceTrigger=PropertyChanged}"
+                       d:Text="Home"
                        FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />
             <!--view format-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
-                        Margin="0 0 18 0" >
+                        Margin="0 0 0 0" >
                 <RadioButton Content="{StaticResource ListIcon}"
-                             IsChecked="True" Margin="4 0" Style="{StaticResource ViewFormatStyle}" />
-                <RadioButton Content="{StaticResource GridIcon}" Margin="4 0" Style="{StaticResource ViewFormatStyle}"/>
+                             IsChecked="True" Margin="0 0 4 0" Style="{StaticResource ViewFormatStyle}" />
+                <RadioButton Content="{StaticResource GridIcon}" Margin="4 0 0 0" Style="{StaticResource ViewFormatStyle}"/>
             </StackPanel>
 
         </Grid>

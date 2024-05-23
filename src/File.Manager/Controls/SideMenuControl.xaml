@@ -8,8 +8,8 @@
              d:DesignHeight="950" d:DesignWidth="250" 
              d:Background="{StaticResource BlueColorBrush}" >
 
-    <ScrollViewer x:Name="ScrollViewer" Style="{StaticResource ScrollViewerStyle}" Grid.Row="1"
-                  HorizontalScrollBarVisibility="Disabled" Background="Transparent" 
+    <ScrollViewer x:Name="ScrollViewer" Grid.Row="1"
+                  HorizontalScrollBarVisibility="Disabled" 
                   VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
 
         <Grid >

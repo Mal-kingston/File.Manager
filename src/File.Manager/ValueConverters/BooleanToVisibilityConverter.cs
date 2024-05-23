@@ -21,8 +21,14 @@ namespace File.Manager
         /// <returns>A visibility based of value of a boolean</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // If value is true, return visible, otherwise return collapsed
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            // If we have parameter
+            if(parameter !=  null)
+                // Invert visibility result
+                return (bool)value ? Visibility.Collapsed: Visibility.Visible;
+            // Otherwise...
+            else
+                // If value is true, return visible, otherwise return collapsed
+                return (bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
