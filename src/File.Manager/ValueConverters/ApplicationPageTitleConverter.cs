@@ -40,7 +40,7 @@ namespace File.Manager
 
                 // Devices and drives
                 case ApplicationPages.DrivesAndDevices:
-                    return "Drives and devices";
+                    return "Storage";
 
                 // Exception
                 default:

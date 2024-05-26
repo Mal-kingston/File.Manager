@@ -8,7 +8,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DrivesAndDevicesPage">
     
-    <Grid >
-        <local:DrivesControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" />
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl ItemsSource="{Binding DevicesAndDrives, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="16" >
+                            <local:DriveItemControl VerticalAlignment="Top" HorizontalAlignment="Left" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
     </Grid>
 </Page>

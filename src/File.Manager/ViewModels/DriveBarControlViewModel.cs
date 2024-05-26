@@ -13,17 +13,17 @@ namespace File.Manager
         /// <summary>
         /// The size of used up space on the logical drive
         /// </summary>
-        public string _usedSpace;
+        private string _usedSpace;
 
         /// <summary>
         /// The size of un-used up space on the logical drive
         /// </summary>
-        public string _unUsedSpace;
+        private string _unUsedSpace;
 
         /// <summary>
         /// The current value of the logical drive meter in UI
         /// </summary>
-        public string _currentMeterValue;
+        private string _currentMeterValue;
 
         /// <summary>
         /// Copy of the numerical value of <see cref="UsedSpace"/>
@@ -136,7 +136,6 @@ namespace File.Manager
 
             // Create commands
             ToggleDriveMeterValueDisplayMode = new RelayCommand(ToggleMeterDisplayMode, (canExecuteCommand) => (!this.Equals(null)));
-
         }
 
         #endregion

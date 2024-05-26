@@ -116,7 +116,7 @@ namespace File.Manager
         }
 
         /// <summary>
-        /// The information about a drive
+        /// The task to fetch information about a drive
         /// </summary>
         public Task DriveAnalysisTask { get; private set; }
 
@@ -140,7 +140,6 @@ namespace File.Manager
             SetupLogicalDriveUsedAndUnUsedSpaces();
             LoadRecentFolders();
             DriveAnalysisTask = LogicalDriveAnalysisAsync();
-
         }
 
         #endregion
@@ -170,7 +169,7 @@ namespace File.Manager
                     // Add each drive to tab item.
                     _tabs.Add(new TabItemModel { Header = label, Content = _driveBarControlVM });
 
-                    // Reset our item view model
+                    // Reset drive bar item view model
                     _driveBarControlVM = new DriveBarControlViewModel();
                 }
 

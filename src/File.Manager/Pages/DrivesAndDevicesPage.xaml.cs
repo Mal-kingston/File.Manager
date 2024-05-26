@@ -23,6 +23,9 @@ namespace File.Manager
         public DrivesAndDevicesPage()
         {
             InitializeComponent();
+
+            // Set data context
+            DataContext = new DevicesAndDrivesViewModel();
         }
     }
 }

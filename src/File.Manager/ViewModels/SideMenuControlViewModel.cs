@@ -216,7 +216,7 @@ namespace File.Manager
                     new SideMenuItemControlViewModel(selectionEvent)
                     {
                         IconType = IconType.Drives,
-                        DirectoryName = "Local Disk (C:)",
+                        DirectoryName = "Storage",
                         ViewType = ViewType.DrivesAndDevicesView
                     },
                 }

@@ -130,6 +130,8 @@ namespace File.Manager
                 // Home view
                 case ViewType.HomeView:
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.Home, DirectoryName);
+                    // Set number of directory items
+                    ServiceLocator.AppViewModel.NumberOfItemsInView = $"{ServiceLocator.HomePageVM.RecentDirectories.Count} item(s)";
                     break;
 
                 // Directory view
@@ -140,6 +142,8 @@ namespace File.Manager
                 // Drives and devices view
                 case ViewType.DrivesAndDevicesView:
                     ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DrivesAndDevices, DirectoryName);
+                    // Set number of items
+                    ServiceLocator.AppViewModel.NumberOfItemsInView = $"{ServiceLocator.DevicesAndDrivesVM.DevicesAndDrives.Count} item(s)";
                     break;
 
                 // Default 

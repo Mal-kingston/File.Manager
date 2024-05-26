@@ -234,12 +234,18 @@ namespace File.Manager
         private void SetIndicatorsValue()
         {
             // Percentage
-            var percent = (Value - Minimum) / (Maximum - Minimum);
-            // Set the current actual value
-            var progressValue = percent * _range.ActualWidth;
-            // Set both used  and un-used indicator actual values [percentage based values]
-            _usedSpaceIndicator.Width = progressValue;
-            _unUsedSpaceIndicator.Width = ((Maximum / Maximum) - percent) * _range.ActualWidth;
+            double percent = (Value - Minimum) / (Maximum - Minimum);
+            // Get values
+            double progressValue = percent * _range.ActualWidth;
+            double unUsedSpaceValue = ((Maximum / Maximum) - percent) * _range.ActualWidth;
+
+            // Make sure we have valid values
+            if(progressValue >= 0 && unUsedSpaceValue >= 0)
+            {
+                // Set both used  and un-used indicator actual values [percentage based values]
+                _usedSpaceIndicator.Width = progressValue;
+                _unUsedSpaceIndicator.Width = unUsedSpaceValue;
+            }
         }
 
         #endregion

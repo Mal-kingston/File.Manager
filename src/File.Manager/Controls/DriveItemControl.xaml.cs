@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace File.Manager
 {
     /// <summary>
-    /// Interaction logic for DrivesControl.xaml
+    /// Interaction logic for DriveItemControl.xaml
     /// </summary>
-    public partial class DrivesControl : UserControl
+    public partial class DriveItemControl : UserControl
     {
-        public DrivesControl()
+        public DriveItemControl()
         {
             InitializeComponent();
         }
