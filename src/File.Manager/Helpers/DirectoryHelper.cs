@@ -211,8 +211,8 @@ namespace File.Manager
             // Registry keys to check for installed applications
             string[] registryKeys =
             {
-                @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
-                @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall",
+                @"SOFTWARE\Microsoft\WindowsLogo\CurrentVersion\Uninstall",
+                @"SOFTWARE\Wow6432Node\Microsoft\WindowsLogo\CurrentVersion\Uninstall",
             };
 
             // Run on thread

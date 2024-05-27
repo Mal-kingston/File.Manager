@@ -47,14 +47,15 @@ namespace File.Manager
                     // Add drive to collection
                     _devicesAndDrives.Add(new DriveItemControlViewModel
                     {
-                        DriveName = drive.DriveType.Equals(DriveType.Fixed) ? $"{drive.VolumeLabel} (C:)" : drive.VolumeLabel,
-                        TotalDriveSize = DirectoryHelper.ConvertByteToReadableValue(drive.TotalSize, 2),
+                        IconType = drive.DriveType.Equals(DriveType.Fixed) ? IconType.WindowsLogo : IconType.Drives,
+                        DriveName = $"{drive.VolumeLabel} ({drive.Name.Trim('\\')})",
                         TotalDriveSizeMaxRange = DirectoryHelper.ConvertByteToReadableValue(drive.TotalSize, 2, getJustTheValue: true),
                         DriveCurrentValue = DirectoryHelper.ConvertByteToReadableValue(drive.TotalSize - drive.AvailableFreeSpace, 2, getJustTheValue: true),
+                        TotalDriveSize = $"{DirectoryHelper.ConvertByteToReadableValue(drive.AvailableFreeSpace, 2)}  available  of  {DirectoryHelper.ConvertByteToReadableValue(drive.TotalSize, 2)}",
+                        FullPath = drive.RootDirectory.FullName,
                     });
                 }
             }
-
         }
     }
 }

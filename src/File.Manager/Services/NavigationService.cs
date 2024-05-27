@@ -161,7 +161,8 @@ namespace File.Manager
             UpdateNavigatedPageHistory(page, pathToDirectory);
 
             // If we have path to a directory...
-            if (pathToDirectory.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+            //if (pathToDirectory.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) || pathToDirectory.Contains("C:\\"))
+            if (Directory.Exists(pathToDirectory))
                 // Load the directory of the path
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(pathToDirectory);
             else

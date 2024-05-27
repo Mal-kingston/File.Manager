@@ -45,5 +45,9 @@
         /// Close icon
         /// </summary>
         Close,
+        /// <summary>
+        /// WindowsLogo logo
+        /// </summary>
+        WindowsLogo,
     }
 }

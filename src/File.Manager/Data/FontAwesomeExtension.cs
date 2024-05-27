@@ -47,6 +47,9 @@
                 // Search
                 case IconType.Close:
                     return "\xf00d";
+                // WindowsLogo
+                case IconType.WindowsLogo:
+                    return "\xf17a";
                 // Default icon to return [this is set to folder icon]
                 default:
                     return "\uf07b";

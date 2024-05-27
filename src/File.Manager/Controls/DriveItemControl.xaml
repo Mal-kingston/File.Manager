@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:File.Manager"
              mc:Ignorable="d"
-             d:DesignHeight="100" d:DesignWidth="550"
-             Width="550" Height="100">
+             d:DesignHeight="100" d:DesignWidth="550">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type ContentControl}">
@@ -38,12 +37,11 @@
                                     <!--mouse over grid-->
                                     <Grid Name="HoverSetter" Grid.ColumnSpan="2" Opacity="0.3" Background="Transparent"  />
 
-                                    <!--TODO: use windows icon for the local drive(s)-->
                                     <!--control icon-->
                                     <Grid Grid.Column="0" Margin="30 20 20 20">
-                                        <TextBlock Text="{StaticResource DriveIcon}" FontSize="{StaticResource BillBoard}" 
-                                                   FontFamily="{StaticResource FontAwesomeSolid}" Foreground="{DynamicResource BlueColorBrush}"
-                                                   VerticalAlignment="Center"/>
+                                        <TextBlock x:Name="Icon" d:Text="{StaticResource DriveIcon}" Text="{Binding IconType, Converter={x:Static local:IconTypeConverter.Instance}}" FontSize="{StaticResource BillBoard}" 
+                                                   FontFamily="{DynamicResource FontAwesomeSolid}" Foreground="{DynamicResource BlueColorBrush}"
+                                                   VerticalAlignment="Center" />
                                     </Grid>
 
                                     <!--control details-->
@@ -61,7 +59,7 @@
                                                        FontSize="{StaticResource Regular}" Foreground="{DynamicResource BlueColorBrush}"
                                                        VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
-                                            <TextBlock d:Text="994 GB" Text="{Binding TotalDriveSize}"
+                                            <TextBlock d:Text="674 GB  available  of  994 GB" Text="{Binding TotalDriveSize}"
                                                        FontSize="{StaticResource Regular}" Foreground="{DynamicResource BlueColorBrush}"
                                                        VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
                                         </Grid>
@@ -83,9 +81,14 @@
                         </Border>
 
                         <ControlTemplate.Triggers>
+                            <!--mouse over item trigger-->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" TargetName="HoverSetter" />
                             </Trigger>
+                            <!--item logo--> 
+                            <DataTrigger Binding="{Binding IconType}" Value="WindowsLogo">
+                                <Setter Property="FontFamily" Value="{DynamicResource FontAwesomeBrands}" TargetName="Icon" />
+                            </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -93,7 +96,11 @@
         </Style>
     </UserControl.Resources>
 
-    <!--actual control--> 
-    <ContentControl />
+    <!--actual control-->
+    <ContentControl Width="550" Height="100" >
+        <ContentControl.InputBindings>
+            <MouseBinding Command="{Binding OpenDriveCommand}" MouseAction="LeftDoubleClick" />
+        </ContentControl.InputBindings>
+    </ContentControl>
 
 </UserControl>
