@@ -114,7 +114,7 @@ namespace File.Manager
         /// </summary>
         public SideMenuControlViewModel()
         {
-            // Create required objects
+            // Required objects
             SelectionChangedEvent selectionEvent = new SelectionChangedEvent();
 
             #region Properties defaults

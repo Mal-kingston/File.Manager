@@ -10,7 +10,7 @@ namespace File.Manager
         /// <summary>
         /// The service provider
         /// </summary>
-        public static IServiceProvider ServiceProvider = default!;
+        private static IServiceProvider _serviceProvider = default!;
 
         /// <summary>
         /// The services
@@ -37,10 +37,10 @@ namespace File.Manager
         public static IServiceProvider Build()
         {
             // Build and set service provider
-            ServiceProvider = _service.BuildServiceProvider();
+            _serviceProvider = _service.BuildServiceProvider();
 
             // Dependencies / services injected
-            return ServiceProvider;
+            return _serviceProvider;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace File.Manager
         public static T GetDependency<T>() where T : notnull
         {
             // Return service requested
-            return ServiceProvider.GetService<T>()!;
+            return _serviceProvider.GetService<T>()!;
         }
     }
 }

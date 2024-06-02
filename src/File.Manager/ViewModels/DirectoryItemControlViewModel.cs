@@ -140,32 +140,34 @@ namespace File.Manager
         private void LoadFile(string fullPath)
         {
             // TODO: Try opening a zipped folder correctly
-
-            // if path points to a zip folder
-            if (fullPath.EndsWith(".zip"))
+            try
             {
-                // Remove extension to be able to load the zip folder
-                fullPath = fullPath.Replace(".zip", string.Empty);
+                // if path points to a zip folder
+                if (fullPath.EndsWith(".zip"))
+                {
+                    // Remove extension to be able to load the zip folder
+                    fullPath = fullPath.Replace(".zip", string.Empty);
 
-                // Load path to view
-                ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(fullPath);
+                    // Load path to view
+                    ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(fullPath);
 
-                // Do nothing else
-                return;
-            }
+                    // Do nothing else
+                    return;
+                }
 
-            // Create processInfo
-            ProcessStartInfo processInfo = new ProcessStartInfo(fullPath)
-            {
-                Arguments = Path.GetFileName(fullPath),
-                UseShellExecute = true,
-                WorkingDirectory = Path.GetDirectoryName(fullPath),
-                FileName = fullPath,
-                Verb = "OPEN"
-            };
-            // Start processInfo
-            Process.Start(processInfo);
+                // Create processInfo
+                ProcessStartInfo processInfo = new ProcessStartInfo(fullPath)
+                {
+                    Arguments = Path.GetFileName(fullPath),
+                    UseShellExecute = true,
+                    WorkingDirectory = Path.GetDirectoryName(fullPath),
+                    FileName = fullPath,
+                    Verb = "OPEN"
+                };
+                // Start processInfo
+                Process.Start(processInfo);
 
+            } catch (Exception) { }
         }
 
         /// <summary>
@@ -176,7 +178,7 @@ namespace File.Manager
         private void OnSelectionChanged(object? sender, EventArgs e)
         {
             // Cast sender as directoryItem control view-model
-            var directoryItem = (sender as DirectoryItemControlViewModel);
+            DirectoryItemControlViewModel? directoryItem = (sender as DirectoryItemControlViewModel);
 
             // Reset selection
             IsChecked = false;
@@ -187,6 +189,7 @@ namespace File.Manager
 
             // Update property
             OnPropertyChanged(nameof(IsChecked));
+
         }
 
         #endregion

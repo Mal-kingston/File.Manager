@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Data;
+using System.Windows.Input;
 
 namespace File.Manager
 {
@@ -7,6 +8,9 @@ namespace File.Manager
     /// </summary>
     public class DriveItemControlViewModel : ViewModelBase
     {
+
+        #region Public Properties
+
         /// <summary>
         /// Name of drive
         /// </summary>
@@ -38,9 +42,22 @@ namespace File.Manager
         public IconType IconType { get; set; }
 
         /// <summary>
+        /// True if this item is currently selected, otherwise false
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        #endregion
+
+        #region Public Commands
+
+        /// <summary>
         /// Command to open this item
         /// </summary>
         public ICommand OpenDriveCommand { get; set; }
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Default constructor
@@ -51,9 +68,15 @@ namespace File.Manager
             OpenDriveCommand = new RelayCommand(OpenDrive, canExecuteCommand => true);
         }
 
-        private void OpenDrive()
-        {
-            ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer, FullPath);
-        }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Opens a drive item
+        /// </summary>
+        private void OpenDrive() => ServiceLocator.NavigationService.NavigateToPage(ApplicationPages.DirectoryExplorer, FullPath);
+
+        #endregion
     }
 }

@@ -15,6 +15,11 @@ namespace File.Manager
         /// </summary>
         private ObservableCollection<DirectoryItemControlViewModel> _directories;
 
+        /// <summary>
+        /// Event to fire when <see cref="DirectoryItemControlViewModel"/> item is selected
+        /// </summary>
+        private SelectionChangedEvent _selectionChangedEvent;
+
         #endregion
 
         #region Public Properties
@@ -48,11 +53,6 @@ namespace File.Manager
         /// </summary>
         public FileType DirectoryItemType { get; set; }
 
-        /// <summary>
-        /// Event to fire when <see cref="DirectoryItemControlViewModel"/> item is selected
-        /// </summary>
-        private SelectionChangedEvent SelectionChangedEvent;
-
         #endregion
 
         #region Constructor
@@ -63,7 +63,7 @@ namespace File.Manager
         public DirectoryExplorerViewModel()
         {
             // Set defaults
-            SelectionChangedEvent = new SelectionChangedEvent();
+            _selectionChangedEvent = new SelectionChangedEvent();
             _directories = new ObservableCollection<DirectoryItemControlViewModel>();
         }
 
@@ -83,42 +83,46 @@ namespace File.Manager
             // Get information about the directory items to load
             DirectoryInfo directoryInfo = new DirectoryInfo(fullPath);
 
-            // Go through every directory
-            foreach (DirectoryInfo directory in directoryInfo.GetDirectories())
+            try
             {
-                // Make sure directory item is usable by the operating system
-                if(!directory.Attributes.HasFlag(FileAttributes.NotContentIndexed))
+                // Go through every directory
+                foreach (DirectoryInfo directory in directoryInfo.GetDirectories())
                 {
-                    // Add directory to list of directories
-                    _directories.Add(new DirectoryItemControlViewModel(SelectionChangedEvent)
+                    // Make sure directory item is usable by the operating system
+                    if(!directory.Attributes.HasFlag(FileAttributes.NotContentIndexed))
                     {
-                        IconType = IconType.Folder,
-                        DirectoryName = directory.Name,
-                        LastDateModified = directory.LastWriteTime.ToString("g"),
-                        DirectoryItemType = "Folder",
-                        FullPath = directory.FullName,
-                    });
+                        // Add directory to list of directories
+                        _directories.Add(new DirectoryItemControlViewModel(_selectionChangedEvent)
+                        {
+                            IconType = IconType.Folder,
+                            DirectoryName = directory.Name,
+                            LastDateModified = directory.LastWriteTime.ToString("g"),
+                            DirectoryItemType = "Folder",
+                            FullPath = directory.FullName,
+                        });
+                    }
                 }
-            }
 
-            // Go through every directory
-            foreach (FileInfo file in directoryInfo.GetFiles())
-            {
-                // Filter non user files
-                if(!file.Attributes.HasFlag(FileAttributes.System))
+                // Go through every directory
+                foreach (FileInfo file in directoryInfo.GetFiles())
                 {
-                    // Add file to the list of directories
-                    _directories.Add(new DirectoryItemControlViewModel(SelectionChangedEvent)
+                    // Filter non user files
+                    if(!file.Attributes.HasFlag(FileAttributes.System))
                     {
-                        DirectoryName = file.Name,
-                        LastDateModified = file.LastWriteTime.ToString("g"),
-                        DirectoryItemType = DirectoryHelper.GetFileType(file.FullName),
-                        IconType = DirectoryHelper.GetFileIconType(DirectoryHelper.GetFileType(file.FullName)),
-                        FullPath = file.FullName,
-                        SizeOfDirectoryItem = DirectoryHelper.ConvertByteToReadableValue(file.Length, 2)
-                    });
+                        // Add file to the list of directories
+                        _directories.Add(new DirectoryItemControlViewModel(_selectionChangedEvent)
+                        {
+                            DirectoryName = file.Name,
+                            LastDateModified = file.LastWriteTime.ToString("g"),
+                            DirectoryItemType = DirectoryHelper.GetFileType(file.FullName),
+                            IconType = DirectoryHelper.GetFileIconType(DirectoryHelper.GetFileType(file.FullName)),
+                            FullPath = file.FullName,
+                            SizeOfDirectoryItem = DirectoryHelper.ConvertByteToReadableValue(file.Length, 2)
+                        });
+                    }
                 }
             }
+            catch (Exception) { }
 
             // Set nav-bar directory path 
             ServiceLocator.NavigationBarVM.SetNavigatedDirectoryPath(fullPath);

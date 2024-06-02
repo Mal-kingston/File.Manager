@@ -38,7 +38,7 @@
         
         <!--search bar-->
         <local:SearchBarControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="3"
-                                d:Visibility="Collapsed"
+                                d:Visibility="Collapsed" Margin="10 0 0 0"
                                 Visibility="{Binding IsSearchBarOpen, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}" />
 
         <!--separator-->

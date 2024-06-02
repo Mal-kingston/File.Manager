@@ -207,7 +207,8 @@ namespace File.Manager
             CurrentPage = NextPage.Item1;
 
             // If page path contains path to user profile...
-            if (NextPage.Item2.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+            //if (NextPage.Item2.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+            if (Directory.Exists(NextPage.Item2))
                 // Load the path
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(NextPage.Item2);
             // If not...
@@ -247,7 +248,11 @@ namespace File.Manager
                 CurrentPage = PreviousPage.Item1;
 
             // If page path contains path to user profile...
-            if (PreviousPage.Item2.Contains(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+            //if (PreviousPage.Item2.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+            //if (PreviousPage.Item2.Contains("\\"))
+
+            // If page path exist...
+            if (Directory.Exists(PreviousPage.Item2))
                 // Load the path
                 ServiceLocator.DirectoryExplorerVM.LoadDirectoryItems(PreviousPage.Item2);
             // If not...
@@ -296,13 +301,24 @@ namespace File.Manager
                 string parentDirectoryPath = currentDirectoryInfo.Parent.FullName;
 
                 // If we have a directory item 
-                if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
+                //if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
+                if (parentDirectoryPath.Count(x => x.Equals('\\')) > 1)
                     // The actual parent directory path
                     parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\"));
+                else
+                    parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\") + 1);
+
+
+                // Get side menu view model
+                SideMenuControlViewModel sideMenuViewModel = ServiceLocator.SideMenuControlVM;
 
                 // If path is not the same as user profile...
-                if(!parentDirectoryPath.Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
+                if (!parentDirectoryPath.Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)))
                     // Navigate to the parent directory
+                    NavigateToPage(ApplicationPages.DirectoryExplorer, parentDirectoryPath);
+                // If we're in storage... 
+                else if (sideMenuViewModel.DrivesItems.Items[0].IsSelected && !sideMenuViewModel.MainLibraryItems.Items.Any(x => x.IsSelected.Equals(true)))
+                    // Ignore user-profile and navigate to parent directory
                     NavigateToPage(ApplicationPages.DirectoryExplorer, parentDirectoryPath);
             }
         }
@@ -322,27 +338,8 @@ namespace File.Manager
                     // Remove page(s) that are not needed anymore
                     NavigatedPageHistory.RemoveRange(NavigatedPageCounter, NavigatedPageHistory.Count - NavigatedPageCounter);
 
-                // If possible...
-                //try
-                //{
-                //    // Make sure we have a history item
-                //    if (NavigatedPageCounter > 0)
-                //    {
-                //        // Get information about previous and current path
-                //        DirectoryInfo currentPagePathDirectoryInfo = new DirectoryInfo(currentPagePath);
-                //        DirectoryInfo previousPagePathDirectoryInfo = new DirectoryInfo(NavigatedPageHistory[NavigatedPageCounter].Item2);
-
-                //        // If both paths have the same parent...
-                //        if (currentPagePathDirectoryInfo.Parent?.FullName == previousPagePathDirectoryInfo.Parent?.FullName)
-                //            // Remove every thing 
-                //            NavigatedPageHistory.RemoveRange(NavigatedPageCounter, 1);
-                //    }
-                //}
-                //catch (Exception) { }
-
                 // Add it to the navigation history
                 NavigatedPageHistory.Add((page, currentPagePath));
-
             }
 
             // Keep track of number of navigated page
@@ -363,15 +360,17 @@ namespace File.Manager
             // Get the breaking point path
             string breakPoint = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
-            // If the item in view doesn't contain the break-point
-            if (!(NavigatedPageHistory[NavigatedPageCounter - 1].Item2.Contains(breakPoint)))
-                // return false
-                return false;
-
             // Make sure parent of the current directory is not null
-            if (currentDirectoryInfo.Parent == null)
+            if (currentDirectoryInfo.Parent == null || !(NavigatedPageHistory[NavigatedPageCounter - 1].Item2.Contains("\\")))
                 // If not, return false
                 return false;
+
+            // Get side menu view model
+            SideMenuControlViewModel sideMenuViewModel = ServiceLocator.SideMenuControlVM;
+
+            // If we're in storage... Ignore breakpoint
+            if (sideMenuViewModel.DrivesItems.Items[0].IsSelected && !sideMenuViewModel.MainLibraryItems.Items.Any(x => x.IsSelected.Equals(true)) && currentDirectoryInfo.Parent.FullName.Equals(breakPoint))
+                return true;
 
             // Return false is current directory parent's full name is same as break-point, otherwise return true
             return currentDirectoryInfo.Parent.FullName.Equals(breakPoint) || currentDirectoryInfo.Parent.FullName.Equals(DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.OneDrive)) ? false : true;

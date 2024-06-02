@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using IWshRuntimeLibrary;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace File.Manager
@@ -45,7 +46,7 @@ namespace File.Manager
                 if (drive.IsReady)
                 {
                     // Add drive to collection
-                    _devicesAndDrives.Add(new DriveItemControlViewModel
+                    _devicesAndDrives.Add(new DriveItemControlViewModel()
                     {
                         IconType = drive.DriveType.Equals(DriveType.Fixed) ? IconType.WindowsLogo : IconType.Drives,
                         DriveName = $"{drive.VolumeLabel} ({drive.Name.Trim('\\')})",
@@ -56,6 +57,17 @@ namespace File.Manager
                     });
                 }
             }
+
+            // Fake drive item
+            _devicesAndDrives.Add(new DriveItemControlViewModel()
+            {
+                IconType = IconType.Drives,
+                DriveName = "fake-drive",
+                TotalDriveSizeMaxRange = DirectoryHelper.ConvertByteToReadableValue(500000000000L, 2, getJustTheValue: true),
+                DriveCurrentValue = DirectoryHelper.ConvertByteToReadableValue(500000000000L - 200000000000L, 2, getJustTheValue: true),
+                TotalDriveSize = $"{DirectoryHelper.ConvertByteToReadableValue(200000000000L, 2)}  available  of  {DirectoryHelper.ConvertByteToReadableValue(500000000000L, 2)}",
+                FullPath = "C:\\"
+            });
         }
     }
 }

@@ -276,28 +276,32 @@ namespace File.Manager
             DirectoryInfo recentDirectoryInfo = new DirectoryInfo(recentDirectories);
 
             // Directory item selection event
-            //SelectionChangedEvent selectionChangedEvent = new SelectionChangedEvent();
+            //_selectionChangedEvent selectionChangedEvent = new _selectionChangedEvent();
 
-            // Go through files in the path
-            foreach (FileInfo directory in recentDirectoryInfo.GetFiles())
+            try
             {
-                // Resolve path full name
-                string resolvedShortcut = ResolveShortcut(directory.FullName);
-                // If path exists...
-                if (Directory.Exists(resolvedShortcut))
+
+                // Go through files in the path
+                foreach (FileInfo directory in recentDirectoryInfo.GetFiles())
                 {
-                    // Create directory item control view model and set up information about this path with the view model
-                    _recentDirectories.Add(new DirectoryItemControlViewModel(_selectionChangedEvent)
+                    // Resolve path full name
+                    string resolvedShortcut = ResolveShortcut(directory.FullName);
+                    // If path exists...
+                    if (Directory.Exists(resolvedShortcut))
                     {
-                        // Set properties
-                        DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
-                        LastDateAccessed = directory.LastAccessTime,
-                        LastDateModified = directory.LastAccessTime.ToString("g"), 
-                        DirectoryItemType = "Recent Folder",
-                        FullPath = resolvedShortcut,
-                    });
+                        // Create directory item control view model and set up information about this path with the view model
+                        _recentDirectories.Add(new DirectoryItemControlViewModel(_selectionChangedEvent)
+                        {
+                            // Set properties
+                            DirectoryName = directory.Name.Remove(directory.Name.LastIndexOf('.')),
+                            LastDateAccessed = directory.LastAccessTime,
+                            LastDateModified = directory.LastAccessTime.ToString("g"),
+                            DirectoryItemType = "Recent Folder",
+                            FullPath = resolvedShortcut,
+                        });
+                    }
                 }
-            }
+            } catch (Exception) { }
 
             // Sort recently accessed directories by the most recently accessed
             CollectionViewSource.GetDefaultView(RecentDirectories).SortDescriptions.Add(new SortDescription(nameof(DirectoryItemControlViewModel.LastDateAccessed), ListSortDirection.Descending));
