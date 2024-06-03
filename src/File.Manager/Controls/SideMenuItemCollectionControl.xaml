@@ -25,6 +25,12 @@
         <!--items layout-->
         <Grid Grid.Row="1" x:Name="ItemsLayout" Background="{DynamicResource BlueColorBrush}"
               Tag="{Binding IsQuickAccessCollection, ElementName=SideMenuItemCollection}">
+
+            <!--empty quick access tag--> 
+            <Label Content="Empty quick access items" FontSize="{StaticResource XSmall}" Foreground="{DynamicResource UltraLightBlueColorBrush}"
+                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 8"
+                   Visibility="{Binding IsQuickAccessCollection, ElementName=SideMenuItemCollection, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
+
             <!--items-->
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>

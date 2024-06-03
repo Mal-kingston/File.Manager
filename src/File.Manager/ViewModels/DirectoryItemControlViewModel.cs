@@ -61,6 +61,12 @@ namespace File.Manager
         /// </summary>
         public bool IsChecked { get; set; }
 
+        /// <summary>
+        /// Flag indicating when pop control of this item is open or close.
+        /// <remarks>True when pop-up is open and false when pop-up is closed</remarks>
+        /// </summary>
+        public bool IsPopupItemOpen { get; set; }
+
         #endregion
 
         #region Public Commands
@@ -74,6 +80,16 @@ namespace File.Manager
         /// Command to check directoryItem item on single click
         /// </summary>
         public ICommand IsCheckedCommand { get; set; }
+
+        /// <summary>
+        /// Command to open a pop-up control associated with this item
+        /// </summary>
+        public ICommand OpenItemPopupCommand { get; set; }
+
+        /// <summary>
+        /// Command to close a pop-up control associated with this item
+        /// </summary>
+        public ICommand CloseItemPopupCommand { get; set; }
 
         #endregion
 
@@ -90,7 +106,8 @@ namespace File.Manager
             // Create commands
             SelectItemCommand = new RelayCommand(OpenDirectoryItem, canExecuteCommand => this != null);
             IsCheckedCommand = new RelayCommand(() => _selectionChanged.ItemSelected(this), canExecuteCommand => this != null);
-
+            OpenItemPopupCommand = new RelayCommand(OpenPopup, canExecuteCommand => true);
+            CloseItemPopupCommand = new RelayCommand(ClosePopup, canExecuteCommand => true);
         }
 
         #endregion
@@ -133,6 +150,20 @@ namespace File.Manager
             }
         }
 
+        private void OpenPopup()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClosePopup()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Loads / opens a file
         /// </summary>
@@ -169,6 +200,10 @@ namespace File.Manager
 
             } catch (Exception) { }
         }
+
+        #endregion
+
+        #region Event Methods
 
         /// <summary>
         /// Called when this item is checked to reset this item as the currently checked item

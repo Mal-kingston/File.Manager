@@ -139,24 +139,27 @@ namespace File.Manager
             {
                 Items = new ObservableCollection<SideMenuItemControlViewModel>
                 {
-                    new SideMenuItemControlViewModel(selectionEvent)
-                    {
-                        IconType = IconType.Folder,
-                        DirectoryName = "GitHub",
-                        ViewType = ViewType.DirectoryView
-                    },
-                    new SideMenuItemControlViewModel(selectionEvent)
-                    {
-                        IconType = IconType.Folder,
-                        DirectoryName = "Freelance",
-                        ViewType = ViewType.DirectoryView
-                    },
-                    new SideMenuItemControlViewModel(selectionEvent)
-                    {
-                        IconType = IconType.Folder,
-                        DirectoryName = "Embedded System Design",
-                        ViewType = ViewType.DirectoryView
-                    },
+                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //{
+                    //    IconType = IconType.Folder,
+                    //    DirectoryName = "GitHub",
+                    //    ViewType = ViewType.DirectoryView,
+                    //    IsQuickAccessItem = true,
+                    //},
+                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //{
+                    //    IconType = IconType.Folder,
+                    //    DirectoryName = "Freelance",
+                    //    ViewType = ViewType.DirectoryView,
+                    //    IsQuickAccessItem = true,
+                    //},
+                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //{
+                    //    IconType = IconType.Folder,
+                    //    DirectoryName = "Embedded System Design",
+                    //    ViewType = ViewType.DirectoryView,
+                    //    IsQuickAccessItem = true,
+                    //},
                 }
             };
             // Main library

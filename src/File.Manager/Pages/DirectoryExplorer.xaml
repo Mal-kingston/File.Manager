@@ -29,6 +29,9 @@
             </ItemsControl>
         </ScrollViewer>
 
+
+        <local:DirectoryItemPopupControl VerticalAlignment="Center" />
+
         <!-- empty directory tag -->
         <TextBlock Text="- Empty directory -" Foreground="{DynamicResource BlueColorBrush}" Margin="0 60"
                    VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="{StaticResource Large}"

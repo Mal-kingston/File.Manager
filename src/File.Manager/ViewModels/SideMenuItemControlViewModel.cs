@@ -62,6 +62,11 @@ namespace File.Manager
         /// </summary>
         public bool IsSelected { get; set; }
 
+        /// <summary>
+        /// True if this item is marked as a quick access folder, otherwise false
+        /// </summary>
+        public bool IsQuickAccessItem { get; set; }
+
         #endregion
 
         #region Public Commands

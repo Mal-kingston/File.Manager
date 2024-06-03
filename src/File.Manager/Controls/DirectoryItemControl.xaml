@@ -108,6 +108,7 @@
         <ContentControl.InputBindings>
             <MouseBinding Command="{Binding SelectItemCommand}" MouseAction="LeftDoubleClick" />
             <MouseBinding Command="{Binding IsCheckedCommand}"  MouseAction="LeftClick" />
+            <MouseBinding Command="{Binding ItemPopupCommand}"  MouseAction="RightClick" />
         </ContentControl.InputBindings>
     </ContentControl>
     
