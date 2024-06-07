@@ -36,6 +36,8 @@ namespace File.Manager
         /// </summary>
         private ObservableCollection<DirectoryItemControlViewModel> _recentDirectories;
 
+        private DirectoryItemControlViewModel _directoryItemItemWithPopup;
+
         /// <summary>
         /// Selection changed event
         /// </summary>
@@ -110,6 +112,23 @@ namespace File.Manager
                 if (_recentDirectories != value)
                     // Set value 
                     _recentDirectories = value;
+                // Update properties
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Directory item pop-up data
+        /// </summary>
+        public DirectoryItemControlViewModel DirectoryItemItemWithPopup
+        {
+            get => _directoryItemItemWithPopup;
+            set
+            {
+                // If value are not the same...
+                if (_directoryItemItemWithPopup != value)
+                    // Set value 
+                    _directoryItemItemWithPopup = value;
                 // Update properties
                 OnPropertyChanged();
             }

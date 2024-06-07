@@ -28,8 +28,6 @@ namespace File.Manager
 
             // Clear history of navigated pages
             AppPageContainer.Navigated += (sender, e) => AppPageContainer.NavigationService.RemoveBackEntry();
-
         }
-
     }
 }

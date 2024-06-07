@@ -23,6 +23,7 @@ namespace File.Manager
         public SideMenuItemControl()
         {
             InitializeComponent();
+
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace File.Manager
         /// <summary>
         /// Event that gets fired when this item is selected
         /// </summary>
-        private readonly SelectionChangedEvent _selectionChanged;
+        private readonly SelectionChangedEvent _selectionChanged; 
 
         #endregion
 
@@ -86,11 +86,6 @@ namespace File.Manager
         /// </summary>
         public ICommand OpenItemPopupCommand { get; set; }
 
-        /// <summary>
-        /// Command to close a pop-up control associated with this item
-        /// </summary>
-        public ICommand CloseItemPopupCommand { get; set; }
-
         #endregion
 
         #region Constructor
@@ -107,7 +102,6 @@ namespace File.Manager
             SelectItemCommand = new RelayCommand(OpenDirectoryItem, canExecuteCommand => this != null);
             IsCheckedCommand = new RelayCommand(() => _selectionChanged.ItemSelected(this), canExecuteCommand => this != null);
             OpenItemPopupCommand = new RelayCommand(OpenPopup, canExecuteCommand => true);
-            CloseItemPopupCommand = new RelayCommand(ClosePopup, canExecuteCommand => true);
         }
 
         #endregion
@@ -150,14 +144,22 @@ namespace File.Manager
             }
         }
 
+        /// <summary>
+        /// Shows the pop-up menu
+        /// </summary>
         private void OpenPopup()
         {
-            throw new NotImplementedException();
-        }
+            // Mark the item with the pop-up
+            _selectionChanged.ItemSelected(this);
 
-        private void ClosePopup()
-        {
-            throw new NotImplementedException();
+            // Make sure this is a folder
+            if(Directory.Exists(FullPath) )
+            {
+                // Set new value
+                IsPopupItemOpen = IsChecked ? true : false;
+                // Update UI
+                OnPropertyChanged(nameof(IsPopupItemOpen));
+            }
         }
 
         #endregion
@@ -217,14 +219,25 @@ namespace File.Manager
 
             // Reset selection
             IsChecked = false;
+
+            // Reset pop-up each time
+            IsPopupItemOpen = false;
+            // Update UI
+            OnPropertyChanged(nameof(IsPopupItemOpen));
+
             // If current item is the currently item that user clicked on...
             if (DirectoryName.Equals(directoryItem?.DirectoryName))
+            {
                 // Mark is selected
                 IsChecked = true;
 
+                // Wire pop-up data
+                ServiceLocator.DirectoryExplorerVM.DirectoryItemItemWithPopup = directoryItem;
+                ServiceLocator.HomePageVM.DirectoryItemItemWithPopup = directoryItem;
+            }
+
             // Update property
             OnPropertyChanged(nameof(IsChecked));
-
         }
 
         #endregion

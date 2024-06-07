@@ -390,7 +390,6 @@ namespace File.Manager
 
             // Determines if we can navigate to parent directory
             CanNavigateToParent();
-
         }
 
         #endregion

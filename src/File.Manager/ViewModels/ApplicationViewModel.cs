@@ -85,5 +85,33 @@ namespace File.Manager
             //GridViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));
             //ListViewLayoutCommand = new RelayCommand(ViewLayout, canExecuteCommand:(o) => !this.Equals(null));
         }
+
+        /// <summary>
+        /// Resets any directory item that is checked or have it's pop up open
+        /// </summary>
+        public void ResetDirectoryItemPopupAndSelection()
+        {
+            // Make sure we have item to go through
+            if (ServiceLocator.DirectoryExplorerVM.Directories.Count > 0 || ServiceLocator.HomePageVM.RecentDirectories.Count > 0)
+            {
+                // Reset pop-up and checked items
+                ServiceLocator.DirectoryExplorerVM.Directories.ToList().ForEach(item =>
+                {
+                    item.IsChecked = false;
+                    item.IsPopupItemOpen = false;
+                    item.OnPropertyChanged(nameof(item.IsChecked));
+                    item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                });
+
+                // Reset pop-up and checked items
+                ServiceLocator.HomePageVM.RecentDirectories.ToList().ForEach(item =>
+                {
+                    item.IsChecked = false;
+                    item.IsPopupItemOpen = false;
+                    item.OnPropertyChanged(nameof(item.IsChecked));
+                    item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                });
+            }
+        }
     }
 }

@@ -9,8 +9,9 @@
       Title="DirectoryExplorer">
 
     <Grid >
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{Binding Directories}">
+
+        <ScrollViewer x:Name="DirectoryItem" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
+            <ItemsControl Name="ListOfDirectoryItem" ItemsSource="{Binding Directories}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" />
@@ -23,18 +24,25 @@
                                                     LastModifyDateTime="{Binding LastDateModified}" 
                                                     Icon="{Binding IconType}"
                                                     FileType="{Binding DirectoryItemType}" 
-                                                    FileSize="{Binding SizeOfDirectoryItem}" />
+                                                    FileSize="{Binding SizeOfDirectoryItem}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
 
+        <!--pop-up-->
+        <Canvas x:Name="PopupControlContainer" DataContext="{Binding DirectoryItemItemWithPopup}" 
+                Visibility="{Binding IsPopupItemOpen, UpdateSourceTrigger=PropertyChanged, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
 
-        <local:DirectoryItemPopupControl VerticalAlignment="Center" />
+            <!--pop-up control-->
+            <local:DirectoryItemPopupControl x:Name="PopupControl"
+                                             IsVisibleChanged="DirectoryItemPopupControl_IsVisibleChanged" />
+        </Canvas>
 
         <!-- empty directory tag -->
         <TextBlock Text="- Empty directory -" Foreground="{DynamicResource BlueColorBrush}" Margin="0 60"
                    VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="{StaticResource Large}"
                    Visibility="{Binding IsDirectoryEmpty, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
+
     </Grid>
 </Page>

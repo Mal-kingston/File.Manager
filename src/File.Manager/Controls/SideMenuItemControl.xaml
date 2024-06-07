@@ -76,7 +76,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Border>
+    <Border >
         <!--actual control-->
         <RadioButton Style="{StaticResource SideMenuItemStyle}" IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" 
                      Command="{Binding IsSelectedCommand}" CommandParameter="{Binding}"/>

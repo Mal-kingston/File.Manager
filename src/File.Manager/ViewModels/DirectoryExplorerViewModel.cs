@@ -16,6 +16,11 @@ namespace File.Manager
         private ObservableCollection<DirectoryItemControlViewModel> _directories;
 
         /// <summary>
+        /// The directory item whose pop-up menu is open
+        /// </summary>
+        private DirectoryItemControlViewModel _directoryItemItemWithPopup;
+
+        /// <summary>
         /// Event to fire when <see cref="DirectoryItemControlViewModel"/> item is selected
         /// </summary>
         private SelectionChangedEvent _selectionChangedEvent;
@@ -44,6 +49,21 @@ namespace File.Manager
         }
 
         /// <summary>
+        /// Directory item Popup data
+        /// </summary>
+        public DirectoryItemControlViewModel DirectoryItemItemWithPopup
+        {
+            get => _directoryItemItemWithPopup;
+            set
+            {
+                if(_directoryItemItemWithPopup != value)
+                    _directoryItemItemWithPopup = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// True if directory is empty, otherwise false
         /// </summary>
         public bool IsDirectoryEmpty => _directories.Count == 0;
@@ -65,6 +85,7 @@ namespace File.Manager
             // Set defaults
             _selectionChangedEvent = new SelectionChangedEvent();
             _directories = new ObservableCollection<DirectoryItemControlViewModel>();
+            _directoryItemItemWithPopup = new DirectoryItemControlViewModel(_selectionChangedEvent);
         }
 
         #endregion

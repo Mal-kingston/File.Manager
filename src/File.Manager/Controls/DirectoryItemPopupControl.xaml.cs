@@ -23,6 +23,12 @@ namespace File.Manager
         public DirectoryItemPopupControl()
         {
             InitializeComponent();
+
+            LostFocus += (s, e) =>
+            {
+                // Reset any existing popup or selected directory item
+                ServiceLocator.AppViewModel.ResetDirectoryItemPopupAndSelection();
+            };
         }
     }
 }
