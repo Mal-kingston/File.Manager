@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="File.Manager.SideMenuItemCollectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             Name="SideMenuItemCollection"
+             d:Background="{StaticResource BlueColorBrush}" d:Width="300"
+             DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <!--header-->
+            <RowDefinition Height="Auto"/>
+            <!--menu content-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--header-->
+        <Label Grid.Row="0" Content="{Binding Header, ElementName=SideMenuItemCollection, FallbackValue=Header}" Margin="26 4 4 0"
+               FontWeight="DemiBold" Foreground="{DynamicResource UltraLightBlueColorBrush}" />
+        
+        <!--items layout-->
+        <Grid Grid.Row="1" x:Name="ItemsLayout" Background="{DynamicResource BlueColorBrush}"
+              Tag="{Binding IsQuickAccessCollection, ElementName=SideMenuItemCollection}">
+
+            <!--empty quick access tag--> 
+            <Label Content="Empty quick access items" FontSize="{StaticResource XSmall}" Foreground="{DynamicResource UltraLightBlueColorBrush}"
+                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 8"
+                   Visibility="{Binding IsQuickAccessCollection, ElementName=SideMenuItemCollection, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
+
+            <!--items-->
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:SideMenuItemControl ShowTag="{Binding Tag, ElementName=ItemsLayout, FallbackValue=false}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+    </Grid>
+</UserControl>

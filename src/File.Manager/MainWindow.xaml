@@ -1,0 +1,71 @@
+﻿<local:CustomMainWindow x:Class="File.Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:File.Manager"
+        mc:Ignorable="d"
+        Height="850" Width="1280" 
+        d:DesignStyle="{StaticResource CustomMainWindowStyle}" 
+        Icon="/.Resources/Images/appIcon.ico" 
+        WindowStartupLocation="CenterScreen" >
+
+    <!--window content outline-->
+    <Grid Margin="10 6 10 0"
+          Background="{DynamicResource WhiteColorBrush}">
+
+        <Grid.RowDefinitions>
+            <!--navigation and path-->
+            <RowDefinition Height="Auto" />
+            <!--directory title and view format-->
+            <RowDefinition Height="Auto" />
+            <!--app pages-->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--navigation and path-->
+        <Grid Grid.Row="0" Height="40" Margin="0 10">
+
+            <!--navigation bar-->
+            <local:NavigationBarControl />
+
+        </Grid>
+
+        <!--directory title and view format-->
+        <Grid Grid.Row="1">
+            <!--directory title-->
+            <TextBlock Text="{Binding CurrentPage, Converter={x:Static local:ApplicationPageTitleConverter.Instance},
+                       Source={x:Static local:ServiceLocator.AppViewModel}, UpdateSourceTrigger=PropertyChanged}"
+                       d:Text="Home"
+                       FontSize="{StaticResource XLarge}" Margin="12 0" Height="40"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Medium" Foreground="{DynamicResource BlueColorBrush}" />
+            <!--view format-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Margin="0 0 0 0" >
+                <RadioButton Content="{StaticResource ListIcon}"
+                             IsChecked="True" Margin="0 0 4 0" Style="{StaticResource ViewFormatStyle}" />
+                <RadioButton Content="{StaticResource GridIcon}" Margin="4 0 0 0" Style="{StaticResource ViewFormatStyle}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--#region Application page-->
+        
+        <!--design-time app current page-->
+        <d:Frame Grid.Row="2" Margin="0 8"
+                 Content="{Binding CurrentPage, Converter={x:Static local:MainWindowContentDesignTimeData.DesignInstance},
+                 Source={x:Static local:MainWindowContentDesignTimeData.DesignTimeAppViewModel}}"
+                 NavigationUIVisibility="Hidden" />
+
+        <!--app current page-->
+        <Frame x:Name="AppPageContainer" Grid.Row="2" Margin="0 8" 
+               Content="{Binding CurrentPage, Converter={x:Static local:ApplicationPageConverter.Instance},
+               Source={x:Static local:ServiceLocator.AppViewModel}}"
+               NavigationUIVisibility="Hidden" />
+
+        <!--#endregion -->
+
+    </Grid>
+
+</local:CustomMainWindow>

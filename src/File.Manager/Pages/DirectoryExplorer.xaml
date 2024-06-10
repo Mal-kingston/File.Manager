@@ -1,0 +1,48 @@
+﻿<Page x:Class="File.Manager.DirectoryExplorer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:File.Manager"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DirectoryExplorer">
+
+    <Grid >
+
+        <ScrollViewer x:Name="DirectoryItem" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
+            <ItemsControl Name="ListOfDirectoryItem" ItemsSource="{Binding Directories}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                        <!--folders / directories-->
+                        <local:DirectoryItemControl Height="40" DirectoryName="{Binding DirectoryName}" 
+                                                    LastModifyDateTime="{Binding LastDateModified}" 
+                                                    Icon="{Binding IconType}"
+                                                    FileType="{Binding DirectoryItemType}" 
+                                                    FileSize="{Binding SizeOfDirectoryItem}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!--pop-up--> 
+        <Canvas x:Name="PopupControlContainer" DataContext="{Binding DirectoryItemItemWithPopup}" 
+                Visibility="{Binding IsPopupItemOpen, UpdateSourceTrigger=PropertyChanged, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+
+            <!--pop-up control-->
+            <local:DirectoryItemPopupControl x:Name="PopupControl" 
+                                             IsVisibleChanged="DirectoryItemPopupControl_IsVisibleChanged" />
+        </Canvas>
+
+        <!-- empty directory tag -->
+        <TextBlock Text="- Empty directory -" Foreground="{DynamicResource BlueColorBrush}" Margin="0 60"
+                   VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="{StaticResource Large}"
+                   Visibility="{Binding IsDirectoryEmpty, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
+
+    </Grid>
+</Page>

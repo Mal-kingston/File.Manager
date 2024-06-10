@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="File.Manager.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             d:DesignHeight="950" d:DesignWidth="250" 
+             d:Background="{StaticResource BlueColorBrush}" >
+
+    <ScrollViewer x:Name="ScrollViewer" Grid.Row="1"
+                  HorizontalScrollBarVisibility="Disabled" 
+                  VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--overview-->
+            <Border Grid.Row="0" Margin="0 0 0 30">
+                <local:SideMenuItemCollectionControl Header="Overview" 
+                                                     DataContext="{Binding OverViewItems}" 
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
+            </Border>
+            <!--quick access-->
+            <Border Grid.Row="1" Margin="0 0 0 30" >
+                <local:SideMenuItemCollectionControl Header="Quick access" 
+                                                     DataContext="{Binding QuickAccessItems}" IsQuickAccessCollection="True"
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
+            </Border>
+            <!--main library-->
+            <Border Grid.Row="2" Margin="0 0 0 0" >
+                <local:SideMenuItemCollectionControl Header="Main library" 
+                                                     DataContext="{Binding MainLibraryItems}" 
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
+            </Border>
+            <!--drives-->
+            <Border Grid.Row="3" Margin="0 30 0 0" >
+                <local:SideMenuItemCollectionControl Header="Drives and devices"
+                                                     DataContext="{Binding DrivesItems}"
+                                                     d:DataContext="{x:Static local:SideMenuItemCollectionControlDesignModel.Instance}"/>
+            </Border>
+            
+            <!--fills in and serves as a background to a transparent scrollviewer whenever it is active, But collapses whenever scrollviewer is inactive-->
+            <Border x:Name="RightBorder" Background="{DynamicResource BlueColorBrush}" 
+                    Width="10" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Right" Visibility="Collapsed" />
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

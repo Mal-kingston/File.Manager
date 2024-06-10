@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="File.Manager.DriveOverviewFileTypesAndSizesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             Height="40" d:DesignWidth="800"
+             Name="DriveOverviewFileTypesAndSizes">
+
+    <!--control outline-->
+    <Border Background="{DynamicResource WhiteColorBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <!--file type icon-->
+                <ColumnDefinition Width="Auto" />
+                <!--file type label-->
+                <ColumnDefinition Width="*" />
+                <!--total space file type is occupying on drive-->
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--file type icon-->
+            <Border Grid.Column="0" >
+                <Label Content="{Binding Icon, ElementName=DriveOverviewFileTypesAndSizes, Converter={x:Static local:IconTypeConverter.Instance}, FallbackValue=Music}" FontFamily="{StaticResource FontAwesomeSolid}" 
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="20 0" 
+                       Foreground="{DynamicResource BlueColorBrush}"
+                       FontSize="{StaticResource Small}" />
+            </Border>
+            <!--file type label-->
+            <Border Grid.Column="1" >
+                <Label Content="{Binding FileTypeName, ElementName=DriveOverviewFileTypesAndSizes, FallbackValue=Music}" HorizontalAlignment="Left" VerticalContentAlignment="Center" 
+                        Padding="20 0" Foreground="{DynamicResource BlueColorBrush}"
+                        FontSize="{StaticResource XSmall}" />
+            </Border>
+
+            <!--line integrated for design purpose-->
+            <Border Grid.Column="1" Grid.ColumnSpan="2" Background="{DynamicResource BlueColorBrush}" Height="1"
+                            Margin="20 20 20 0"/>
+
+            <!--total space file type is occupying on drive-->
+            <Border Grid.Column="2" >
+                <Label Content="{Binding OccupiedSpaceSize, ElementName=DriveOverviewFileTypesAndSizes, FallbackValue=120.87 GB}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="{DynamicResource BlueColorBrush}" Padding="20 0" 
+                       FontSize="{StaticResource XSmall}" />
+            </Border>
+            
+        </Grid>    
+    </Border>
+</UserControl>

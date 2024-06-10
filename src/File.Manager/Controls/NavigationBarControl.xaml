@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="File.Manager.NavigationBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d"
+             d:DesignWidth="950">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!--navigation buttons-->
+            <ColumnDefinition Width="Auto" />
+            <!--search bar-->
+            <!--separator-->
+            <ColumnDefinition Width="Auto" />
+            <!--path icon-->
+            <!--path-->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!--navigation buttons-->
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <Button Content="{StaticResource ArrowLeftIcon}"
+                    Width="40" Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavigateToPreviousPageCommand}"/>
+            <Button Content="{StaticResource ArrowRightIcon}" 
+                    Width="40" Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavigateToNextPageCommand}"/>
+            <Button Content="{StaticResource ArrowUpIcon}" 
+                    Width="40" Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavigateToParentDirectoryCommand}"/>
+            <!--search button-->
+            <Button Content="{Binding SearchButtonIconType, Converter={x:Static local:IconTypeConverter.Instance}, FallbackValue=Search}" 
+                    Width="40" Style="{StaticResource NavigationButtonStyle}" Focusable="False"
+                    Command="{Binding SearchBarCommand}"/>
+
+        </StackPanel>
+        
+        <!--search bar-->
+        <local:SearchBarControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="3"
+                                d:Visibility="Collapsed" Margin="10 0 0 0"
+                                Visibility="{Binding IsSearchBarOpen, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}" />
+
+        <!--separator-->
+        <Border Grid.Column="1" Background="{DynamicResource BlueColorBrush}" VerticalAlignment="Center"
+                Width="1.5" Height="26" Margin="12 0" Opacity="0.6" 
+                Visibility="{Binding IsSearchBarOpen, Converter={x:Static local:BooleanToVisibilityConverter.Instance}, ConverterParameter=Invert}" />
+
+        <!--path icon-->
+        <!--path-->
+        <Grid Grid.Column="2" HorizontalAlignment="Stretch"
+              Visibility="{Binding IsSearchBarOpen, Converter={x:Static local:BooleanToVisibilityConverter.Instance}, ConverterParameter=Invert}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--path icon-->
+            <Button Grid.Column="0" Content="{StaticResource ThisPCIcon}" Style="{StaticResource NavigationHomeButtonStyle}"
+                    Width="40" Margin="0 0 8 0" HorizontalAlignment="Left" />
+
+            <!--path-->
+            <ScrollViewer x:Name="PathScrollViewer" Grid.Column="1" Margin="0" ScrollChanged="ScrollViewer_ScrollChanged"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+
+                <!--path to directory-->
+                <ItemsControl ItemsSource="{Binding CurrentDirectoryFullPath}"
+                          HorizontalAlignment="Left" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:NavigationBarPathItemControl HorizontalAlignment="Left" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </Grid>
+        
+    </Grid>
+</UserControl>

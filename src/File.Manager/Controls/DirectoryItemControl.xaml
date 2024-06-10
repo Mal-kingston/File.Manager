@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="File.Manager.DirectoryItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:File.Manager"
+             mc:Ignorable="d" 
+             Name="DirectoryItem"
+             d:DesignHeight="40" d:DesignWidth="800" >
+
+    <UserControl.Resources>
+        
+        <!--directory item control style--> 
+        <Style x:Key="DirectoryItemStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Background" Value="{DynamicResource WhiteColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource BlueColorBrush}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        
+                        <!--control outline-->
+                        <Border Background="{TemplateBinding Background}">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <!--directory item icon-->
+                                    <ColumnDefinition Width="Auto" />
+                                    <!--directory item name-->
+                                    <ColumnDefinition Width="*" />
+                                    <!--latest date and time this directory was modified-->
+                                    <ColumnDefinition MaxWidth="180" />
+                                    <!--directory item type-->
+                                    <ColumnDefinition MaxWidth="120" />
+                                    <!--size of this directory-->
+                                    <ColumnDefinition MaxWidth="100" />
+                                    <!--dummy space-->
+                                    <ColumnDefinition MaxWidth="40" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--directory item icon-->
+                                <Border Grid.Column="0" Padding="4" Margin="20 0" >
+                                    <TextBlock x:Name="FolderIcon" Text="{Binding Icon, ElementName=DirectoryItem, FallbackValue=Folder, Converter={x:Static local:IconTypeConverter.Instance}}" 
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.9"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                </Border>
+
+                                <!--directory item name-->
+                                <Border Grid.Column="1" HorizontalAlignment="Left"
+                                        Padding="4" Margin="20 0">
+                                    <TextBlock x:Name="DirectoryName" Text="{Binding DirectoryName, ElementName=DirectoryItem}" d:Text="Chronical.Journal" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                </Border>
+
+                                <!--latest date and time this directory was modified-->
+                                <Border Grid.Column="2" Padding="4" Margin="10 0">
+                                    <TextBlock Text="{Binding LastModifyDateTime, ElementName=DirectoryItem}" d:Text="3.10.2024 4:48 PM" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                </Border>
+
+                                <!--directory item type-->
+                                <Border Grid.Column="3" Padding="4" Margin="10 0">
+                                    <TextBlock Text="{Binding FileType, ElementName=DirectoryItem}"  d:Text="File folder" 
+                                               VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" 
+                                               ToolTipOpening="TextBlock_ToolTipOpening">
+                                        <TextBlock.ToolTip>
+                                            <ToolTip Content="{Binding DirectoryItemType}"
+                                                     HorizontalContentAlignment="Center"
+                                                     Placement="Center"
+                                                     Width="Auto"
+                                                     Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}"
+                                                     BorderBrush="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                </Border>
+
+                                <!--size of this directory-->
+                                <Border Grid.Column="4" Padding="4" Margin="10 0">
+                                    <TextBlock Text="{Binding FileSize, ElementName=DirectoryItem}" d:Text="385.22 MB" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                               Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource Small}" />
+                                </Border>
+                                
+                                <!--dumm space--> 
+                                <Border Grid.Column="5" Padding="4" Margin="10 0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" >
+                                <Setter Property="Background" Value="{DynamicResource UltraLightBlueColorBrush}" />
+                            </Trigger>
+                            
+                            <DataTrigger Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BlueColorBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource WhiteColorBrush}" />
+                            </DataTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+    </UserControl.Resources>
+
+    <!--actual control-->
+    <ContentControl Style="{StaticResource DirectoryItemStyle}" >
+        <ContentControl.InputBindings>
+            <MouseBinding Command="{Binding SelectItemCommand}" MouseAction="LeftDoubleClick" />
+            <MouseBinding Command="{Binding IsCheckedCommand}"  MouseAction="LeftClick" />
+            <MouseBinding Command="{Binding OpenItemPopupCommand}"  MouseAction="RightClick" />
+        </ContentControl.InputBindings>
+    </ContentControl>
+    
+</UserControl>
