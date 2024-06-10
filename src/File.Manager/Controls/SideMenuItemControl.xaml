@@ -46,11 +46,11 @@
                                     </TextBlock.RenderTransform>
                                 </TextBlock>
                                 <!--directory modifier-->
-                                <Button Grid.Column="3" Content="{StaticResource VerticalDotsIcon}" 
+                                <Button Grid.Column="3" Content="{StaticResource WindowMinimizeButtonIcon}" 
                                         FontFamily="{StaticResource FontAwesomeSolid}" 
-                                        Foreground="{TemplateBinding Foreground}" Margin="8 0 -4 0" VerticalAlignment="Center"
+                                        Foreground="{TemplateBinding Foreground}" Margin="10 0 -4 0" VerticalAlignment="Center"
                                         Style="{StaticResource DirectoryControlModifyButtonStyle}" 
-                                        Command="{Binding EditCommand}" d:Opacity="1"
+                                        Command="{Binding RemoveQuickAccessItemCommand}" d:Opacity="1" 
                                         Visibility="{Binding IsQuickAccessItem, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
 
                             </Grid>
@@ -79,7 +79,7 @@
     <Border >
         <!--actual control-->
         <RadioButton Style="{StaticResource SideMenuItemStyle}" IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" 
-                     Command="{Binding IsSelectedCommand}" CommandParameter="{Binding}"/>
+                        Command="{Binding IsSelectedCommand}" CommandParameter="{Binding}"/>
     </Border>
 
 </UserControl>

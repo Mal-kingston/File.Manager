@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:File.Manager"
              mc:Ignorable="d" Width="170" Height="202"
-             Focusable="True">
+             Focusable="True"
+             x:Name="PopupControl">
     
     <Border Background="{DynamicResource LightBlueColorBrush}" BorderBrush="{x:Null}">
 
@@ -21,17 +22,20 @@
             </Border.Effect>
 
 
+            <!--Popup menu buttons-->
             <StackPanel Orientation="Vertical" >
                 
-                <Button Content="Open" Style="{StaticResource PopupButtonStyle}"/>
-                <Button Content="Rename" Style="{StaticResource PopupButtonStyle}"/>
-                <Button Content="New folder" Style="{StaticResource PopupButtonStyle}"/>
+                <Button Content="Open" Style="{StaticResource PopupButtonStyle}"
+                        Command="{Binding OpenDirectoryCommand}" Focusable="False"/>
+                <Button Content="Rename" Style="{StaticResource PopupButtonStyle}" Focusable="False"/>
+                <Button Content="New folder" Style="{StaticResource PopupButtonStyle}" Focusable="False"/>
 
                 <Border Background="{StaticResource DisabledButtonColorBrush}" Height="1" HorizontalAlignment="Stretch"
                         Margin="0 8"/>
 
-                <Button Content="Pin to quick access" Style="{StaticResource PopupButtonStyle}"/>
-                <Button Content="Delete" Style="{StaticResource PopupButtonStyle}"/>
+                <Button Content="Pin to quick access" Style="{StaticResource PopupButtonStyle}" Focusable="False"
+                        Command="{Binding PinToQuickAccessCommand}"/>
+                <Button Content="Delete" Style="{StaticResource PopupButtonStyle}" Focusable="False"/>
             </StackPanel>
 
         </Border>

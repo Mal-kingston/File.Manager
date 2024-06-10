@@ -30,12 +30,12 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!--pop-up-->
+        <!--pop-up--> 
         <Canvas x:Name="PopupControlContainer" DataContext="{Binding DirectoryItemItemWithPopup}" 
                 Visibility="{Binding IsPopupItemOpen, UpdateSourceTrigger=PropertyChanged, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
 
             <!--pop-up control-->
-            <local:DirectoryItemPopupControl x:Name="PopupControl"
+            <local:DirectoryItemPopupControl x:Name="PopupControl" 
                                              IsVisibleChanged="DirectoryItemPopupControl_IsVisibleChanged" />
         </Canvas>
 

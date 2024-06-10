@@ -34,6 +34,11 @@ namespace File.Manager
         #region Public Properties
 
         /// <summary>
+        /// Event that fires when this item is selected
+        /// </summary>
+        public SelectionChangedEvent SelectionEvent { get; set; }
+
+        /// <summary>
         /// Overview items
         /// </summary>
         public SideMenuItemCollectionControlViewModel OverViewItems 
@@ -115,7 +120,7 @@ namespace File.Manager
         public SideMenuControlViewModel()
         {
             // Required objects
-            SelectionChangedEvent selectionEvent = new SelectionChangedEvent();
+            SelectionEvent = new SelectionChangedEvent();
 
             #region Properties defaults
 
@@ -125,7 +130,7 @@ namespace File.Manager
             {
                 Items = new ObservableCollection<SideMenuItemControlViewModel>
                 {
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Home,
                         DirectoryName = "Home", 
@@ -139,21 +144,21 @@ namespace File.Manager
             {
                 Items = new ObservableCollection<SideMenuItemControlViewModel>
                 {
-                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //new SideMenuItemControlViewModel(SelectionEvent)
                     //{
                     //    IconType = IconType.Folder,
                     //    DirectoryName = "GitHub",
                     //    ViewType = ViewType.DirectoryView,
                     //    IsQuickAccessItem = true,
                     //},
-                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //new SideMenuItemControlViewModel(SelectionEvent)
                     //{
                     //    IconType = IconType.Folder,
                     //    DirectoryName = "Freelance",
                     //    ViewType = ViewType.DirectoryView,
                     //    IsQuickAccessItem = true,
                     //},
-                    //new SideMenuItemControlViewModel(selectionEvent)
+                    //new SideMenuItemControlViewModel(SelectionEvent)
                     //{
                     //    IconType = IconType.Folder,
                     //    DirectoryName = "Embedded System Design",
@@ -167,42 +172,42 @@ namespace File.Manager
             {
                 Items = new ObservableCollection<SideMenuItemControlViewModel>
                 {
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Desktop",
                         DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Desktop),
                         ViewType = ViewType.DirectoryView
                     },
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Folder,
                         DirectoryName = "Documents",
                         DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Documents),
                         ViewType = ViewType.DirectoryView
                     },
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Downloads,
                         DirectoryName = "Downloads",
                         DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Downloads),
                         ViewType = ViewType.DirectoryView
                     },
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Pictures,
                         DirectoryName = "Pictures",
                         DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Pictures),
                         ViewType = ViewType.DirectoryView
                     },
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Videos,
                         DirectoryName = "Videos",
                         DirectoryFullPath = DirectoryHelper.GetDefaultDirectoryPath(DefaultDirectoryType.Videos),
                         ViewType = ViewType.DirectoryView
                     },
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Music,
                         DirectoryName = "Music",
@@ -216,7 +221,7 @@ namespace File.Manager
             {
                 Items = new ObservableCollection<SideMenuItemControlViewModel>
                 {
-                    new SideMenuItemControlViewModel(selectionEvent)
+                    new SideMenuItemControlViewModel(SelectionEvent)
                     {
                         IconType = IconType.Drives,
                         DirectoryName = "Storage",

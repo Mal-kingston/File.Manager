@@ -30,5 +30,6 @@ namespace File.Manager
                 ServiceLocator.AppViewModel.ResetDirectoryItemPopupAndSelection();
             };
         }
+
     }
 }

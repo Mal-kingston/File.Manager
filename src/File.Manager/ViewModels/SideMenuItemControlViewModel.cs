@@ -75,7 +75,7 @@ namespace File.Manager
         /// Modifies this directory item properties
         /// [ Rename | Change directory icon | Pin or unpin from quick-access collection ]
         /// </summary>
-        public ICommand EditCommand { get; set; }
+        public ICommand RemoveQuickAccessItemCommand { get; set; }
 
         /// <summary>
         /// Command to initiate the selection of this item
@@ -102,7 +102,7 @@ namespace File.Manager
             _selectionEvent.SelectionChanged += OnSelectionChanged;
 
             // Create commands
-            EditCommand = new RelayCommand(EditDirectory, canExecuteCommand => this != null);
+            RemoveQuickAccessItemCommand = new RelayCommand(UnpinQuickAccessItem, canExecuteCommand => this != null);
             IsSelectedCommand = new RelayCommand((parameter) => 
             {
                 GotoSelectedPage((SideMenuItemControlViewModel)parameter);
@@ -115,13 +115,9 @@ namespace File.Manager
         #region Command Methods
 
         /// <summary>
-        /// Modifies this directory item properties
-        /// [ Rename | Change directory icon | Pin or unpin from quick-access collection ]
+        /// Unpin this item from quick-access collection ]
         /// </summary>
-        private void EditDirectory()
-        {
-            throw new NotImplementedException();
-        }
+        private void UnpinQuickAccessItem() => ServiceLocator.SideMenuControlVM.QuickAccessItems.Items.Remove(this);
 
         /// <summary>
         /// Goes to page that the selected object points to
@@ -155,7 +151,6 @@ namespace File.Manager
                 default:
                     throw new Exception("Application page not found");
             }
-
         }
 
         #endregion
@@ -171,12 +166,8 @@ namespace File.Manager
             // Cast sender as directory control view-model
             var directory = (sender as SideMenuItemControlViewModel);
 
-            // Reset selection
-            IsSelected = false;
-            // If current item is the currently item that user clicked on...
-            if (DirectoryName.Equals(directory?.DirectoryName))
-                // Mark is selected
-                IsSelected = true;
+            // If this item is selected, mark it as selected, otherwise make sure it is not marked as selected
+            IsSelected = directory == this ? IsSelected = true : IsSelected = false;
 
             // Update property
             OnPropertyChanged(nameof(IsSelected));

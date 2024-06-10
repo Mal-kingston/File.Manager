@@ -97,19 +97,25 @@ namespace File.Manager
                 // Reset pop-up and checked items
                 ServiceLocator.DirectoryExplorerVM.Directories.ToList().ForEach(item =>
                 {
-                    item.IsChecked = false;
-                    item.IsPopupItemOpen = false;
-                    item.OnPropertyChanged(nameof(item.IsChecked));
-                    item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                    if(item.IsPopupItemOpen && item.IsChecked)
+                    {
+                        item.IsChecked = false;
+                        item.IsPopupItemOpen = false;
+                        item.OnPropertyChanged(nameof(item.IsChecked));
+                        item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                    }
                 });
 
                 // Reset pop-up and checked items
                 ServiceLocator.HomePageVM.RecentDirectories.ToList().ForEach(item =>
                 {
-                    item.IsChecked = false;
-                    item.IsPopupItemOpen = false;
-                    item.OnPropertyChanged(nameof(item.IsChecked));
-                    item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                    if (item.IsPopupItemOpen && item.IsChecked)
+                    {
+                        item.IsChecked = false;
+                        item.IsPopupItemOpen = false;
+                        item.OnPropertyChanged(nameof(item.IsChecked));
+                        item.OnPropertyChanged(nameof(item.IsPopupItemOpen));
+                    }
                 });
             }
         }

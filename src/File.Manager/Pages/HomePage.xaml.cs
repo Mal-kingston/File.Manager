@@ -40,6 +40,7 @@ namespace File.Manager
                 if(TabControl.SelectedIndex.Equals(-1))
                     TabControl.SelectedIndex = 0;
             };
+
         }
 
         /// <summary>

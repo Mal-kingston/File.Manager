@@ -86,10 +86,24 @@ namespace File.Manager
         /// </summary>
         public ICommand OpenItemPopupCommand { get; set; }
 
+        /// <summary>
+        /// Command to open a folder
+        /// </summary>
+        public  ICommand OpenDirectoryCommand { get; set; }
+
+        /// <summary>
+        /// Command to set a folder as a quick access 
+        /// </summary>
+        public  ICommand PinToQuickAccessCommand { get; set; }
+
         #endregion
 
         #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="selectionChanged">Event that gets fired when this item is selected</param>
         public DirectoryItemControlViewModel(SelectionChangedEvent selectionChanged)
         {
             // Set defaults 
@@ -102,6 +116,8 @@ namespace File.Manager
             SelectItemCommand = new RelayCommand(OpenDirectoryItem, canExecuteCommand => this != null);
             IsCheckedCommand = new RelayCommand(() => _selectionChanged.ItemSelected(this), canExecuteCommand => this != null);
             OpenItemPopupCommand = new RelayCommand(OpenPopup, canExecuteCommand => true);
+            OpenDirectoryCommand = new RelayCommand(OpenDirectoryItem, canExecuteCommand => this != null);
+            PinToQuickAccessCommand = new RelayCommand(PinToQuickAccess, canExecuteCommand => this != null);
         }
 
         #endregion
@@ -113,6 +129,14 @@ namespace File.Manager
         /// </summary>
         private void OpenDirectoryItem()
         {
+            // Reset any open pop-up or checked item
+            IsChecked = false;
+            IsPopupItemOpen = false;
+
+            // Update UI
+            OnPropertyChanged(nameof(IsChecked));
+            OnPropertyChanged(nameof(IsPopupItemOpen));
+            
             // TODO: Handle opening and extracting a zipped folder
 
             // If full path is not of type directory...
@@ -160,6 +184,36 @@ namespace File.Manager
                 // Update UI
                 OnPropertyChanged(nameof(IsPopupItemOpen));
             }
+        }
+
+        /// <summary>
+        /// Add this item to quick access
+        /// </summary>
+        private void PinToQuickAccess()
+        {
+            // Reset any open pop-up or checked item
+            IsChecked = false;
+            IsPopupItemOpen = false;
+
+            // Update UI
+            OnPropertyChanged(nameof(IsChecked));
+            OnPropertyChanged(nameof(IsPopupItemOpen));
+
+            // Get information about this item's full-path 
+            DirectoryInfo directoryInfo = new DirectoryInfo(FullPath);
+
+            // Get side menu
+            SideMenuControlViewModel sideMenuViewModel = ServiceLocator.SideMenuControlVM;
+
+            // Add this item to quick access
+            sideMenuViewModel.QuickAccessItems.Items.Add(new SideMenuItemControlViewModel(sideMenuViewModel.SelectionEvent)
+            {
+                DirectoryFullPath = FullPath,
+                DirectoryName = directoryInfo.Name,
+                IsQuickAccessItem = true, 
+                IconType = IconType,
+                ViewType = ViewType.DirectoryView
+            });
         }
 
         #endregion

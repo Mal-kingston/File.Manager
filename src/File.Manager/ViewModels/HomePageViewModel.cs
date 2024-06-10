@@ -151,9 +151,10 @@ namespace File.Manager
             // Set field defaults
             _tabs = new ObservableCollection<TabItemModel>();
             _driveBarControlVM = new DriveBarControlViewModel();
-            _driveFilesAnalysis = new ObservableCollection<DriveStorageAnalysisViewModel>();
-            _recentDirectories = new ObservableCollection<DirectoryItemControlViewModel>();
             _selectionChangedEvent = new SelectionChangedEvent();
+            _recentDirectories = new ObservableCollection<DirectoryItemControlViewModel>();
+            _driveFilesAnalysis = new ObservableCollection<DriveStorageAnalysisViewModel>();
+            _directoryItemItemWithPopup = new DirectoryItemControlViewModel(_selectionChangedEvent);
 
             // Sets up logical drive
             SetupLogicalDriveUsedAndUnUsedSpaces();

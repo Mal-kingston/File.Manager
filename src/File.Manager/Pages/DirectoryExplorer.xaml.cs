@@ -24,7 +24,7 @@ namespace File.Manager
         public DirectoryExplorer()
         {
             InitializeComponent();
-            
+
             // Data-context
             DataContext = ServiceLocator.DirectoryExplorerVM;
         }
