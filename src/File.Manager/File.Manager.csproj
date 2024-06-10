@@ -10,6 +10,7 @@
     <StartupObject>File.Manager.App</StartupObject>
     <UseWindowsForms>False</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>.Resources\Images\appIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,6 +53,7 @@
     <Resource Include=".Resources\Images\appIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include=".Resources\Images\appIcon.ico" />
     <Content Include=".Resources\MockUp.Design\App UI\File Manager UI This PC page.png" />
     <Content Include=".Resources\MockUp.Design\App UI\File Manager UI.png" />
   </ItemGroup>

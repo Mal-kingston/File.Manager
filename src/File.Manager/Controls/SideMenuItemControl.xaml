@@ -52,7 +52,6 @@
                                         Style="{StaticResource DirectoryControlModifyButtonStyle}" 
                                         Command="{Binding RemoveQuickAccessItemCommand}" d:Opacity="1" 
                                         Visibility="{Binding IsQuickAccessItem, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"/>
-
                             </Grid>
 
                         </Border>

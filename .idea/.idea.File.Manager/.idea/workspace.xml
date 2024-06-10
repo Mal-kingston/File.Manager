@@ -11,18 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e47f2bc3-2fbe-4ee2-9acb-1ff9ec086920" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.File.Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.File.Manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Controls/DirectoryItemControl.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Controls/DirectoryItemControl.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Controls/DirectoryItemControl.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Controls/DirectoryItemControl.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Events/SelectionChangedEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Events/SelectionChangedEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Helpers/DirectoryHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Helpers/DirectoryHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Pages/DirectoryExplorer.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Pages/DirectoryExplorer.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Pages/DrivesAndDevicesPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Pages/DrivesAndDevicesPage.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/Services/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Services/NavigationService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/ViewModels/DirectoryExplorerViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/ViewModels/DirectoryExplorerViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/ViewModels/DirectoryItemControlViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/ViewModels/DirectoryItemControlViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/ViewModels/HomePageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/ViewModels/HomePageViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/ViewModels/SideMenuControlViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/ViewModels/SideMenuControlViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/File.Manager/ViewModels/SideMenuItemControlViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/ViewModels/SideMenuItemControlViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/File.Manager/Controls/SideMenuItemControl.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.Manager/Controls/SideMenuItemControl.xaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,31 +47,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.File.Manager.Core.executor": "Run",
-    ".NET Project.File.Manager.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "app-main-content",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "database.data.views.appearance",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.File.Manager.Core.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.File.Manager.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;app-main-content&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;database.data.views.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\mal\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\mal\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\mal\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\mal\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\mal\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\mal\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="File.Manager" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/src/File.Manager/bin/Debug/net8.0-windows/File.Manager.exe" />
@@ -123,6 +112,7 @@
       <workItem from="1711978749361" duration="634000" />
       <workItem from="1713966249523" duration="13000" />
       <workItem from="1714930219298" duration="1084000" />
+      <workItem from="1718028833883" duration="844000" />
     </task>
     <servers />
   </component>
