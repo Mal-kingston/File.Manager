@@ -53,7 +53,6 @@
     <Resource Include=".Resources\Images\appIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include=".Resources\Images\appIcon.ico" />
     <Content Include=".Resources\MockUp.Design\App UI\File Manager UI This PC page.png" />
     <Content Include=".Resources\MockUp.Design\App UI\File Manager UI.png" />
   </ItemGroup>
