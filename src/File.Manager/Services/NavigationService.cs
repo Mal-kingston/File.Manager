@@ -78,7 +78,7 @@ namespace File.Manager
     }
 
     /// <summary>
-    /// Service that facilitates navigation in this application
+    /// Service that facilitates navigation of this application
     /// </summary>
     public class NavigationService : INavigationService
     {
@@ -280,6 +280,8 @@ namespace File.Manager
         {
             // Current directory variable
             string currentDirectory;
+            // Flag
+            bool isPathFromNavigationHistory = false;
 
             // If we have a directory item 
             if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
@@ -287,9 +289,12 @@ namespace File.Manager
                 currentDirectory = ServiceLocator.DirectoryExplorerVM.Directories[0].FullPath;
             // Otherwise
             else
+            {
                 // Get the path from history
                 currentDirectory = NavigatedPageHistory[NavigatedPageCounter - 1].Item2;
-               
+                // Set flag
+                isPathFromNavigationHistory = true;
+            }
 
             // Get information about the directory
             DirectoryInfo currentDirectoryInfo = new DirectoryInfo(currentDirectory);
@@ -300,14 +305,21 @@ namespace File.Manager
                 // Get the full path
                 string parentDirectoryPath = currentDirectoryInfo.Parent.FullName;
 
+                // If we are using path from nav-history...
+                if (isPathFromNavigationHistory)
+                {
+                    // Reset flag
+                    isPathFromNavigationHistory = false;
+
+                    // Keep path the same
+                    parentDirectoryPath = currentDirectoryInfo.Parent.FullName;
+                }
                 // If we have a directory item 
-                //if (!ServiceLocator.DirectoryExplorerVM.Directories.Count.Equals(0))
-                if (parentDirectoryPath.Count(x => x.Equals('\\')) > 1)
+                else if (parentDirectoryPath.Count(x => x.Equals('\\')) > 1)
                     // The actual parent directory path
                     parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\"));
                 else
                     parentDirectoryPath = parentDirectoryPath.Remove(parentDirectoryPath.LastIndexOf("\\") + 1);
-
 
                 // Get side menu view model
                 SideMenuControlViewModel sideMenuViewModel = ServiceLocator.SideMenuControlVM;
